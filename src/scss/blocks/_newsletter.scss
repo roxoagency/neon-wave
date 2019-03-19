@@ -1,0 +1,47 @@
+.newsletter {
+
+  &__text {
+    font-size: em(11);
+    letter-spacing: 0.9px;
+    line-height: (28/11);
+    margin: 0 0 em(30, 11);
+    .footer & p {
+      font-size: 1em;
+      letter-spacing: inherit;
+    }
+  }
+  &__title {
+    font-size: em(23.47);
+    margin: 0 0 em(13, 23.47);
+  }
+  .form__row {
+    margin: 0 0 em(15);
+    &:last-child{
+      margin-top: em(36);
+    }
+  }
+  .footer & .btn {
+    width: 100%;
+    border-width: 1px;
+    left:0;
+    &:hover {
+      color: color('light');
+      background-color: color('primary');
+    }
+  }
+  &__bottom {
+    text-align: right;
+    font-size: em(13.9);
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    margin: em(26, 13.9) 0 0 ;
+  }
+  .form__message{
+   max-width: 100%;
+    font-size: em(11);
+    letter-spacing: 0.9px;
+    line-height: (28/11);
+    margin: 0 0 em(30, 11);
+
+  }
+}

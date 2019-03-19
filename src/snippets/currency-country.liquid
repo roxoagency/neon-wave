@@ -1,0 +1,30 @@
+{% capture tmp %}{% case currency %}
+  {% when 'AUD' %}
+    {%- assign currency_country = 'AUSTRALIA' -%}
+  {% when 'CAD' %}
+    {%- assign currency_country = 'CANADA' -%}
+  {% when 'CNY' %}
+     {%- assign currency_country = 'CHINA' -%}
+  {% when 'DKK' %}
+     {%- assign currency_country = 'DENMARK' -%}
+  {% when 'EUR' %}
+    {%- assign currency_country = 'EURO' -%}
+  {% when 'GBP' %}
+    {%- assign currency_country = 'UNITED KINGDOM' -%}
+  {% when 'JPY' %}
+    {%- assign currency_country = 'JAPAN' -%}
+  {% when 'KRW' %}
+    {%- assign currency_country = 'SOUTH KOREA' -%}
+  {% when 'RUB' %}
+    {%- assign currency_country = 'RUSSIA' -%}
+  {% when 'SEK' %}
+    {%- assign currency_country = 'SWEDEN' -%}
+  {% when 'SGD' %}
+    {%- assign currency_country = 'SINGAPORE' -%}
+  {% when 'TWD' %}
+    {%- assign currency_country = 'TAIWAN' -%}
+  {% when 'USD' %}
+    {%- assign currency_country = 'UNITED STATES' -%}
+  {% else %}
+    {%- assign currency_country = 'UNITED STATES' -%}
+{% endcase %}{% endcapture %}{{ currency_country }}

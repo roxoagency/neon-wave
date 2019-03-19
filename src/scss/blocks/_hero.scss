@@ -1,0 +1,143 @@
+$block: '.hero';
+$hero_height: 597px;
+
+#{$block} {
+  @at-root &__inner {
+    display: flex;
+    overflow: hidden;
+  }
+
+  @at-root &__slide {
+    position: relative;
+    min-height: $hero_height;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 0.5em;
+  }
+
+  @at-root &__image {
+    @extend .full--sized;
+    background: {
+      repeat: no-repeat;
+      position: center;
+      size: cover;
+    };
+    z-index: 1;
+  }
+
+  @at-root &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    color: color('light');
+    height: 100%;
+    padding: 3.7em 2em;
+    pointer-events: none;
+    z-index: 3;
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      width: 2px;
+      background-color: color('light');
+      flex: 1;
+      margin: 0 1.2em;
+    }
+
+    &--center {
+      text-align: center;
+    }
+
+    &--left {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    &--right {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    &--v-top {
+      justify-content: flex-start;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &--v-bottom {
+      justify-content: flex-end;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .container {
+      padding-top: 1em;
+      padding-bottom: 1.5em;
+    }
+  }
+
+  @at-root
+  &__title,
+  &__subtitle {
+    font-weight: 800;
+    user-select: none;
+  }
+
+  @at-root &__title {
+    font-size: 4em;
+    letter-spacing: 4.5px;
+    line-height: 1.2;
+
+    @supports(-webkit-text-stroke: 2px color('light')) {
+      -webkit-text-stroke: 2px color('light');
+      color: transparent;
+    }
+  }
+
+  @at-root &__subtitle {
+    font-size: 3.9em;
+    letter-spacing: 3.6px;
+    margin-top: -0.2em;
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  @at-root
+  &__link,
+  &__subtitle {
+    color: inherit;
+  }
+
+  @at-root &__link {
+    letter-spacing: 2.3px;
+    pointer-events: all;
+    padding-left: 0.4em;
+    font-size: 1em;
+    margin-top: 0.4em;
+    display: block;
+
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &--full {
+      @extend .full--sized;
+      z-index: 2;
+    }
+  }
+
+  .slick-slide {
+    & > div {
+      display: flex;
+    }
+  }
+}

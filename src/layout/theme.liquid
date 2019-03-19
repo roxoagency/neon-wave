@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+    <title>{{ page_title }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="{{ page_description | escape }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    {{ content_for_header }} <!-- Header hook for plugins -->
+    <link rel="stylesheet" href="https://use.typekit.net/ucf7mrk.css">
+    {{ 'styles.bundle.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery-2.2.3.js' | asset_url | script_tag }}
+    <script type="text/javascript">
+		var theme = {
+			strings: {
+				validEmail: {{ 'general.singup.valid_email_msg' | t  | json}},
+				validFirstName: {{ 'general.singup.valid_first_name_msg' | t  | json}},
+				addToCart: {{ 'products.product.add_to_cart' | t  | json}},
+				soldOut:{{ 'products.product.sold_out' | t | json}},
+				unavailable:{{ 'products.product.unavailable' | t  | json}},
+				addedToCart: 'Successfully added item to your basket',
+				slickArrowLeft: '<button class="slick-prev" aria-label="Previous" type="button">{% capture arrow %}{% include "icon-arrow-left" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
+				slickArrowRight: '<button class="slick-next" aria-label="Next" type="button">{% capture arrow %}{% include "icon-arrow-right" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
+				slickArrowLeftLong: '<button class="slick-prev slick-prev--long" aria-label="Previous" type="button">{% capture arrow %}{% include "related-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
+				slickArrowRightLong: '<button class="slick-next slick-next--long" aria-label="Next" type="button">{% capture arrow %}{% include "related-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
+				slickArrowLeftModal: '<button class="slick-prev slick-prev--modal" aria-label="Previous" type="button">{% capture arrow %}{% include "icon-modal-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
+				slickArrowRightModal: '<button class="slick-next slick-next--modal" aria-label="Next" type="button">{% capture arrow %}{% include "icon-modal-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
+
+			},
+			products: {},
+			shopCurrency: '{{ shop.currency }}',
+			moneyWithCurrencyFormat: {{ shop.money_with_currency_format | strip_html | json }},
+			moneyFormat: {{ shop.money_format | strip_html | json }},
+			defaultCurrency: '{{ settings.default_currency | default: shop.currency }}',
+			currencyFormat: '{{ settings.currency_format | default: 'money_with_currency_format' }}',
+		};
+    </script>
+    {% if settings.show_multiple_currencies %}
+        {{ "//cdn.shopify.com/s/javascripts/currencies.js" | script_tag }}
+    {% endif %}
+    {% if template contains 'customers' %}
+        {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+        {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+    {% endif %}
+    <script src="{{ 'vendor.bundle.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'main.bundle.js' | asset_url }}" defer="defer"></script>
+
+    <!--begin-bc-sf-filter-css-->
+    {% include 'bc-sf-filter-style' %}
+    <!--end-bc-sf-filter-css-->
+</head>
+<body>
+<div class="page">
+    {% include 'block_header' %}
+    <main role="main">
+        {{ content_for_layout }}
+    </main>
+    {% section 'block_footer' %}
+    {% section 'block_product-colors' %}
+</div>
+<!--begin-bc-sf-filter-js-->
+{% include 'bc-sf-filter' %}
+<!--end-bc-sf-filter-js-->
+{% comment %} Init BC Action List {% endcomment %}
+<!--start-bc-al-init-->
+{% include 'bc-al-init' %}
+<!--end-bc-al-init-->
+{% comment %} Init Recently Viewed Products
+    <!-- start-bc-recently-viewed-product-init -->
+    {% include 'bc-recently-viewed-product-init' %}
+    <!-- end-bc-recently-viewed-product-init -->{% endcomment %}
+{% comment %} Init Most Popular Widgets
+    <!--start-bc-most-popular-product-init-->
+    {% include 'bc-most-popular-product-init' %}
+    <!--end-bc-most-popular-product-init-->{% endcomment %}
+</body>
+</html>

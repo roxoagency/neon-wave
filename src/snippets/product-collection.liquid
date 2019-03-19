@@ -1,0 +1,4 @@
+{%- assign product_collection = product.collections | first -%}
+{% if product_collection %}
+<div class="product-card__collection"><a href="{{ product.url }}">{{ product_collection.title }}</a></div>
+{% endif %}

@@ -1,0 +1,85 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Hero"
+    },
+    "class": "about-hero",
+    "settings": [
+    {
+    "type": "image_picker",
+    "id": "about_hero_bg",
+    "label": {
+    "en": "Background image"
+    }
+    },
+    {
+    "id": "about_hero_l_title",
+    "label": "Left block title",
+    "type": "text"
+    },
+
+    {
+    "id": "about_hero_l_desc",
+    "label": "Left block text",
+    "type": "richtext"
+    },
+    {
+    "id": "about_hero_r_title",
+    "label": "Right block title",
+    "type": "text"
+    },
+    {
+    "id": "about_hero_r_desc",
+    "label": "Right block text",
+    "type": "richtext"
+    }
+
+    ]
+    }
+{% endschema %}
+<div id="about-hero" class="about-section about-section--hero" data-section-type="about-hero"
+     data-section-id="{{ section.id }}">
+    <div class="about-section__bg lazyload"
+            {% if section.settings.about_hero_bg %}
+        data-bgset="{% include 'bgset', image: section.settings.about_hero_bg %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        style="background-image: url('{{ section.settings.about_hero_bg | img_url: '300x300' }});"
+            {% endif %}>
+        <div class="container about-section__container">
+            <div class="row about-section__row">
+                <div class="col-md-6 col-12 about-section__col">
+                    {% if section.settings.about_hero_l_title != '' %}
+                        <h2 class="about-section__title">
+                            {{ section.settings.about_hero_l_title }}
+                        </h2>
+                    {% endif %}
+                    {% if section.settings.about_hero_l_desc != '' %}
+                        <div class="about-section__content">
+                            {{ section.settings.about_hero_l_desc }}
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div class="col-md-6 col-12 about-section__col">
+                    {% if section.settings.about_hero_r_title != '' %}
+                        <h2 class="about-section__title">
+                            {{ section.settings.about_hero_r_title }}
+                        </h2>
+                    {% endif %}
+                    {% if section.settings.about_hero_r_desc != '' %}
+                        <div class="about-section__content">
+                            {{ section.settings.about_hero_r_desc }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="about-section__icon about-section__icon-wave">{% include 'icon-wave-big' %}</div>
+            </div>
+            <div class="about-section__icon-wrapper">
+                <a href="#about-navigation"
+                   class="about-section__icon about-section__go-next js-go-to">{% include 'icon-go-next' %}</a>
+            </div>
+        </div>
+    </div>
+
+</div>

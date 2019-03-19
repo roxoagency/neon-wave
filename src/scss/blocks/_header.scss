@@ -1,0 +1,116 @@
+$block: '.header';
+$logo-width: 132px;
+
+#{$block} {
+  position: relative;
+  z-index: 900;
+
+  padding-bottom: 146px;
+  .container {
+    max-width: $header-width;
+  }
+  @at-root &__inner {
+    background-color: color('white');
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    @at-root #{$block}--sticky-totop & {
+      position: fixed;
+      transform: translateY(-100%);
+      //transition: all 0.34s cubic-bezier(1, 0, 0, 0.99);
+    }
+    @at-root #{$block}--sticky & {
+      position: fixed;
+      transform: translateY(0%);
+      transition: all 0.34s cubic-bezier(1, 0, 0, 0.99);
+      .header__anounsment,.header__navigation{
+        display: none;
+      }
+      .container{
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      .customer-nav__link .icon {
+         height: 30px;
+      }
+    }
+  }
+
+  @at-root &__content {
+    position: relative;
+    background-color: color('white');
+    z-index: 2;
+  }
+
+  @at-root &__search-form {
+    position: absolute;
+    background-color: color('light');
+    padding: 0.75em 3.8em 0.8em 1.9em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+
+    &--active {
+      transform: translateY(100%);
+    }
+  }
+
+  @at-root &__anounsment {
+    text-align: center;
+    font-size: 0.875em;
+    line-height: 1.14;
+    padding: 1em 0;
+    letter-spacing: 0.5px;
+
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &::after,
+      &::before {
+        content: '~~';
+        display: inline-block;
+        margin: 0 1.3em;
+      }
+    }
+  }
+
+  @at-root &__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @at-root
+  &__customer-nav,
+  &__currency-switcher {
+    width: calc(50% - (#{$logo-width} / 2));
+    flex: 0 0 calc(50% - (#{$logo-width} / 2));
+  }
+
+  @at-root &__customer-nav {
+    text-align: right;
+  }
+
+  @at-root &__logo {
+    width: $logo-width;
+    flex: 0 0 $logo-width;
+  }
+
+  @at-root &__navigation {
+    display: inline-flex;
+    justify-content: center;
+    padding: 0.45em 0 0;
+    margin: 0 auto;
+    position: relative;
+
+    nav {
+      display: inline-flex;
+    }
+  }
+}

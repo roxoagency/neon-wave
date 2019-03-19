@@ -1,0 +1,30 @@
+{% capture tmp %}{% case currency %}
+  {% when 'AUD' %}
+    {%- assign currency_code = '$' -%}
+  {% when 'CAD' %}
+    {%- assign currency_code = '$' -%}
+  {% when 'CNY' %}
+     {%- assign currency_code = '¥' -%}
+  {% when 'DKK' %}
+     {%- assign currency_code = 'KR' -%}
+  {% when 'EUR' %}
+    {%- assign currency_code = '€' -%}
+  {% when 'GBP' %}
+    {%- assign currency_code = '£' -%}
+  {% when 'JPY' %}
+    {%- assign currency_code = '¥' -%}
+  {% when 'KRW' %}
+    {%- assign currency_code = '₩' -%}
+  {% when 'RUB' %}
+    {%- assign currency_code = '₽' -%}
+  {% when 'SEK' %}
+    {%- assign currency_code = 'KR' -%}
+  {% when 'SGD' %}
+    {%- assign currency_code = '$' -%}
+  {% when 'TWD' %}
+    {%- assign currency_code = 'NT$' -%}
+  {% when 'USD' %}
+    {%- assign currency_code = '$' -%}
+  {% else %}
+    {%- assign currency_code = '$' -%}
+{% endcase %}{% endcapture %}{{ currency_code }}

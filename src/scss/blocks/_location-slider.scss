@@ -1,0 +1,55 @@
+.location-slider {
+  margin-bottom: 0;
+  padding-bottom: em(16);
+  transition: opacity 0.15s linear;
+  &__n,
+  &__e {
+    color: #006B78;
+    font-size: em(13.07);
+    margin: 0 0 em(8, 13.07);
+    svg {
+      fill: currentColor;
+    }
+  }
+  &__n {
+    transform: rotate(-90deg) translateX(-100%);
+    position: absolute;
+    left: 4px;
+    transform-origin: left;
+    top: -3px;
+  }
+  &__item {
+    position: relative;
+    padding: 0 0 0 em(23);
+  }
+  .slick-dots li {
+    position: relative;
+    &:before {
+      background: #046B78;
+      content: '';
+      height: 1px;
+      width: 11px;
+      position: absolute;
+      top: 9px;
+      left: -11px;
+      display: block;
+    }
+    &:first-child:before {
+      display: none;
+    }
+  }
+  .slick-dots li button {
+    padding: 0;
+    margin: 0 auto;
+    background: url(location-slider-dot.svg) no-repeat center;
+    width: 7px;
+    height: 19px;
+    background-size: contain;
+    transition: background 0.15s linear;
+  }
+
+  .slick-dots li button:hover,
+  .slick-dots .slick-active button {
+    background-image: url(location-slider-dot-active.svg);
+  }
+}

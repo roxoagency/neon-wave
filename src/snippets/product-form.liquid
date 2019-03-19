@@ -1,0 +1,93 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<form method="post" action="/cart/add" data-single-form accept-charset="UTF-8" class="product-form product-form-product_template product-form--hide-variant-labels
+" enctype="multipart/form-data" novalidate="novalidate"><input type="hidden" name="form_type" value="product"><input
+            type="hidden" name="utf8" value="✓">
+    {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+
+            {% if option.name != 'Size' %}
+                <div class="product-form__item">
+                    <div class="selector-wrapper js product-form__selector-wrapper ">
+                        <select class="js--select single-option-selector single-option-selector-{{ forloop.index0 }} product-form__input"
+                                data-single-option-selector
+                                data-index="option{{ forloop.index }}">
+                            {% for value in option.values %}
+                                <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+        {% for option in product.options_with_values %}
+            {% if option.name == 'Size' %}
+                <div class="product-form__item">
+                    <div class="product-single__sizes">
+                        <div class="hide">
+                            <select class=" single-option-selector single-option-selector-{{ forloop.index0 }} product-form__input single-option-selector-size"
+
+                                    data-single-option-selector
+                                    data-index="option{{ forloop.index }}">
+                                {% for value in option.values %}
+                                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="product-card__form-group btn-group "
+                             data-index="option{{ forloop.index }}">
+                            {% for value in option.values %}
+                                <button type="button" data-single-option-size
+                                        class="option btn-group__item {% if option.selected_value == value %} btn-group__item--selected{% endif %}"
+                                        data-value="{{ value | escape }}">{{ value }}</button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    {% endunless %}
+
+    <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js"
+            data-product-select>
+        {% for variant in product.variants %}
+            {% if variant.available %}
+                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %}
+                        value="{{ variant.id }}">
+                    {{ variant.title }}
+                </option>
+            {% else %}
+                <option disabled="disabled">{{ variant.title }}
+                    - {{ 'products.product.sold_out' | t }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <div class="product-form__item product-form__item--quantity">
+        <div class="quantity js--quantity">
+            <input type="number" data-single-quantity name="quantity" value="1"
+                   class="product-form__input quantity__item js--quantity-item"
+                   pattern="[0-9]*">
+            <button class="quantity__button quantity__button--top js--quantity--top"
+                    type="button"></button>
+            <button class="quantity__button quantity__button--bottom js--quantity-bottom"
+                    type="button"></button>
+        </div>
+    </div>
+    <div class="product-form__item product-form__item--submit{% if section.settings.enable_payment_button %} product-form__item--payment-button{% endif %}{% if product.has_only_default_variant %} product-form__item--no-variants{% endif %}">
+        <button type="submit" name="add" data-add-to-cart
+                {% unless current_variant.available %}disabled="disabled"{% endunless %}
+                class="btn btn--default product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}">
+                <span data-add-to-cart-text>
+                  {% unless current_variant.available %}
+                      {{ 'products.product.sold_out' | t }}
+                      {% else %}
+                      {{ 'products.product.add_to_cart' | t }}
+                  {% endunless %}
+                </span>
+        </button>
+
+    </div>
+</form>

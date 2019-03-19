@@ -1,0 +1,23 @@
+.shipping-calculator {
+  color: color('primary');
+  &__btn {
+    width: 100%;
+  }
+  &__response,
+  &__text {
+    font-size: em(11);
+    line-height: (18/11);
+    margin: em(3, 11);
+    letter-spacing: 0.9px;
+  }
+  &__text {
+    margin: 0 0 em(31, 11);
+  }
+  &__response {
+    margin: 0 0 em(20, 11);
+  }
+  .form__label {
+    font-family: $font-stack-header;
+    font-weight: 700;
+  }
+}

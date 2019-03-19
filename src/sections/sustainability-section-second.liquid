@@ -1,0 +1,24 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Second section"
+    },
+    "settings": [
+    {
+    "id": "sustainability_2_text",
+    "label": "Text",
+    "type": "richtext"
+    }
+    ]
+    }
+{% endschema %}
+<div class="sustainability-section sustainability-section--second" data-section-type="sustainability-section--second"
+     data-section-id="{{ section.id }}">
+    <div class="container">
+        {% if section.settings.sustainability_2_text != '' %}
+            <div class="sustainability-section__content">
+                {{ section.settings.sustainability_2_text }}
+            </div>
+        {% endif %}
+    </div>
+</div>

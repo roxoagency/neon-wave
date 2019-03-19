@@ -1,0 +1,3 @@
+{% for tag in product.tags %}{% if tag contains 'color-' %}
+<div class="product-card__color"><a href="{{ product.url }}">{{ tag | replace: 'color-', '' }}</a></div>
+{% endif %}{% endfor %}

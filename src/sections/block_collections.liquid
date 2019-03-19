@@ -1,0 +1,256 @@
+
+<style type="text/css">
+  {% if section.settings.background != blank %}
+    #featured-collections-{{ section.id }} {
+      background-color: {{ section.settings.background }};
+    }
+  {% endif %}
+</style>
+<div id="featured-collections-{{ section.id }}"
+  class="featured-collections__inner"
+  data-section-type="featured-collections"
+  data-section-id="{{ section.id }}">
+  <div class="featured-collections__header section-header">
+    {% if section.settings.title != blank %}
+      <h2 class="section-header__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.link_text != blank and section.settings.link != blank %}
+      <a class="section-header__link" href="{{ section.settings.link }}" title="{{ section.settings.link_text }}">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+  <div class="container">
+    <div class="featured-collections__content featured-collections__content--size-{{ section.blocks.size }}">
+      {% for block in section.blocks %}
+        {% if section.blocks.size == 3 and forloop.index == 2 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 4 and forloop.index == 3 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 5 and forloop.index == 2 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 5 and forloop.index == 4 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 6 and forloop.index == 1 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 6 and forloop.index == 3 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 6 and forloop.index == 5 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 7 and forloop.index == 2 %}
+          <div class="featured-collections__col">
+        {% endif %}
+        {% if section.blocks.size == 7 and forloop.index == 4 %}
+          <div class="featured-collections__col">
+            <div class="featured-collections__row">
+        {% endif %}
+        {% if section.blocks.size == 7 and forloop.index == 6 %}
+          <div class="featured-collections__row">
+        {% endif %}
+        {% if block.settings.image != blank %}
+        <div class="featured-collections__item">
+          <div class="hero__slide featured-collections__image">
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="hero__link--full"></a>
+            {% endif %}
+            <div class="hero__image lazyload"
+              {% if block.settings.image %}
+              data-bgset="{% include 'bgset', image: block.settings.image %}"
+              data-sizes="auto"
+              data-parent-fit="cover"
+              style="background-image: url('{{ block.settings.image | img_url: '300x300' }});"
+              {% endif %}>
+            </div>
+
+            {% if block.settings.title != blank or block.settings.subtitle != blank or block.settings.link_text %}
+              <div class="hero__content hero__content--{{ block.settings.alignment }} hero__content--v-{{ block.settings.alignment_vertical }}">
+                <div class="container">
+                  {% if block.settings.title != blank %}
+                    <h3 class="hero__title">{{ block.settings.title }}</h3>
+                  {% endif %}
+                  {% if block.settings.subtitle != blank %}
+                    <h4 class="hero__subtitle">{{ block.settings.subtitle }}</h3>
+                  {% endif %}
+                  {% if block.settings.link_text != blank %}
+                    <a href="{{ block.settings.link }}" class="hero__link">{{ block.settings.link_text }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% if section.blocks.size == 3 and forloop.last %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 4 and forloop.last %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 5 and forloop.index == 3 %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 5 and forloop.last %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 6 and forloop.index == 2 %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 6 and forloop.index == 4 %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 6 and forloop.last %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 7 and forloop.index == 3 %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 7 and forloop.index == 5 %}
+          </div>
+        {% endif %}
+        {% if section.blocks.size == 7 and forloop.last %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": {
+    "en": "Collection"
+  },
+  "class": "featured-collections",
+  "max_blocks": 7,
+  "settings": [
+    {
+      "content": "Section header",
+      "type": "header"
+    },
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "text"
+    },
+    {
+      "id": "link_text",
+      "label": "Link text",
+      "type": "text"
+    },
+    {
+      "id": "link",
+      "label": "Link URL",
+      "type": "url"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": {
+        "en": "Background color"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_picker",
+      "name": "collection",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": {
+            "en": "Image"
+          }
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": {
+            "en": "Title"
+          }
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": {
+            "en": "Subtitle"
+          }
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": {
+            "en": "Link"
+          }
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": {
+            "en": "Link text"
+          }
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": {
+            "en": "Content alignment"
+          },
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default":   "center"
+        },
+        {
+          "type": "select",
+          "id": "alignment_vertical",
+          "label": {
+            "en": "Content alignment (vertical)"
+          },
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default":   "center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Collections"
+      },
+      "category": {
+        "en": "Promotional"
+      }
+    }
+  ]
+}
+{% endschema %}

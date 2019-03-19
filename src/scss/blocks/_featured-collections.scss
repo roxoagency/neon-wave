@@ -1,0 +1,168 @@
+$block: '.featured-collections';
+
+#{$block} {
+
+  @at-root &__inner {
+    background: {
+      image: url('{{ "bg-lines.svg" | asset_url }}');
+      repeat: no-repeat;
+      size: cover;
+      position: center;
+    };
+    padding: 0 0.9em 3.7em;
+  }
+
+  @at-root &__col {
+    #{$block}__item {
+      margin-bottom: 1.8em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    #{$block}__image {
+      min-height: 197px;
+    }
+  }
+
+  @at-root &__item {
+    display: flex;
+    padding: 0 1.9em;
+  }
+
+  @at-root &__image {
+    min-height: 425px;
+
+    .hero__content {
+      font-size: 0.6em;
+
+      &::before,
+      &::after {
+        max-height: 50px;
+        width: 1px;
+      }
+    }
+
+    .hero__title {
+      -webkit-text-stroke-width: 1px;
+    }
+  }
+
+  @at-root &__content {
+    display: flex;
+
+    &--size-1 {
+
+      #{$block}__item {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    &--size-2 {
+
+      #{$block}__item {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+
+      .hero__content {
+        font-size: 0.4em;
+      }
+    }
+
+    &--size-3 {
+
+      & > #{$block}__item {
+        flex: 0 0 60%;
+        max-width: 60%;
+      }
+
+      #{$block}__col {
+        flex: 0 0 40%;
+        max-width: 40%;
+
+        .hero__content {
+          font-size: 0.1em;
+
+          .container {
+            padding-bottom: 0.4em;
+          }
+        }
+
+        .hero__subtitle {
+          font-weight: 700;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+
+    &--size-7,
+    &--size-6,
+    &--size-5,
+    &--size-4 {
+      & > #{$block}__item {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+
+        .hero__content {
+          font-size: 0.4em;
+        }
+      }
+
+      #{$block}__col {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+
+        .hero__content {
+          font-size: 0.1em;
+
+          .container {
+            padding-bottom: 0.4em;
+          }
+        }
+
+        .hero__subtitle {
+          font-weight: 700;
+          letter-spacing: 0.5px;
+        }
+
+        .hero__link {
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+
+    &--size-7 {
+      #{$block}__row {
+        display: flex;
+
+        &:first-child {
+          margin-bottom: 1.8em;
+        }
+
+        .hero__content {
+          padding: 0.5em 0;
+
+          &::before,
+          &::after {
+            display: none;
+          }
+
+          .container {
+            padding: 0.5em;
+          }
+        }
+
+        #{$block}__item {
+          margin-bottom: 0;
+        }
+
+        .hero__link {
+          font-size: 7px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+.quantity {
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  &__item {
+    min-width: 50px;
+    width: 50px;
+    text-align: center;
+    color: color('primary');
+    height: 30px;
+    border: 1px solid color('primary');
+    text-transform: uppercase;
+    appearance: none;
+    font-size: em(11);
+    letter-spacing: 0.9px;
+    line-height: (15.6/11);
+    padding: 0 25px 0 5px;
+    display: inline-block;
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  &__button {
+    width: 20px;
+    height: 15px;
+    background: #fff url(arrow-green.svg) no-repeat center;
+    background-size: 6px;
+    border: 1px solid color('primary');
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: background-color 0.15s linear;
+
+    &:focus {
+      outline: none;
+    }
+    &--top {
+      transform: rotate(180deg);
+
+    }
+    &:hover {
+      background: $selectric-main-color url(arrow-white.svg) no-repeat center;
+      background-size: 6px;
+    }
+    &--bottom {
+      top: auto;
+      bottom: 0;
+      height: 16px;
+    }
+  }
+  &--lg {
+    height: 48px;
+    .quantity__item {
+      font-size: em(16, 13);
+      width: 133px;
+      height: 48px;
+      background: #F7F8FA;
+      border: 0 solid;
+      padding: 0px 35px 0;
+      font-family: $font-stack-header;
+      font-weight: 700;
+    }
+
+    .quantity__button {
+      background: transparent;
+      border: 0 solid;
+      width: 35px;
+      height: 48px;
+      opacity: 0.5;
+      padding: 0 0 4px 22px ;
+      text-align: right;
+
+      transition: opacity 0.15s linear;
+      &:hover{
+        opacity: 1;
+      }
+      svg {
+        fill: color('primary');
+      }
+      &--bottom {
+        left: 0;
+        right: auto;
+
+      }
+    }
+  }
+}

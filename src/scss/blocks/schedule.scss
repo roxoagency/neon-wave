@@ -1,0 +1,11 @@
+.schedule {
+  text-transform: uppercase;
+  line-height: (24/16);
+  width: 100%;
+  &__content {
+    text-align: right;
+  }
+  &__title {
+    font-weight: 400;
+  }
+}

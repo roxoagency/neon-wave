@@ -1,0 +1,196 @@
+/*================ Fonts ================*/
+
+// HendersonSans Bd
+// HendersonSans Blk
+// HendersonSans SmBd
+// HendersonSansBasicBold
+// IBMPlexMono
+// IBMPlexMono Medium
+// IBMPlexMono SemiBold-bold
+// SFProText Regular-regular
+// SFProText Semibold-bold
+
+/*================ Headings ================*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-stack-header;
+  font-style: $font-style-header;
+  font-weight: $font-weight-header;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+h1 {
+  font-size: em(40);
+  line-height: (50/40);
+  letter-spacing: 0.9px;
+  font-weight: 900;
+  // @include media-query($small) {
+  //   font-size: floor($font-size-header * 1.25);
+  // }
+}
+
+h2 {
+  font-size: em(30);
+  line-height: (50/40);
+  letter-spacing: 0.7px;
+  font-weight: 900;
+}
+
+h3 {
+  font-size: em(18);
+  line-height: (26/18);
+}
+
+h4 {
+  font-size: floor($font-size-header * 0.68);
+
+  // @include media-query($small) {
+  //   font-size: floor(($font-size-header * 0.68) * 0.9);
+  // }
+}
+
+h5 {
+  font-size: floor($font-size-header * 0.58);
+
+  // @include media-query($small) {
+  //   font-size: floor(($font-size-header * 0.58) * 0.9);
+  // }
+}
+
+h6 {
+  font-size: em(13);
+  line-height: (20/13);
+  letter-spacing: 0.9px;
+}
+
+.h1 {
+  @extend h1;
+}
+
+.h2 {
+  @extend h2;
+}
+
+.h3 {
+  @extend h3;
+}
+
+.h4 {
+  @extend h4;
+}
+
+.h5 {
+  @extend h5;
+}
+
+.h6 {
+  @extend h6;
+}
+
+/*================ Paragraph styles ================*/
+p {
+  margin: 0 0 1em;
+
+  // @include media-query($small) {
+  //   font-size: em($font-size-base - 1);
+  // }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+b, strong {
+  font-weight: 700;
+}
+.product-single .modal-body,
+.page--default .page__content {
+  font-size: em(13);
+  line-height: (20/13);
+  letter-spacing: 0.9px;
+  p {
+    margin: 0 0 em(20, 13);
+  }
+  hr {
+    margin: em(20, 13) 0;
+  }
+
+  h1 {
+    font-size: em(40, 13);
+    margin: 0 0 em(24, 40);
+  }
+
+  h2 {
+    font-size: em(30, 13);
+    margin: 0 0 em(24, 30);
+  }
+
+  h3 {
+    font-size: em(18, 13);
+    margin: 0 0 em(24, 18);
+  }
+
+  h4 {
+    font-size: em(floor($font-size-header * 0.68), 13);
+    margin: 0 0 em(24, floor($font-size-header * 0.68));
+  }
+
+  h5 {
+    font-size: em(floor($font-size-header * 0.58), 13);
+    margin: 0 0 em(24, floor($font-size-header * 0.58));
+  }
+
+  h6 {
+    font-size: em(13, 13);
+    margin: 0 0 em(24, 13);
+  }
+  ul, ol{
+    margin-bottom: em(20,13);
+    list-style-position: inside;
+    ul, ol{
+      margin-bottom: 0;
+      margin-left: em(20,13);
+    }
+  }
+  table {
+    width: 100%;
+    letter-spacing: 0.9px;
+    line-height: (15.1/13);
+    margin: 0 0 em(24,13);
+    th {
+      color: color('primary');
+      font-weight: 400;
+    }
+    th, td {
+      border-top: 1px solid color('primary');
+      border-bottom: 1px solid color('primary');
+      padding: em(14,13) em(7,13);
+      &:first-child{
+        padding-left: 0;
+      }
+      &:last-child{
+        padding-right: 0;
+      }
+    }
+
+  }
+  &>p:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,26 @@
+.product-form{
+  &__selector-wrapper{
+
+    display: inline-block;
+    min-width: 127px;
+  }
+  &__variants{
+    display: none;
+  }
+  &__item{
+    margin-bottom:em(15);
+  }
+  &__item--submit{
+    margin-top: em(30);
+    margin-bottom: em(26);
+  }
+}
+  .product-form--inline{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    .product-form__item{
+      margin: 0 0 0  em(30);
+      height:30px;
+    }
+  }

@@ -1,0 +1,56 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Mission"
+    },
+    "settings": [
+
+    {
+    "type": "image_picker",
+    "id": "about_mission_img",
+    "label": {
+    "en": "Background image"
+    }
+    },
+    {
+    "type": "text",
+    "id": "about_mission_title",
+    "label": {
+    "en": "Title"
+    },
+    "default":"MISSION"
+    },
+    {
+    "type": "richtext",
+    "id": "about_mission_desc",
+    "label": {
+    "en": "Text"
+    }
+    }
+    ]
+    }
+{% endschema %}
+
+<div id="mission" class="about-section about-section--mission" data-section-type="about-mission"
+     data-section-id="{{ section.id }}">
+    <div class="about-section__bg lazyload"
+            {% if section.settings.about_mission_img %}
+        data-bgset="{% include 'bgset', image: section.settings.about_mission_img %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        style="background-image: url('{{ section.settings.about_hero_bg | img_url: '300x300' }});"
+            {% endif %}>
+        <div class="container about-section__container">
+            {% if section.settings.about_mission_title != '' %}
+                <h2 class="about-section__title">
+                    <span class="about-section__title-text">{{ section.settings.about_mission_title }}</span>
+                </h2>
+            {% endif %}
+            {% if section.settings.about_mission_desc != '' %}
+                <div class="about-section__content">
+                    {{ section.settings.about_mission_desc }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

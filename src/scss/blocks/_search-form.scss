@@ -1,0 +1,38 @@
+$block: '.search';
+
+#{$block} {
+  @at-root &__form {
+    padding: 0 1.6em;
+    border-left: 2px solid color('primary');
+    display: flex;
+    align-items: center;
+  }
+
+  @at-root &__input {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid color('primary');
+    padding: 0 0.7em;
+    font-size: 0.8em;
+    flex: 1;
+    color: #49494A;
+    outline: none;
+  }
+
+  @at-root &__submit {
+    display: block;
+    width: 26px;
+    color: #49494A;
+    transition: transition('color');
+    margin-left: 1.7em;
+
+    &:hover {
+      color: color('primary');
+    }
+
+    .icon {
+      width: 100%;
+    }
+  }
+}

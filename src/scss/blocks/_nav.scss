@@ -1,0 +1,15 @@
+$block: '.nav';
+
+#{$block} {
+
+  // .nav__list
+  @at-root &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @at-root &__item {
+    padding-bottom: 0.7em;
+  }
+}

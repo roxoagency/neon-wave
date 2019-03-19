@@ -1,0 +1,39 @@
+{% schema %}
+    {
+    "name": {
+    "en": "First section"
+    },
+    "settings": [
+    {
+    "id": "sustainability_1_title_top",
+    "label": "Top title text",
+    "type": "text",
+    "default":"A SEA"
+    },
+
+    {
+    "id": "sustainability_1_title_bottom",
+    "label": "Bottom title text",
+    "type": "text",
+    "default":"OF CHANGE"
+    }
+
+    ]
+    }
+{% endschema %}
+<div class="sustainability-section sustainability-section--first" data-section-type="sustainability-section--first"
+     data-section-id="{{ section.id }}">
+    <div class="container">
+        <h1 class="sustainability-section__title">
+            {% if section.settings.sustainability_1_title_top != '' %}
+                <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_1_title_top }}</span>
+            {% endif %}
+            {% if section.settings.sustainability_1_title_bottom != '' %}
+                <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_1_title_bottom }}</span>
+            {% endif %}
+        </h1>
+        <a href="#sustainability-section--second">
+            {% include 'icon-go-next' %}
+        </a>
+    </div>
+</div>

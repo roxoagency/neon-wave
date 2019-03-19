@@ -1,0 +1,157 @@
+<div class="account-page">
+    <div class="container">
+        <div class="page__header ">
+            {% include 'breadcrumbs' %}
+        </div>
+        <div class="page__title">
+            <h1>{{ 'customer.login.title' | t }}</h1>
+        </div>
+        <div class="row account-page__row">
+
+            <div class="col col-12 col-md-6 account-page__col">
+                <div class="account-page__box">
+                    <div class="form__row form__row--md">
+                        <div class="form__title">
+                            <h2 class="account-page__subtitle h6">
+                            <span class="t-heading--large-text">
+                        {{ 'layout.customer.new_customer' | t }}
+                            </span>
+                            </h2>
+                        </div>
+                        <p class="form__text">
+                            {{ 'layout.customer.create_account_text' | t }}
+                        </p>
+                        <p class="form__row form__row--btn form__row--md">
+                            <a href="/account/register" class="btn btn--default">
+                                {{ 'layout.customer.create_account' | t }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-12 col-md-6 account-page__col">
+                <div class="account-page__box">
+                    <div id="CustomerLoginForm">
+                        <div class="form__title">
+                            <h2 class="account-page__subtitle h6">
+                                <span class="t-heading--large-text">{{ 'customer.login.login' | t }}</span>
+                            </h2>
+                        </div>
+                        <div class="form__text">
+                            <p>
+                                {{ 'layout.customer.login_text' | t }}
+                            </p>
+                        </div>
+                        <div class="hide form__text form__message" id="ResetSuccess">
+                            <p>
+                                {{ 'customer.recover_password.success' | t }}
+                            </p>
+                        </div>
+                        {% form 'customer_login', class: 'form' %}
+                            {%- if form.errors -%}
+                                <div class="form__message form__message--error">
+                                    {{ form.errors | default_errors }}
+                                </div>
+                            {%- endif -%}
+                            <div class="form__row form__row--md">
+                                <label for="CustomerEmail"
+                                       class="form__label form__label--md">{{ 'customer.login.email' | t }}</label>
+                                <input type="email" name="customer[email]" id="CustomerEmail"
+                                       class="{% if form.errors contains 'email' %} input--error{% endif %} form__field form__field--md"
+                                       autocorrect="off"
+                                       autocapitalize="off" autofocus required
+                                       placeholder="{{ 'customer.login.enter_email' | t }}">
+                            </div>
+                            <div class="form__row form__row--md">
+                                {% if form.password_needed %}
+                                    <label for="CustomerPassword"
+                                           class="form__label form__label--md">{{ 'customer.login.password' | t }}</label>
+                                    <input type="password" value="" name="customer[password]" id="CustomerPassword"
+                                           required
+                                           placeholder="{{ 'customer.login.enter_password' | t }}"
+                                           class="{% if form.errors contains 'password' %} input--error{% endif %} form__field form__field--md">
+                                {% endif %}
+                            </div>
+
+                            <div class="form__row form__row--md form__row--btn ">
+                                <div class="form__btn-group">
+                                    <button type="submit" class="btn btn--default">
+                                        <span>{{ 'customer.login.sign_in' | t }}</span>
+                                    </button>
+                                    {% if form.password_needed %}
+                                        <a href="#recover" class="link-btn"
+                                           id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a>
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endform %}
+                    </div>
+                    <div id="RecoverPasswordForm" class="hide">
+
+                        <div class="form__title">
+                            <h2 class="account-page__subtitle h6">
+                                {{ 'customer.recover_password.title' | t }}
+                            </h2>
+                        </div>
+                        <div class="form__text">
+                            <p>{{ 'customer.recover_password.subtext' | t }}</p>
+                        </div>
+                        <div class="form-vertical">
+                            {% form 'recover_customer_password' , class: 'c-form' %}
+
+                                {%- if form.errors -%}
+                                    <div class="form-message form-message--error form__text">
+                                        <p>{{ form.errors | default_errors }}</p>
+                                    </div>
+                                {%- endif -%}
+
+                                {% comment %}
+                                    Add a hidden span to indicate the form was submitted succesfully.
+                                {% endcomment %}
+                                {% if form.posted_successfully? %}
+                                    <span class="hide reset-password-success"></span>
+                                {% endif %}
+                                <div class="form__row form__row--md">
+                                    <label for="RecoverEmail"
+                                           class="form__label form__label--md">{{ 'customer.recover_password.email' | t }}</label>
+                                    <input type="email" value="" name="email" id="RecoverEmail"
+                                           class="form__field form__field--md" required
+                                           autocorrect="off" autocapitalize="off" placeholder="{{ 'customer.recover_password.enter_email' | t }}">
+                                </div>
+                                <div class="form__row form__row--md form__row--btn ">
+                                    <div class="form__btn-group">
+                                        <button type="submit" class="btn btn--default">
+                                            <span>{{ 'customer.recover_password.submit' | t }}</span>
+                                        </button>
+                                        <a href="#" id="HideRecoverPasswordLink"
+                                                class="link-btn">{{ 'customer.recover_password.cancel' | t }}</a>
+                                    </div>
+                                </div>
+                            {% endform %}
+                        </div>
+                        {% comment %}
+                            If accounts are set as optional, the following will be shown as an option
+                            during checkout, not on the default /login page.
+                        {% endcomment %}
+                        {% if shop.checkout.guest_login %}
+                            <div class="form__title">
+                                <h2 class="account-page__subtitle h6">
+                                    {{ 'customer.login.guest_title' | t }}
+                                </h2>
+                            </div>
+                            {% form 'guest_login' , class: 'c-form' %}
+                                <div class="form__row form__row--md">
+                                    <button type="submit" class="btn btn--default">
+                                        <span>{{ 'customer.login.guest_continue' | t }}</span>
+
+                                    </button>
+                                </div>
+                            {% endform %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+{% if section.blocks.size %}
+    <style type="text/css">
+        {% for block in section.blocks %}{% if block.settings.title != blank and block.settings.color != blank %}
+        {%  assign color = block.settings.title | downcase  %}
+        {% if color!= 'white'  %}
+        .product-color-{{ block.settings.title | downcase }} {
+            background-color: {{ block.settings.color }};
+            color: {{ block.settings.color }};
+        }
+
+        .product-color-{{ block.settings.title | downcase }}:hover {
+            background-color: {{ block.settings.color }};
+            color: {{ block.settings.color }};
+        }
+
+        .bc-sf-filter-option-block .bc-sf-filter-block-content .bc-sf-filter-option-swatch.circle-grid li a[data-value="{{ block.settings.title }}"] span.bc-sf-filter-option-swatch-image {
+            background: {{ block.settings.color }} !important;
+        }
+
+        .bc-sf-filter-option-block .bc-sf-filter-block-content .bc-sf-filter-option-swatch.circle-grid li a[data-value="{{ block.settings.title }}"] {
+            color: {{ block.settings.color }};
+        }
+
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </style>
+{% endif %}
+
+{% schema %}
+    {
+    "name": {
+    "en": "Product colors"
+    },
+    "class": "hide",
+    "blocks": [
+    {
+    "type": "color_picker",
+    "name": "color",
+    "settings": [
+    {
+    "type": "color",
+    "id": "color",
+    "label": "Color"
+    },
+    {
+    "type": "text",
+    "id": "title",
+    "label": "Label"
+    }
+    ]
+    }
+    ]
+    }
+{% endschema %}

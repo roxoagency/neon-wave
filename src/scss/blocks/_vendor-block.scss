@@ -1,0 +1,22 @@
+.vendor-block {
+  .row {
+    align-items: center;
+  }
+  .col-12{
+    margin-bottom: em(60);
+  }
+  &__title{
+    font-weight: 600;
+    font-size: em(24);
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    margin: 0 0 em(14,24);
+  }
+  &__subtitle{
+    font-size: em(17);
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    margin: 0 0 em(14,17);
+
+  }
+}

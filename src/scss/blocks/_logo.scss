@@ -1,0 +1,12 @@
+$block: '.logo';
+
+#{$block} {
+  display: block;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0.3em 0;
+
+  @at-root &__image {
+    display: block;
+  }
+}

@@ -1,0 +1,63 @@
+.account-page {
+  margin-bottom: em(60);
+  .container {
+    max-width: 1276px;
+  }
+  .btn {
+    font-size: em(10);
+    padding: em(10, 10) em(33, 10) em(11, 10);
+  }
+  &__subtitle {
+    text-transform: uppercase;
+    margin: 0 0 em(20, 13);
+  }
+  &__col {
+    border-right: 1px solid color('primary');
+    padding-left: em(60);
+    padding-right: em(60);
+    &:last-child {
+      border-right: 0 solid;
+    }
+  }
+  &__row {
+    margin-right: em(-32);
+    margin-left: em(-32);
+  }
+  &__box {
+
+    margin: em(25) 0 em(29);
+  }
+  &__address {
+    .table__td {
+      width: 91.6%;
+    }
+  }
+  &__orders {
+    margin: 0 0 em(52);
+  }
+  &__title {
+    border-bottom: 1px solid color('primary');
+    margin: 0 0 em(55, 30);
+    color: color('primary');
+    text-transform: uppercase;
+    padding: 0 0 em(19, 30);
+  }
+  .selectric .label {
+    height: 42px;
+    margin-left: 1.27273em;
+    padding: 1.09091em 0 1.27273em;
+    color: color('body');
+  }
+  .selectric .button {
+    height: 42px;
+    width: 24px;
+  }
+  &__address,
+  &__add-wrapper,
+  &__edit-wrapper {
+    margin-top: em(64);
+  }
+  .address-edit-toggle{
+    margin-right: em(24,13);
+  }
+}

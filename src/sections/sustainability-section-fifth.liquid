@@ -1,0 +1,56 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Fifth section"
+    },
+    "settings": [
+    {
+    "id": "sustainability_5_title_top",
+    "label": "Top title text",
+    "type": "text",
+    "default":"WE ALL"
+    },
+
+    {
+    "id": "sustainability_5_title_bottom",
+    "label": "Bottom title text",
+    "type": "text",
+    "default":"NEED WINTER"
+    },
+    {
+    "id": "sustainability_5_text",
+    "label": "Text",
+    "type": "richtext"
+    },
+    {
+    "type": "image_picker",
+    "id": "sustainability_5_img",
+    "label": "Image"
+    }
+    ]
+    }
+{% endschema %}
+<div class="sustainability-section sustainability-section--fifth" data-section-type="sustainability-section--fifth"
+     data-section-id="{{ section.id }}">
+    <div class="container">
+        <h2 class="sustainability-section__title">
+            {% if section.settings.sustainability_5_title_top != '' %}
+                <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_5_title_top }}</span>
+            {% endif %}
+            {% if section.settings.sustainability_5_title_bottom != '' %}
+                <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_5_title_bottom }}</span>
+            {% endif %}
+        </h2>
+        {% if section.settings.sustainability_5_text != '' %}
+            <div class="sustainability-section__content">
+                {{ section.settings.sustainability_5_text }}
+            </div>
+        {% endif %}
+        {% if section.settings.sustainability_5_img  %}
+            <div class="sustainability-section__image-wrapper">
+                <img class="sustainability-section__image"
+                     src="{{ section.settings.sustainability_5_img | img_url: 'origin' }}" alt="">
+            </div>
+        {% endif %}
+    </div>
+</div>

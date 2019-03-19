@@ -1,0 +1,60 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Blog"
+    },
+    "settings": [
+
+    {
+    "type": "text",
+    "id": "blog_title_top",
+    "label": {
+    "en": "Top title text"
+    },
+    "default":"WE LOOK FORWARD"
+    },
+    {
+    "type": "text",
+    "id": "blog_title_bottom",
+    "label": {
+    "en": "Bottom title text"
+    },
+    "default":"TO MOVING FORWARD"
+    }
+    ],
+    "blocks": [
+    {
+    "type": "blog_filter",
+    "name": "Filter",
+    "settings": [
+    {
+    "type": "text",
+    "id": "blog_filter_tag",
+    "label": "Tag"
+    }]
+    }]
+    }
+{% endschema %}
+
+<div class="page__title">
+    <h1>{% if section.settings.blog_title_top != '' %}
+            <span class="page__title-text page__title-text--top">{{ section.settings.blog_title_top }}</span>
+        {% endif %}
+        {% if section.settings.blog_title_bottom != '' %}
+            <span class="page__title-text page__title-text--bottom">{{ section.settings.blog_title_bottom }}</span>
+        {% endif %}
+    </h1>
+</div>
+{% if section.blocks.size %}
+    <ul class="defaut-filter">
+        <li class='defaut-filter__item {% if current_tags %}{% else %} defaut-filter__item--active{% endif %}'>
+            <a
+                    href="{{ blog.url }}">View all</a></li>
+        {% for block in section.blocks %}
+            {% if block.settings.blog_filter_tag != '' %}
+                {% assign tag = block.settings.blog_filter_tag %}
+                <li class='defaut-filter__item  {% if current_tags contains tag %} defaut-filter__item--active   {% endif %}'>{{ tag | link_to_tag: tag }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

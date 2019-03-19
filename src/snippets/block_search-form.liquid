@@ -1,0 +1,12 @@
+<div class="search">
+  <form class="search__form" action="/search" method="get" role="search">
+    <input class="search__input"
+      type="text"
+      name="q"
+      placeholder="{{ 'general.search.placeholder' | t }}"
+      aria-label="{{ 'general.search.placeholder' | t }}">
+    <button class="search__submit btn--text" type="submit">
+      {% include 'icon-search' %}
+    </button>
+  </form>
+</div>

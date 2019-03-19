@@ -1,0 +1,62 @@
+{% schema %}
+    {
+    "name": {
+    "en": "About"
+    },
+    "settings": [
+
+    {
+    "type": "image_picker",
+    "id": "about_img",
+    "label": {
+    "en": "Background image"
+    }
+    },
+    {
+    "type": "text",
+    "id": "about_title",
+    "label": {
+    "en": "Title"
+    },
+    "default":"ABOUT"
+    },
+    {
+    "type": "richtext",
+    "id": "about_desc",
+    "label": {
+    "en": "Text"
+    }
+    }
+    ]
+    }
+{% endschema %}
+
+<div id="about" class="about-section about-section--about" data-section-type="about"
+     data-section-id="{{ section.id }}">
+    <div class="about-section__bg lazyload"
+            {% if section.settings.about_img %}
+        data-bgset="{% include 'bgset', image: section.settings.about_img %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        style="background-image: url('{{ section.settings.about_img | img_url: '300x300' }});"
+            {% endif %}>
+        <div class="container about-section__container">
+            <div class="row about-section__row">
+                <div class="col-md-6 col-12 about-section__col"></div>
+                <div class="col-md-6 col-12 about-section__col">
+                    {% if section.settings.about_title != '' %}
+                        <h2 class="about-section__title">
+                            <span class="about-section__title-text">{{ section.settings.about_title }}</span>
+                        </h2>
+                    {% endif %}
+                    {% if section.settings.about_desc != '' %}
+                        <div class="about-section__content">
+                            {{ section.settings.about_desc }}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

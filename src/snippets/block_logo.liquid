@@ -1,0 +1,14 @@
+{% if template.name == 'index' %}
+<h1 class="logo header__logo h2">
+{% else %}
+<div class="logo header__logo h2">
+{% endif %}
+  {%- assign img_url = 'logo.svg' | asset_url -%}
+  <a href="/" class="logo__image">
+    <img src="{{ img_url }}" width="132" alt="{{ shop.name | escape }}">
+  </a>
+{% if template.name == 'index' %}
+</h1>
+{% else %}
+</div>
+{% endif %}

@@ -1,0 +1,49 @@
+$block: '.customer-nav';
+
+#{$block} {
+  padding-right: 1.5em;
+  padding-bottom: 0.3em;
+
+  @at-root &__item {
+    padding: 0 1.3em;
+  }
+
+  @at-root &__link {
+    display: block;
+    color: color('body');
+    transition: transition('color');
+
+    &:hover {
+      color: color('primary');
+    }
+
+    .icon {
+      color: inherit;
+      height: 25px;
+    }
+  }
+
+  .cart-nav__link {
+    position: relative;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    .cart-nav__count {
+      position: absolute;
+      font-size: 0.6em;
+      color: color('white');
+      top: calc(50% + 3px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      user-select: none;
+    }
+    svg {
+      fill: currentColor;
+      stroke: none;
+    }
+  }
+}
+

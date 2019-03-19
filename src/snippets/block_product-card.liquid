@@ -1,0 +1,118 @@
+<script type="text/javascript">
+	window.theme = window.theme || {};
+	window.theme.products = window.theme.products || {};
+	window.theme.products[{{ product.id }}] = {{ product | json }};
+</script>
+{%- assign hasSizeOption = false -%}
+{%- assign hasColorOption = false -%}
+{% for option in product.options_with_values %}
+    {% if option.name == 'Size' %}
+        {%- assign hasSizeOption = true -%}
+    {% endif %}
+
+    {% if option.name == 'Color' %}
+        {%- assign hasColorOption = true -%}
+    {% endif %}
+{% endfor %}
+<div class="product-card {% if hasColorOption and hasSizeOption %}product-card--with-colors{% endif %}"
+     data-section-type="product-card" data-section-id="{{ product.id }}">
+
+    <div class="product-card__image">
+    {% form 'product', product, class:'js--product-card-form', data-product-id: product.id, novalidate: 'novalidate' %}
+        <div class="product-card__image-wrapper">
+                <a href="{{ product.url }}" class="product-card__image-link">
+                    <img class="product-card__image--featured active js--default-image"
+                         src="{{ product.featured_image | img_url: '420x420', crop: 'center' }}">
+                    {% if product.images.size > 1 %}
+                        <img class="product-card__image--alt active js--default-image"
+                             src="{{ product.images[1] | img_url: '420x420', crop: 'center' }}">
+                    {% endif %}
+                    {% for variant in product.variants %}
+                        {% if variant.featured_image != blank %}
+                            <img class="product-card__image--featured product-card__image--variant-featured js--variant-image"
+                                 data-variant="{{ variant.id }}"
+                                 src="{{ variant.featured_image | img_url: '420x420', crop: 'center' }}">
+                        {% endif %}
+                    {% endfor %}
+                </a>
+                {%- assign productOptions = '' -%}
+                {% if product.available %}
+                    {% unless product.has_only_default_variant %}
+                        <div class="product-card__form">
+
+
+                            {% for option in product.options_with_values %}
+                                {%- assign loop = forloop -%}
+
+                                {% if option.name == 'Size' %}
+                                    <div class="product-card__form-group btn-group js--quick-buy-group product-card__form-group--size"
+                                         data-index="option{{ loop.index }}">
+                                        {% for value in option.values %}
+                                            <button type="button" class="option btn-group__item js--quick-buy"
+                                                    data-value="{{ value | escape }}">{{ value }}</button>
+                                        {% endfor %}
+                                        <span class="product-card__form-group-label">select size to add to cart</span>
+                                    </div>
+                                    {% elsif option.name == 'Color' and hasSizeOption %}
+
+                                {% else %}
+                                    {% for value in option.values %}
+                                        {% if option.selected_value == value %}
+                                            {%- assign productOptions = productOptions | append: value -%}
+                                            {% unless loop.last %}
+                                            {%- assign productOptions = productOptions | append: ' / ' -%}
+                                            {% endunless %}
+                                            <input type="hidden" class="js--product-option"
+                                                   data-index="option{{ loop.index }}" value="{{ value | escape }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            <input type="hidden" name="quantity js--product-quantity" value="1">
+
+                        </div>
+                    {% endunless %}
+                {% endif %}
+
+            </div>
+            {%- assign productOptions = '' -%}
+            {% if product.available %}
+                {% unless product.has_only_default_variant %}
+
+
+                    {% for option in product.options_with_values %}
+                        {%- assign loop = forloop -%}
+
+                        {% if option.name == 'Size' %}
+
+                            {% elsif option.name == 'Color' and hasSizeOption %}
+                            <div class="product-card__form-group btn-group js--color-option-group product-card__form-group--color"
+                                 data-index="option{{ loop.index }}">
+                                {% for value in option.values %}
+                                    <button type="button"
+                                            class="option btn-group__item js--color-option product-color-{{ value | downcase }} {% if option.selected_value == value %} default selected{% endif %}"
+                                            data-value="{{ value | escape }}"></button>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+
+                        {% endif %}
+                    {% endfor %}
+
+                {% endunless %}
+            {% endif %}
+        </div>
+    {% endform %}
+    <div class="product-card_content">
+        <div class="product-card__data">
+            <h3 class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+            <div class="product-card__price"><a href="{{ product.url }}">{% include 'product-card-price' %}</a></div>
+        </div>
+        <div class="product-card__meta">
+            <div class="product-card__vendor"><a href="{{ product.url }}">{{ product.vendor }}</a></div>
+            {% if productOptions != '' %}
+                <div class="product-card__options"><a href="{{ product.url }}">{{ productOptions }}</a></div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.related-products{
+  padding-bottom: em(48);
+  margin-bottom: em(60);
+  padding-top: em(62);
+  &__item {
+    width: 20%;
+    margin: 0 em(9);
+    max-width: 360px;
+  }
+  &__title{
+    font-size: em(36);
+    text-align: center;
+    color:color('primary');
+    text-transform: uppercase;
+    margin-bottom: em(48,36);
+  }
+}

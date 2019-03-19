@@ -1,0 +1,96 @@
+{%- assign blog = blogs[section.settings.blog] -%}
+<div id="latest-news-{{ section.id }}"
+  class="latest-news__inner">
+  <div class="latest-news__header section-header">
+    {% if section.settings.title != blank %}
+      <h2 class="section-header__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.link_text != blank and section.settings.link != blank %}
+      <a class="section-header__link" href="{{ section.settings.link }}" title="{{ section.settings.link_text }}">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+  <div class="container">
+    <div class="row">
+      {% unless blog.articles_count == 0 %}
+        {% for article in blog.articles limit: 6 %}
+          <div class="article-card col-sm-2">
+            {% if article.image %}
+                {%- assign img_url = article.image | img_url: '100x100', crop: 'center' -%}
+
+                <div id="{{ img_wrapper_id }}" class="article-card__image-wrapper">
+                  <div class="article-card__image-container" style="padding-top:100%;">
+                    <a href="{{ article.url }}" title="{{ article.title | escape }}" class="full--sized">
+                      <img id="{{ img_id }}"
+                          class="article-card__image full--sized lazyload"
+                          src="{{ img_url }}"
+                          data-src="{{ article.image | img_url: '375x375', crop: 'center' }}"
+                          data-aspectratio="{{ article.image.aspect_ratio }}"
+                          data-sizes="auto"
+                          alt="">
+                    </a>
+                  </div>
+                </div>
+                <div class="article-card__content">
+                  <h3 class="article-card__title">
+                    <a href="{{ article.url }}" title="{{ article.title | escape }}">
+                      {{ article.title }}
+                    </a>
+                  </h3>
+                  <p class="article-card__excerpt">
+                    <a href="{{ article.url }}" title="{{ article.title | escape }}">
+                      {{ article.excerpt_or_content | split: '</p>' | first | strip_html | split: '. ' | first | truncatewords: 10, '' }}
+                    </a>
+                  </p>
+                </div>
+              {% endif %}
+
+          </div>
+        {% endfor %}
+      {% endunless %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": {
+    "en": "Latest News"
+  },
+  "class": "latest-news",
+  "settings": [
+    {
+      "content": "Section header",
+      "type": "header"
+    },
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "text"
+    },
+    {
+      "id": "link_text",
+      "label": "Link text",
+      "type": "text"
+    },
+    {
+      "id": "link",
+      "label": "Link URL",
+      "type": "url"
+    },
+    {
+      "id": "blog",
+      "label": "Blog",
+      "type": "blog"
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Latest News"
+      },
+      "category": {
+        "en": "Blog"
+      }
+    }
+  ]
+}
+{% endschema %}

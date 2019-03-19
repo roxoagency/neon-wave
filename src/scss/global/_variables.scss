@@ -1,0 +1,131 @@
+$site-width: 1366px;
+$header-width: 1920px;
+
+// Typography
+$font-size-base: 1rem; // Supports ONLY rem value (bootstrap-reload required)
+$font-size-header: 26px;
+
+$font-stack-body: 'ibm-plex-mono', sans-serif;
+$font-style-body: normal;
+$font-weight-body: 400;
+
+$font-stack-header: 'henderson-sans-basic', sans-serif;
+$font-style-header: normal;
+$font-weight-header: 700;
+
+$fonts: (
+        'body': $font-stack-body,
+        'heading': $font-stack-header
+);
+
+// Bootstrap variables
+$body-bg: #fff;
+$body-color: #000;
+$font-family-base: $font-stack-body;
+
+// Colors
+$black: #000;
+$white: #fff;
+$green: #28a745;
+$primary: #03707B;
+$indigo: #6610f2;
+$red: #D39689;
+$orange: #fd7e14;
+$pink: #D29588;
+$yellow: #F2D975;
+$light: #FFF9E6;
+
+$primary_dark: #046B78;
+
+$colors: (
+        "body": $black,
+        "white": $white,
+        "primary": $primary,
+        "primary_dark": $primary_dark,
+        "secondary": $indigo,
+        "success": $green,
+        "danger": $red,
+        "warning": $orange,
+        "yellow": $yellow,
+        "light": $light,
+        "pink": $pink,
+);
+
+// Transitions
+$color-transition: color 0.15s linear;
+$button-transition: color 0.15s linear, border-color 0.15s linear, background-color 0.15s linear;
+
+$transitions: (
+        "color": $color-transition,
+        "button": $button-transition
+);
+
+// Grid
+$grid-columns: 12;
+$grid-gutter-width: 30px;
+$grid-breakpoints: (
+  // Extra small screen / phone
+        xs: 0,
+  // Small screen / phone
+        sm: 576px,
+  // Medium screen / tablet
+        md: 768px,
+  // Large screen / desktop
+        lg: 992px,
+  // Extra large screen / wide desktop
+        xl: 1200px
+);
+$enable-grid-classes:true;
+
+// You can disable bootstrap grid max widths, just replace $container-max-widths with following value:
+$container-max-widths: (
+        sm: $site-width
+);
+
+// $container-max-widths: (
+//   sm: 540px,
+//   md: 720px,
+//   lg: 960px,
+//   xl: $site-width
+// );
+
+$transition-fade: opacity .3s linear;
+
+// Modals
+
+// Padding applied to the modal body
+$modal-inner-padding: 30px;
+//
+//$modal-dialog-margin:               .5rem ;
+//$modal-dialog-margin-y-sm-up:       1.75rem ;
+//
+//$modal-title-line-height:           $line-height-base ;
+//
+//$modal-content-color:               null ;
+//$modal-content-bg:                  $white;
+$modal-content-border-color: transparent;
+$modal-content-border-width: 0;
+$modal-content-border-radius: 0;
+$modal-content-box-shadow-xs: none;
+$modal-content-box-shadow-sm-up: none;
+//
+$modal-backdrop-bg: #000;
+$modal-backdrop-opacity: .4;
+
+//$modal-header-border-color:         $border-color !default;
+//$modal-footer-border-color:         $modal-header-border-color !default;
+//$modal-header-border-width:         $modal-content-border-width !default;
+//$modal-footer-border-width:         $modal-header-border-width !default;
+$modal-header-padding-y: 0;
+$modal-header-padding-x: 0;
+$modal-header-padding: 0; // Keep this for backwards compatibility
+//
+//$modal-xl:                          1140px !default;
+//$modal-lg:                          800px !default;
+$modal-md: 800px;
+//$modal-sm:                          300px !default;
+//
+$modal-fade-transform: none;
+//$modal-show-transform:              none !default;
+//$modal-transition:                  transform .6s ease-out;
+

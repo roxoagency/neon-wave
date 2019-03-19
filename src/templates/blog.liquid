@@ -1,0 +1,60 @@
+{% paginate blog.articles by 14 %}
+
+    <div class="page page--blog ">
+        <div class="container">
+            <div class="page__header ">
+                {% include 'breadcrumbs' %}
+            </div>
+            {% section 'blog' %}
+            <div class="page__content blog-list">
+                <div class="row blog-list__row">
+                    {% for article in blog.articles %}
+                    {% if forloop.index0 == 7 %}
+                </div>
+                <div class="row blog-list__row">
+                    {% endif %}
+                    <div class="post-card blog-list__item col-12 {% if forloop.index0 == 0  or  forloop.index0 == 7 %}post-card--highlighted blog-list__item--highlighted{% else %}
+col-md-6
+{% endif %}">
+                        {% if article.image %}
+                            <a class="post-card__image-wrapper" href="{{ article.url }}">
+                                {% if forloop.index0 == 0  or  forloop.index0 == 7 %}
+                                    {{ article | img_url: '498x640', crop: 'center' | img_tag: article.title }}
+                                {% else %}
+                                    {{ article | img_url: '284x284', crop: 'center' | img_tag: article.title }}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                        <h2 class="post-card__title"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                        {% for tag in article.tags %}
+                            {% assign stringToCheck = tag %}
+                            {% assign startsWith =  'category-' %}
+                            {% assign checkArray = stringToCheck | split:startsWith %}
+                            {% if checkArray[0] == blank %}
+                                {% assign title = tag | replace: 'category-','' %}
+                                <div class="post-card__category">
+                                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}"> {{ title }}</a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="post-card__content">
+                            {% if article.excerpt.size > 0 %}
+                                {{ article.excerpt }}
+                            {% else %}
+                                <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if paginate.pages > 1 %}
+                    <div class="pagination">
+                        {{ paginate | default_pagination }}
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endpaginate %}

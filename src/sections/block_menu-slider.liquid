@@ -1,0 +1,122 @@
+<div class="menu-slides js--menu-slides" data-section-type="menu-slides" data-section-id="{{ section.id }}">
+    {% for block in section.blocks %}
+
+        <div class="js--menu-slide" data-target="{{ block.settings.title | handleize }}">
+
+            <div class="product-card">
+                <div class="product-card__data">
+                    {% if block.settings.product_title != '' %}
+                        <h3 class="product-card__title">
+                            {% if block.settings.product_url != '' %}
+                            <a href="{{ block.settings.product_url }}">
+                                {% endif %}
+                                {{ block.settings.product_title }}
+                                {% if block.settings.product_url != '' %}
+                            </a>
+                            {% endif %}
+                        </h3>
+                    {% endif %}
+                </div>
+                <div class="product-card__image">
+
+                    {% if block.settings.product_url != '' %}
+                    <a href="{{ block.settings.product_url }}">
+                        {% endif %}
+                        <img class="product-card__image--featured" width="150"
+                             src="{{ block.settings.product_img | img_url: '300x300', crop: 'center' }}">
+
+                        {% if block.settings.product_url != '' %}
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="product-card_content">
+                    {% if block.settings.product_vendor != '' %}
+                        <div class="product-card__vendor">
+
+                            {% if block.settings.product_url != '' %}
+                            <a href="{{ block.settings.product_url }}">
+                                {% endif %}
+                                {{ block.settings.product_vendor }}
+
+                                {% if block.settings.product_url != '' %}</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if block.settings.product_collection != '' %}
+                        <div class="product-card__collection">
+                        {% if block.settings.product_url != '' %}
+                        <a href="{{ block.settings.product_url }}">
+                            {% endif %}
+                            {{ block.settings.product_collection }}
+                            {% if block.settings.product_url != '' %}</a>
+                        {% endif %}
+                        </div>{% endif %}
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% schema %}
+    {
+    "name": {
+    "en": "Menu slider"
+    },
+    "class": "menu-slider hide",
+    "settings": [
+    ],
+    "blocks": [
+    {
+    "type": "product",
+    "name": {
+    "en": "product"
+    },
+    "settings": [
+    {
+    "type": "text",
+    "id": "title",
+    "label": {
+    "en": "Show for menu item"
+    }
+    },
+    {
+    "type": "text",
+    "id": "product_title",
+    "label": {
+    "en": "Title"
+    }
+    },
+    {
+    "type": "url",
+    "id": "product_url",
+    "label": {
+    "en": "Url"
+    }
+    },
+    {
+    "type": "image_picker",
+    "id": "product_img",
+    "label": {
+    "en": "Image"
+    }
+    },
+    {
+    "type": "text",
+    "id": "product_vendor",
+    "label": {
+    "en": "Vendor"
+    }
+    },
+    {
+    "type": "text",
+    "id": "product_collection",
+    "label": {
+    "en": "Collection"
+    }
+    }
+    ]
+    }
+    ]
+    }
+{% endschema %}

@@ -1,0 +1,73 @@
+/*============================================================================
+  Fast Tap
+  enables no-delay taps (FastClick-esque) on supporting browsers
+==============================================================================*/
+a,
+button,
+[role="button"],
+input,
+label,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+.hide {
+  display: none !important;
+}
+
+code,
+pre {
+  font-family: Consolas, monospace;
+  font-size: 1em;
+}
+
+pre {
+  overflow: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*================ #Lists ================*/
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ol {
+  list-style: decimal;
+}
+
+.list--inline {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  & > li {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+}
+
+.full--sized {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.page {
+  overflow: hidden;
+}
+a{
+  transition: transition('color');
+}
+a:hover{
+  color:color('body');
+}

@@ -1,0 +1,7 @@
+development:
+  password: [PRIVATE_APP_PASSWORD]
+  theme_id: "[PRIVATE_APP_THEME_ID]"
+  store: [STORE_DOMAIN].myshopify.com
+  directory: dist
+  ignore_files:
+    - config/settings_data.json

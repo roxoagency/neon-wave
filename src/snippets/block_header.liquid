@@ -1,0 +1,90 @@
+<header class="header" role="banner" data-section-id="site-header" data-section-type="header-block">
+    <div class="header__inner">
+        <div class="header__content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 header__anounsment">
+                        <p>WGEAR_HYDRO_001 IN STOCK NOW</p>
+                    </div>
+                    <div class="col-12 header__main">
+                        <div class="header__currency-switcher">
+                            {% if settings.show_multiple_currencies %}
+                                {% include 'block_currency-switcher' %}
+                            {% endif %}
+                        </div>
+                        {% include 'block_logo' %}
+                        <div class="header__customer-nav">
+                            {% include 'block_customer-nav' %}
+                        </div>
+                    </div>
+                    {% section 'block_site-nav' %}
+                    {% section 'block_menu-slider' %}
+                </div>
+
+            </div>
+            <div class="progress-bar" data-section-type="progress-bar">
+                <span class="progress-bar__line js--progress-line"></span>
+            </div>
+            {% include 'block-mini-cart' %}
+        </div>
+        <div class="header__search-form js--header-search-form">
+            {% include 'block_search-form' %}
+        </div>
+    </div>
+</header>
+<div class="cart__overlay js--min-cart-toggle"></div>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    {
+      %
+      if section.settings.logo %
+    } {
+      % assign image_size = section.settings.logo.width | append: 'x' %
+    }
+    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
+    {
+      % endif %
+    }
+    "sameAs": [
+      "{{ settings.social_twitter_link }}",
+      "{{ settings.social_facebook_link }}",
+      "{{ settings.social_pinterest_link }}",
+      "{{ settings.social_instagram_link }}",
+      "{{ settings.social_tumblr_link }}",
+      "{{ settings.social_snapchat_link }}",
+      "{{ settings.social_youtube_link }}",
+      "{{ settings.social_vimeo_link }}"
+    ],
+    "url": "{{ shop.url }}{{ page.url }}"
+  }
+
+
+
+
+
+</script>
+
+{% if template.name == 'index' %}
+    <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "{{ shop.name }}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{ shop.url }}/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "url": "{{ shop.url }}{{ page.url }}"
+  }
+
+
+
+
+
+    </script>
+{% endif %}

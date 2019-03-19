@@ -1,0 +1,172 @@
+
+<div id="featured-collection-{{ section.id }}" class="featured-collection__inner container" data-section-type="featured-collection" data-section-id="{{ section.id }}">
+  <div class="featured-collection__header section-header">
+    {% if section.settings.title != blank %}
+      <h2 class="section-header__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.link_text != blank and section.settings.link != blank %}
+      <a class="section-header__link" href="{{ section.settings.link }}" title="{{ section.settings.link_text }}">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+  <div class="featured-collection__content featured-collection__content--{{ section.settings.image_alignment }}">
+    {% if section.settings.image != blank %}
+    <div class="hero__slide featured-collection__image">
+      {% if section.settings.image_link != blank %}
+        <a href="{{ section.settings.image_link }}" class="hero__link--full"></a>
+      {% endif %}
+      <div class="hero__image lazyload"
+        {% if section.settings.image %}
+        data-bgset="{% include 'bgset', image: section.settings.image %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        style="background-image: url('{{ section.settings.image | img_url: '300x300' }});"
+        {% endif %}>
+      </div>
+
+      {% if section.settings.image_title != blank or section.settings.image_subtitle != blank or section.settings.image_link_text %}
+        <div class="hero__content hero__content--center">
+          <div class="container">
+            {% if section.settings.image_title != blank %}
+              <h3 class="hero__title">{{ section.settings.image_title }}</h3>
+            {% endif %}
+            {% if section.settings.image_subtitle != blank %}
+              <h4 class="hero__subtitle">{{ section.settings.image_subtitle }}</h3>
+            {% endif %}
+            {% if section.settings.image_link_text != blank %}
+              <a href="{{ section.settings.image_link }}" class="hero__link">{{ section.settings.image_link_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    <div class="featured-collection__products" data-section-type="product-list" data-section-id="featured-collection-list">
+      {%- assign collection = collections[section.settings.collection] -%}
+      <div class="featured-collection__slide">
+        {% for product in collection.products limit: 40 %}
+          {% assign modulo = forloop.index | modulo: 2 %}
+          {% unless forloop.first %}
+            {% if modulo != 0 %}
+              <div class="featured-collection__slide">
+            {% endif %}
+          {% endunless %}
+            {% include 'block_product-card' %}
+          {% unless forloop.last %}
+            {% if modulo == 0 %}
+              </div>
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": {
+    "en": "Collection"
+  },
+  "class": "featured-collection",
+  "settings": [
+    {
+      "content": "Section header",
+      "type": "header"
+    },
+    {
+      "id": "title",
+      "label": "Title",
+      "type": "text"
+    },
+    {
+      "id": "link_text",
+      "label": "Link text",
+      "type": "text"
+    },
+    {
+      "id": "link",
+      "label": "Link URL",
+      "type": "url"
+    },
+
+    {
+      "content": "Section image",
+      "type": "header"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": {
+        "en": "Image"
+      }
+    },
+    {
+      "type": "text",
+      "id": "image_title",
+      "label": {
+        "en": "Title"
+      }
+    },
+    {
+      "type": "text",
+      "id": "image_subtitle",
+      "label": {
+        "en": "Subtitle"
+      }
+    },
+    {
+      "type": "url",
+      "id": "image_link",
+      "label": {
+        "en": "Link"
+      }
+    },
+    {
+      "type": "text",
+      "id": "image_link_text",
+      "label": {
+        "en": "Link text"
+      }
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": {
+        "en": "Image position"
+      },
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default":   "left"
+    },
+
+    {
+      "content": "Section settings",
+      "type": "header"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": {
+        "en": "Collection"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Collection"
+      },
+      "category": {
+        "en": "Promotional"
+      }
+    }
+  ]
+}
+{% endschema %}

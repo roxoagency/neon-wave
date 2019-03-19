@@ -1,0 +1,20 @@
+node_modules
+assets/styles.bundle.css
+assets/main.bundle.js
+dist/
+releases/
+.ds_store
+config.yml
+*.todo
+
+/.idea
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

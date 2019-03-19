@@ -1,0 +1,19 @@
+$block: '.progress-bar';
+
+#{$block} {
+  height: 10px;
+  background-color: color('primary');
+  position: relative;
+  pointer-events: none;
+
+  &__line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 100%;
+    display: block;
+    background-color: color('pink');
+    will-change: width;
+  }
+}

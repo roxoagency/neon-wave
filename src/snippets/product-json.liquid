@@ -1,0 +1,5 @@
+{% unless product == empty %}
+    <script type="application/json" id="ProductJson-{{ section.id }}" data-product-json>
+{{ product | json }}
+    </script>
+{% endunless %}

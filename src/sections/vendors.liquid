@@ -1,0 +1,98 @@
+<div id="vendor-{{ section.id }}"
+     class="vendor-block"
+     data-section-type="vendor-block"
+     data-section-id="{{ section.id }}">
+    {% assign productVendor = product.vendor | downcase %}
+    {% for block in section.blocks %}
+
+        {% assign vendor = block.settings.title | downcase %}
+        {% if vendor == productVendor %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h2 class="vendor-block__title">{{ block.settings.title }}</h2>
+                        {% if block.settings.subtitle!='' %}
+                            <div class="vendor-block__subtitle">{{ block.settings.subtitle }}</div>
+                        {% endif %}
+                        {% if block.settings.text!='' %}
+                            <div class="vendor-block__content rte">{{ block.settings.text }}</div>
+                        {% endif %}
+                    </div>
+                    {% if block.settings.image1 %}
+                        <div class="col-12 col-md-6">
+                            <img class="vendor-block__image lazyload"
+                                 src="{{ block.settings.image1 | img_url: '600x600', crop: 'center' }}"
+                                 data-src="{{ block.settings.image1 | img_url: '600x600', crop: 'center' }}"
+                                 data-aspectratio="{{ block.settings.image1.aspect_ratio }}"
+                                 data-sizes="auto"
+                                 alt="">
+                        </div>
+                    {% endif %}
+                    {% if block.settings.image2 %}
+                        <div class="col-12 col-md-6">
+                            <img class="vendor-block__image lazyload"
+                                 src="{{ block.settings.image2 | img_url: '600x600', crop: 'center' }}"
+                                 data-src="{{ block.settings.image2 | img_url: '600x600', crop: 'center' }}"
+                                 data-aspectratio="{{ block.settings.image2.aspect_ratio }}"
+                                 data-sizes="auto"
+                                 alt="">
+                        </div>
+                    {% endif %}
+                    {% if block.settings.image3 %}
+                        <div class="col-12 col-md-6">
+                            <img class="vendor-block__image lazyload"
+                                 src="{{ block.settings.image3 | img_url: '600x600', crop: 'center' }}"
+                                 data-src="{{ block.settings.image3 | img_url: '600x600', crop: 'center' }}"
+                                 data-aspectratio="{{ block.settings.image3.aspect_ratio }}"
+                                 data-sizes="auto"
+                                 alt="">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% schema %}
+    {
+    "name": "Vendors",
+    "blocks": [
+    {
+    "type": "vendor_block",
+    "name": "Vendor",
+    "settings": [
+    {
+    "type": "text",
+    "id": "title",
+    "label":  "Name"
+    }, {
+    "type": "text",
+    "id": "subtitle",
+    "label":  "Subtitle"
+    },
+    {
+    "type": "richtext",
+    "id": "text",
+    "label":  "Description"
+    }
+    ,
+    {
+    "type": "image_picker",
+    "id": "image1",
+    "label":  "First Image"
+    },
+    {
+    "type": "image_picker",
+    "id": "image2",
+    "label":  "Second Image"
+    },
+    {
+    "type": "image_picker",
+    "id": "image3",
+    "label":  "Third Image"
+    }
+    ]
+    }
+    ]
+    }
+{% endschema %}

@@ -1,0 +1,57 @@
+{% assign codes = 'AUD,CAD,CNY,DKK,EUR,GBP,JPY,KRW,RUB,SEK,SGD,TWD,USD' | split: ',' %}
+{% assign supported_codes = settings.supported_currencies | split: ' ' %}
+<div class="currency-switcher" data-section-type="currency-switcher">
+  <div class="currency-switcher__current">
+    <button type="button" class="currency-switcher__current-item currency js--current-currency">
+      <span class="currency-switcher__arrow">{% include 'icon-arrow-down' %}</span>
+      <span class="currency__icon js--currency-icon">
+        {% capture icon %}icon-currency-{{shop.currency}}{% endcapture %}
+        {% include icon %}
+      </span>
+      <span class="currency__data">
+        <span class="currency__value js--currency-value">
+          <span>&lt;</span>
+          <span class="currency__code">{% include 'currency-code', currency: shop.currency %}</span>
+          <span class="currency__descriptor">{{ shop.currency }}</span>
+          <span>&gt;</span>
+          <span class="currency__text">Currency</span>
+          <span>&lt;/</span>
+          <span class="currency__code">{% include 'currency-code', currency: shop.currency %}</span>
+          <span class="currency__descriptor">{{ shop.currency }}</span>
+          <span>&gt;</span>
+        </span>
+      </span>
+    </button>
+  </div>
+  <div class="currency-switcher__list js--currency-list">
+    {% for code in supported_codes %}
+      {% if codes contains code %}
+        <button type="button" data-value="{{ code }}" class="currency-switcher__list-item currency js--currency-item{% if code == shop.currency %} currency-switcher__list-item--selected{% endif %}">
+          <span class="currency__icon js--currency-icon">
+            {% capture icon %}icon-currency-{{ code }}{% endcapture %}
+            {% include icon %}
+          </span>
+          <span class="currency__data">
+            <span class="currency__value js--currency-value">
+              <span>&lt;</span>
+              <span class="currency__code">{% include 'currency-code', currency: code %}</span>
+              <span class="currency__descriptor">{{ code }}</span>
+              <span>&gt;</span>
+              <span class="currency__text">Currency</span>
+              <span>&lt;/</span>
+              <span class="currency__code">{% include 'currency-code', currency: code %}</span>
+              <span class="currency__descriptor">{{ code }}</span>
+              <span>&gt;</span>
+            </span>
+            <span class="currency__label">
+              <span>{{ code }}</span>
+              <span class="currency__label-arrow">&gt;</span>
+              <span>{% include 'currency-country', currency: code %}</span>
+            </span>
+          </span>
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+

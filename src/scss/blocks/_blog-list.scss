@@ -1,0 +1,32 @@
+.blog-list {
+  .blog-list__row {
+    &:nth-child(2n-1){
+    padding-left: 49.5%;
+    }
+    &:nth-child(2n){
+      margin-top: em(56);
+      padding-right: 49.5%;
+      .blog-list__item--highlighted {
+        left: auto;
+        right:em(-30);
+        background:#55BE97;
+      }
+    }
+
+  }
+  &__row {
+    position: relative;
+    min-height: 950px;
+  }
+  .blog-list__item--highlighted {
+      position: absolute;
+      left:em(-30);
+      padding: 0 0 em(54) em(60);
+      top:0;
+      max-width: 558px;
+      width:calc(50% - 60px);
+      color:color('white');
+      background: color('primary');
+    }
+
+}

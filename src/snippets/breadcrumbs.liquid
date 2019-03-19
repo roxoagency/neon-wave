@@ -1,0 +1,52 @@
+{% unless template == 'index'  or template == 'list-collections' %}
+    <div class="breadcrumb {{ className }}" role="navigation" aria-label="breadcrumbs">
+        <div class="container">
+        <div class="breadcrumb__content"><a class="breadcrumb__item breadcrumb__link" href="/" title="Home">Home</a>
+            {% if template contains 'page' %}
+                <span class=" breadcrumb__delimiter">~</span>
+                <span class="breadcrumb__item">{{ page.title }}</span>
+                {% elsif template contains 'product' %}
+                {% if collection.url %}
+                    <span class=" breadcrumb__delimiter">~</span>
+                    {{ collection.title | link_to: collection.url | replace: '<a', '<a class="breadcrumb__item breadcrumb__link"' }}
+                {% endif %}
+                <span class=" breadcrumb__delimiter">~</span>
+                <span class="breadcrumb__item">{{ product.title }}</span>
+                {% elsif template contains 'collection' and collection.handle %}
+                <span class=" breadcrumb__delimiter">~</span>
+                {% if current_tags %}
+                    {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+                    {{ collection.title | link_to: url | replace: '<a', '<a class="breadcrumb__item breadcrumb__link"' }}
+                    <span class=" breadcrumb__delimiter">~</span>
+                    <span class="breadcrumb__item">{{ current_tags | join: " + " }}</span>
+                {% else %}
+                    <span class="breadcrumb__item">{{ collection.title }}</span>
+                {% endif %}
+                {% elsif template == 'blog' %}
+                <span class=" breadcrumb__delimiter">~</span>
+                {% if current_tags %}
+                    {{ blog.title | link_to: blog.url | replace: '<a', '<a class="breadcrumb__item breadcrumb__link"' }}
+
+                    <span class=" breadcrumb__delimiter">~</span>
+                    <span class="breadcrumb__item">{{ article.title }}</span>
+                    <span class="breadcrumb__item">{{ current_tags | join: " + " }}</span>
+                {% else %}
+                    <span class="breadcrumb__item">{{ blog.title }}</span>
+                {% endif %}
+                {% elsif template == 'article' %}
+                <span class=" breadcrumb__delimiter">~</span>
+                {{ blog.title | link_to: blog.url | replace: '<a', '<a class="breadcrumb__item breadcrumb__link"' }}
+                <span class=" breadcrumb__delimiter">~</span>
+                <span class="breadcrumb__item">{{ article.title }}</span>
+            {% else %}
+                <span class=" breadcrumb__delimiter">~</span>
+                <span class="breadcrumb__item">{{ page_title }}</span>
+            {% endif %}
+        </div>
+        {% if productForm %}
+        <div class="breadcrumb__form">
+            {{ productForm }}</div>
+        {% endif %}
+        </div>
+    </div>
+{% endunless %}

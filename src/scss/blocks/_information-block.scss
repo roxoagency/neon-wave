@@ -1,0 +1,23 @@
+.information-block {
+  margin-bottom: 42px;
+  float: left;
+  clear: both;
+  &--wrapper{
+  display: inline-block;
+  }
+  &__title {
+    font-size: em(23);
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    margin: 0 0 3px;
+  }
+  &__content {
+    font-size: em(15.5);
+    text-transform: uppercase;
+  }
+  &--weight {
+    .information-block__content {
+      text-transform: none;
+    }
+  }
+}

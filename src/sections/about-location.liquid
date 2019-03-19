@@ -1,0 +1,259 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Location"
+    },
+    "settings": [
+
+    {
+    "type": "text",
+    "id": "about_location_title",
+    "label": {
+    "en": "Title"
+    },
+    "default":"LOCATION"
+    },
+    {
+    "content": "Map",
+    "type": "header"
+    },
+    {
+    "type": "textarea",
+    "id": "about_location_map",
+    "label": {
+    "en": "Embed Google Map"
+    }
+    },
+    {
+    "content": "Address",
+    "type": "header"
+    },
+    {
+    "type": "text",
+    "id": "about_location_address_title",
+    "label": {
+    "en": "Title"
+    },
+    "default":"POP-UP/WORLD HQ"
+    },
+    {
+    "type": "richtext",
+    "id": "about_location_address",
+    "label": {
+    "en": "Text"
+    }
+    },
+    {
+    "content": "Schedule",
+    "type": "header"
+    },
+    {
+    "type": "text",
+    "id": "about_location_monday",
+    "label": {
+    "en": "Monday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "type": "text",
+    "id": "about_location_tuesday",
+    "label": {
+    "en": "Tuesday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "type": "text",
+    "id": "about_location_wednesday",
+    "label": {
+    "en": "wednesday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "type": "text",
+    "id": "about_location_thursday",
+    "label": {
+    "en": "Thursday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "type": "text",
+    "id": "about_location_friday",
+    "label": {
+    "en": "Аriday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "type": "text",
+    "id": "about_location_saturday",
+    "label": {
+    "en": "Saturday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "type": "text",
+    "id": "about_location_sunday",
+    "label": {
+    "en": "Sunday"
+    },
+    "default":"11AM-7PM"
+    },
+    {
+    "content": "Slider",
+    "type": "header"
+    }
+
+    ],
+    "blocks": [
+    {
+    "type": "location_slide",
+    "name": "Slide",
+    "settings": [
+    {
+    "type": "image_picker",
+    "id": "location_slide_image",
+    "label": "Image"
+    },
+    {
+    "type": "text",
+    "id": "location_slide_n",
+    "label": "N",
+    "default":"43.150989˚ N"
+
+    },
+    {
+    "type": "text",
+    "id": "location_slide_e",
+    "label": "E",
+    "default":"-77.566937˚ E"
+    }
+    ]}
+    ]
+    }
+{% endschema %}
+
+<div id="location" class="about-section about-section--location" data-section-type="about-location"
+     data-section-id="{{ section.id }}">
+    <div class="about-section__bg lazyload"
+            {% if section.settings.about_location_img %}
+        data-bgset="{% include 'bgset', image: section.settings.about_location_img %}"
+        data-sizes="auto"
+        data-parent-fit="cover"
+        style="background-image: url('{{ section.settings.about_location_hero_bg | img_url: '300x300' }});"
+            {% endif %}>
+
+        <div class="container about-section__container">
+            {% if section.settings.about_location_title != '' %}
+                <h2 class="about-section__title">
+                    <span class="about-section__title-text">{{ section.settings.about_location_title }}</span>
+                </h2>
+            {% endif %}
+
+            {% if section.settings.about_location_map != '' %}
+                <a href="#"
+                   class="js-about-section-map-toggle about-section__point">{% include "icon-point" %}{% include 'icon-go-next' %}</a>
+            {% endif %}
+            <div class="row about-section__row">
+                {% if section.settings.about_location_map != '' %}
+                    <div class="about-section__map js-about-section-map">
+                        {{ section.settings.about_location_map }}
+                    </div>
+                {% endif %}
+                <div class="col-md-6 col-12 about-section__col">
+
+                    {% if section.blocks.size %}
+                        <div class="location-slider js-about-location-slider">
+                            {% for block in section.blocks %}
+
+                                <div class="location-slider__item">
+                                    {% if block.settings.location_slide_n != '' %}
+                                        <div class="location-slider__n">{{ block.settings.location_slide_n }} {% include "icon-arrow-long" %}</div>
+                                    {% endif %}
+                                    {% if block.settings.location_slide_e != '' %}
+                                        <div class="location-slider__e">{{ block.settings.location_slide_e }} {% include "icon-arrow-long" %}</div>
+                                    {% endif %}
+                                    {% if block.settings.location_slide_image %}
+                                        <img
+                                                class="location-slider__image"
+                                                src="{{ block.settings.location_slide_image | img_url: '529x416', crop: 'center' }}"
+                                                data-src="{{ block.settings.location_slide_image | img_url: '529x416', crop: 'center' }}"
+                                                data-aspectratio="{{ section.settings.location_slide_image.aspect_ratio }}"
+                                                data-sizes="auto"
+                                                alt="{{ block.settings.location_slide_image.alt | escape }}">
+                                    {% endif %}
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 col-12 about-section__col">
+                    <div class="about-section__content">
+
+                        {% if section.settings.about_location_address_title != '' or section.settings.about_location_address != '' %}
+                            <div class="address-info">
+                                {% if section.settings.about_location_address_title != '' %}
+                                    <h3 class="address-info__title">{{ section.settings.about_location_address_title }}</h3>
+                                {% endif %}
+                                {% if section.settings.about_location_address != '' %}
+                                    <div class="address-info__content">{{ section.settings.about_location_address }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        <table class="schedule">
+                            <tbody>
+                            {% if section.settings.about_location_monday != '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.monday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_monday }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if section.settings.about_location_tuesday!= '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.tuesday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_tuesday }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if section.settings.about_location_wednesday!= '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.wednesday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_wednesday }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if section.settings.about_location_thursday!= '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.thursday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_thursday }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if section.settings.about_location_friday!= '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.friday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_friday }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if section.settings.about_location_saturday!= '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.saturday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_saturday }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if section.settings.about_location_sunday!= '' %}
+                                <tr class="schedule__item">
+                                    <th class="schedule__title">{{ 'about.general.sunday' | t }}:</th>
+                                    <td class="schedule__content">{{ section.settings.about_location_sunday }}</td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

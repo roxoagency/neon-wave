@@ -1,0 +1,129 @@
+$block: '.currency';
+
+#{$block} {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background-color: color('white');
+  padding: 0 0.7em;
+  font-size: 10px;
+  transition: transition('button');
+
+  &:focus {
+    outline: none;
+  }
+
+  @at-root &__icon {
+    display: block;
+    max-width: 15px;
+    flex: 0 0 15px;
+  }
+
+  @at-root &__data {
+    padding-left: 1em;
+    letter-spacing: 1.4px;
+  }
+
+  @at-root
+  &__label,
+  &__value {
+    display: flex;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  @at-root &__value {
+    display: none;
+  }
+
+  @at-root &__label {
+    &-arrow {
+      display: inline-block;
+      padding: 0 0.6em;
+    }
+  }
+}
+
+$block: '.currency-switcher';
+
+#{$block} {
+  position: relative;
+  max-width: 235px;
+  padding: 0 0.9em 0 1.6em;
+
+  @at-root &--active {
+    #{$block}__list {
+      display: block;
+    }
+  }
+
+  @at-root &__current-item {
+    position: relative;
+
+    .currency__value {
+      display: flex;
+    }
+  }
+
+  @at-root &__arrow {
+    position: absolute;
+    left: 1px;
+    top: calc(50% - 7px);
+    transform: translateX(-100%) rotate(90deg);
+
+  }
+  .currency-switcher--active &__arrow {
+    transform:translateX(-100%);
+  }
+  @at-root &__list {
+    max-height: 275px;
+    overflow: auto;
+    position: absolute;
+    left: 1.6em;
+    right: 0.9em;
+    bottom: -14px;
+    transform: translateY(100%);
+    z-index: 1200;
+    display: none;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    background: #fff;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #898F9B;
+      border-radius: 4px;
+    }
+
+    @at-root &-item {
+      border-bottom: 1px solid #f3f3f3;
+      padding: 0.5em 0.9em;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: color('primary');
+        color: color('white');
+      }
+
+      &--selected {
+        background-color: color('primary');
+        color: color('white');
+      }
+    }
+
+    .currency__icon {
+      max-width: 9px;
+      flex: 0 0 9px;
+    }
+  }
+}

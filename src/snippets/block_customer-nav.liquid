@@ -1,0 +1,18 @@
+<ul class="list--inline customer-nav" id="CustomerSiteNav">
+  <li class="customer-nav__item">
+    <button type="button" class="customer-nav__link btn--text js--toggle-search-form">{% include 'icon-search' %}</button>
+  </li>
+  {% if shop.customer_accounts_enabled %}
+    <li class="customer-nav__item">
+      <a href="/account" class="customer-nav__link">{% include 'icon-customer' %}</a>
+    {% if customer %}
+    {% else %}
+      {% comment %} {{ 'log in ' | customer_login_link }}
+      {{ 'register' | customer_register_link }} {% endcomment %}
+    {% endif %}
+    </li>
+  {% endif %}
+  <li class="customer-nav__item">
+    <a href="/cart" class="customer-nav__link cart-nav__link js--min-cart-toggle"><span class="cart-nav__count js--cart-count" data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>{% include 'icon-cart' %}</a>
+  </li>
+</ul>

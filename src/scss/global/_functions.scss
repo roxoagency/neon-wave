@@ -1,0 +1,29 @@
+// Retrieve transition Sass maps
+@function transition($key: "color") {
+  @return map-get($transitions, $key);
+}
+
+// Retrieve font Sass maps
+@function font($key: "body") {
+  @return map-get($fonts, $key);
+}
+$browser-context: 16px;
+
+@function em($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1em;
+}
+
+@function letterspacing-to-ems($val) {
+  @return ( $val / 1000 ) * 1em
+}
+@function letterspacing-to-pixels($val, $font-size) {
+  @return ( $val * $font-size / 1000 ) * 1px
+}

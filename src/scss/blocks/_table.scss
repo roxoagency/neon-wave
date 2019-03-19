@@ -1,0 +1,38 @@
+.table {
+  width: 100%;
+  font-size: em(11);
+  letter-spacing: 0.9px;
+  line-height: (15.1/11);
+  text-transform: uppercase;
+  margin: 0 0 em(30,11);
+  &__th {
+    color: color('primary');
+    font-weight: 400;
+  }
+  &__th, &__td {
+    border-top: 1px solid color('primary');
+    border-bottom: 1px solid color('primary');
+    padding: em(14,11) em(7,11);;
+    &:first-child{
+      padding-left: 0;
+    }
+    &:last-child{
+      padding-right: 0;
+    }
+  }
+  .link-btn{
+    font-size: 1em;
+  }
+  &--center{
+   text-align: center;
+    .table__td ,
+    .table__th {
+      &:first-child{
+        text-align: left;
+      }
+      &:last-child{
+        text-align: right;
+      }
+    }
+  }
+}

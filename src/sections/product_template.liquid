@@ -1,0 +1,235 @@
+{% comment %}
+    Get first variant, or deep linked one
+{% endcomment %}
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- assign product_image_zoom_size = '1024x1024' -%}
+    {%- assign product_image_scale = '2' -%}
+    {%- assign enable_zoom = section.settings.enable_zoom -%}
+    {%- assign compare_at_price = current_variant.compare_at_price -%}
+    {%- assign price = current_variant.price -%}
+<div class="row">
+    <div class="  col-12 col-md-6 product-single__col product-single__col--left">
+        {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+        <div class="product-single__photos">
+            <a href="#product-gallery" class="product-single__zoom-link js--product-single__zoom-link" data-toggle="modal" data-target="#product-gallery">
+                {% include 'icon-zoom' %}
+            </a>
+            <div class="product-single__slider js--product-single__slider">
+                {% for image in product.images limit: 1 %}
+                    {% capture img_class %}product-featured-img{% endcapture %}
+
+                    <div  class="product-single__photo-wrapper ">
+                        <div class="product-single__photo">
+                            <img
+                                 class="product-single__image {{ img_class }} lazyload"
+                                 src="{{ img_url }}"
+                                 data-src="{{ image | img_url: '600x600', crop: 'center' }}"
+                                 data-aspectratio="{{ image.aspect_ratio }}"
+                                 data-sizes="auto"
+                                 alt="{{ image.alt | escape }}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade modal--full" id="product-gallery" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="js--product-single__slider-modal">
+                        {% for image in product.images %}
+                            {%- assign img_url = image | img_url: '980x' -%}
+                            <div  class="product-single__photo-wrapper-modal ">
+                                <div class="product-single__photo">
+                                    <img class="product-single__image {{ img_class }} lazyload"
+                                         src="{{ img_url }}"
+                                         data-src="{{ image | img_url: '980x' }}"
+                                         data-aspectratio="{{ image.aspect_ratio }}"
+                                         data-sizes="auto"
+                                         alt="{{ image.alt | escape }}">
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-single__info col-12 col-md-6 product-single__col product-single__col--right">
+        <div class="product-single__meta">
+
+            <h1 class="product-single__title">{{ product.title }}</h1>
+
+            <div class="product__price">
+                {% include 'product-price', variant: current_variant %}
+            </div>
+            <div id="error-quantity-{{ section.id }}"
+                 class="form-message form-message--error product__quantity-error hide" tabindex="-1">
+                {{ 'products.product.quantity_minimum_message' | t }}
+            </div>
+            <div class="product-single__nav product-single__nav--inline">
+                {% assign hasInfomation = false %}
+                {% for tag in product.tags %}
+                    {% assign stringToCheck = tag %}
+                    {% assign startsWith =  'material-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+                        {% assign hasInfomation = true %}
+                    {% endif %}
+                    {% assign stringToCheck = tag %}
+                    {% assign startsWith =  'made-in-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+                        {% assign hasInfomation = true %}
+                    {% endif %}
+                    {% assign stringToCheck = tag %}
+                    {% assign startsWith =  'weight-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+                        {% assign hasInfomation = true %}
+                    {% endif %}
+                    {% assign stringToCheck = tag %}
+                    {% assign startsWith =  'collection-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+                        {% assign hasInfomation = true %}
+                    {% endif %}
+                    {% assign stringToCheck = tag %}
+                    {% assign startsWith =  'fit-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+                        {% assign hasInfomation = true %}
+                    {% endif %}
+                {% endfor %}
+                {% if hasInfomation == true %}
+                <div class="product-single__nav-item">
+                    <a href="#specification" class="product-single__nav-link js-go-to">
+                        {{ 'products.product.specification' | t }}
+                    </a></div>
+                {% endif %}
+                <div class="product-single__nav-item">
+                    <a href="#product-gallery" class="product-single__nav-link js--product-single__zoom-link"  data-toggle="modal" data-target="#product-gallery">
+                        {{ 'products.product.gallery' | t }}
+                    </a></div>
+                <div class="product-single__nav-item">
+                    <a href="#" class="product-single__nav-link">
+                        {{ 'products.product.add_to_wishlist' | t }}
+                    </a></div>
+            </div>
+            <div class="product-single__description rte">
+                {{ product.description }}
+            </div>
+
+
+            {% capture "form_classes" -%}
+                product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}{% if section.settings.enable_payment_button and product.has_only_default_variant %} product-form--payment-button-no-variants{% endif %}
+            {%- endcapture %}
+            {% include 'product-form' %}
+        </div>
+
+        {%- comment -%}
+            Live region for announcing updated price and availability to screen readers
+        {%- endcomment -%}
+        <p class="visually-hidden" data-product-status
+           aria-live="polite"
+           role="status"
+        ></p>
+
+        <div class="product-single__nav ">
+            <div class="product-single__nav-item">
+                <a href="#size-cart-fit-guide" data-toggle="modal" data-target="#size-cart-fit-guide"
+                   class="product-single__nav-link js--modal-toggle">
+                    {{ section.settings.size-cart-fit-guide-title }}
+                </a>
+            </div>
+
+            <div class="product-single__nav-item">
+                <a href="#shipping-return-guide" data-toggle="modal" data-target="#shipping-return-guide"
+                   class="product-single__nav-link  js--modal-toggle">
+                    {{ section.settings.shipping-return-guide-title }}
+                </a>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="size-cart-fit-guide" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        {% assign size_cart_fit_guide = pages[section.settings.size-cart-fit-guide] %}
+                        {{ size_cart_fit_guide.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="shipping-return-guide" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ section.settings.shipping-return-guide }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% schema %}
+    {
+    "name": "Product",
+
+    "settings": [
+    {
+    "content": "Size chart / fit  guide",
+    "type": "header"
+    },
+    {
+    "type": "text",
+    "id": "size-cart-fit-guide-title",
+    "label":  "Link text",
+    "default":"SIZE CHART / FIT GUIDE"
+    },
+    {
+    "type": "page",
+    "id": "size-cart-fit-guide",
+    "label":  "Text"
+    },
+    {
+    "content": "Shipping & return guide link",
+    "type": "header"
+    },
+    {
+    "type": "text",
+    "id": "shipping-return-guide-title",
+    "label":  "Link text",
+    "default":"SHIPPING & RETURN GUIDE"
+    },
+    {
+    "type": "richtext",
+    "id": "shipping-return-guide",
+    "label":  "Text"
+    }
+    ]
+    }
+{% endschema %}

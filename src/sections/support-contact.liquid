@@ -1,0 +1,63 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Contact"
+    },
+    "settings": [
+
+    {
+    "id": "contact_title",
+    "label": "Title",
+    "type": "text",
+    "default":"CONTACT CUSTOMER SERVICE"
+    },
+    {
+    "id": "contact_text",
+    "label": "Description",
+    "type": "text",
+    "default":"HAVE A QUESTION THAT WASN’T ANSWERED?"
+    }
+    ]
+    }
+{% endschema %}
+{% if section.settings.contact_title !='' %}
+    <h2 class="tabs__title">{{ section.settings.contact_title }}</h2>
+{% endif %}
+{% if section.settings.contact_text !='' %}
+    <div class="tabs__description h6">{{ section.settings.contact_text }}</div>
+{% endif %}
+{% form 'contact', class: 'form' %}
+    {% if form.posted_successfully? %}
+        <div class="form__text">
+            <p>Thank you for your contact</p>
+        </div>
+    {% endif %}
+    {%- if form.errors -%}
+        <div class="form__message form__message--error">
+            {{ form.errors | default_errors }}
+        </div>
+    {%- endif -%}
+    <div class="form__row ">
+        <input type="text" id="ContactFormName" name="contact[name]" class="form__field form__field--transparent-default" required
+               placeholder="{{ 'support.contact.name' | t }}">
+        <div class="form__note">{{ 'support.contact.name_note' | t }}</div>
+    </div>
+    <div class="form__row ">
+        <input type="email" id="ContactFormEmail" name="contact[email]" class="form__field form__field--transparent-default" required
+               placeholder="{{ 'support.contact.email' | t }}">
+        <div class="form__note">{{ 'support.contact.email_note' | t }}</div>
+    </div>
+    <div class="form__row ">
+        <input type="text" id="ContactFormOrder" name="contact[order]" class="form__field form__field--transparent-default"
+               placeholder="{{ 'support.contact.order' | t }}">
+        <div class="form__note">{{ 'support.contact.order_note' | t }}</div>
+    </div>
+    <div class="form__row ">
+        <textarea rows="8" id="ContactFormMessage" name="contact[body]" class="form__textarea form__textarea--transparent-default" required
+                  placeholder="{{ 'support.contact.msg' | t }}"></textarea>
+        <div class="form__note">{{ 'support.contact.msg_note' | t }}</div>
+    </div>
+    <div class="form__row form__row--btn">
+        <input type="submit" value="{{ 'support.contact.submit' | t }}" class="btn btn--default btn--outline ">
+    </div>
+{% endform %}

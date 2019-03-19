@@ -1,0 +1,78 @@
+@import 'global/variables';
+@import 'global/mixins';
+@import 'global/functions';
+
+// Bootstrap normalize and grid
+@import "bootstrap/scss/bootstrap-reboot";
+@import "bootstrap/scss/bootstrap-grid";
+@import "bootstrap/scss/modal";
+
+
+
+// Slick slider
+@import "slick-carousel/slick/slick.scss";
+
+// Base styles
+@import 'global/base';
+@import 'global/typography';
+@import 'global/buttons';
+@import 'global/slick-theme';
+@import 'global/from';
+// Vendor
+@import 'vendor/modal';
+@import 'vendor/selectric';
+// Blocks
+@import 'blocks/nav';
+
+@import 'blocks/header';
+@import 'blocks/currency-switcher';
+@import 'blocks/logo';
+@import 'blocks/site-nav';
+@import 'blocks/customer-nav';
+@import 'blocks/progress-bar';
+@import 'blocks/search-form';
+
+@import 'blocks/product-card';
+@import 'blocks/article-card';
+
+@import 'blocks/section-header';
+@import 'blocks/hero';
+@import 'blocks/featured-collection';
+@import 'blocks/featured-collections';
+@import 'blocks/latest-news';
+@import 'blocks/rich-text';
+
+@import 'blocks/breadcrumb';
+@import 'blocks/products-list';
+@import 'blocks/filter';
+@import 'blocks/filters-dropdown';
+@import 'blocks/product-single';
+@import 'blocks/product-form';
+@import 'blocks/quantity';
+@import 'blocks/information-block';
+@import 'blocks/vendor-block';
+@import 'blocks/related-products';
+@import 'blocks/cart';
+@import 'blocks/page';
+@import 'blocks/shipping-calculator';
+@import 'blocks/account-page';
+@import 'blocks/link-btn';
+@import 'blocks/table';
+@import 'blocks/newsletter';
+@import 'blocks/tabs';
+@import 'blocks/faq';
+@import 'blocks/about-section';
+@import 'blocks/about-navigation';
+@import 'blocks/schedule';
+@import 'blocks/address-info';
+@import 'blocks/location-slider';
+@import 'blocks/sustainability-section';
+@import 'blocks/defaut-filter';
+@import 'blocks/blog-list';
+@import 'blocks/post-card';
+@import 'blocks/pagination';
+
+
+@import 'blocks/footer';
+// Apps
+@import 'app/bc-sf-filter';

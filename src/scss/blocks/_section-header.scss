@@ -1,0 +1,40 @@
+$block: '.section-header';
+
+#{$block} {
+  text-align: center;
+  padding: 3.4em 0 1.9em;
+  text-transform: uppercase;
+
+  @at-root &__title {
+    font-size: 1.5em;
+    letter-spacing: 1.4px;
+    margin-bottom: -0.2em;
+    font-weight: 700;
+  }
+
+  @at-root &__link {
+    display: inline-block;
+    color: color('body');
+    line-height: 1.6;
+    font-size: 0.6em;
+    transition: transition('button');
+
+    &::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background-color: color('body');
+      max-width: 93%;
+      margin: 0 auto;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: color('primary');
+
+      &::after {
+        background-color: color('primary');
+      }
+    }
+  }
+}

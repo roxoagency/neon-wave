@@ -1,0 +1,21 @@
+{% capture col_handle %}{{ product.vendor | handle }}{% endcapture %}
+{% if collections[col_handle].products.size > 0 %}
+    <div class="related-products" data-section-type="related-products" data-section-id="related-products">
+        <div class="container"  >
+                <h2 class="related-products__title">{{ 'products.product.related_products' | t }}</h2>
+
+        </div>
+        <div class="related-products__slider" data-section-type="product-list" data-section-id="related-products-list">
+
+            {% assign collection = collections[col_handle] %}
+            {% for product in collection.products limit: 10 %}
+                {% unless product.handle == handle %}
+                    <div class="related-products__item">
+                        {% include 'block_product-card' %}
+                    </div>
+                {% endunless %}
+            {% endfor %}
+
+        </div>
+    </div>
+{% endif %}

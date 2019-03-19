@@ -1,0 +1,170 @@
+{% schema %}
+    {
+    "name": {
+    "en": "Navigation"
+    },
+    "settings": [
+
+    {
+    "type": "image_picker",
+    "id": "nav_1_img",
+    "label": {
+    "en": " First block image"
+    }
+    },
+    {
+    "type": "image_picker",
+    "id": "nav_1_img_hover",
+    "label": {
+    "en": " First block hover image"
+    }
+    },
+    {
+    "type": "text",
+    "id": "nav_1_title",
+    "label": {
+    "en": " First block title"
+    },
+    "default":"ABOUT"
+    },
+    {
+    "type": "image_picker",
+    "id": "nav_2_img",
+    "label": {
+    "en": " Second block image"
+    }
+    },
+    {
+    "type": "image_picker",
+    "id": "nav_2_img_hover",
+    "label": {
+    "en": " Second block hover image"
+    }
+    },
+    {
+    "type": "text",
+    "id": "nav_2_title",
+    "label": {
+    "en": " Second block title"
+    },
+    "default":"MISSION"
+    },
+    {
+    "type": "image_picker",
+    "id": "nav_3_img",
+    "label": {
+    "en": " Third block image"
+    }
+    },
+    {
+    "type": "image_picker",
+    "id": "nav_3_img_hover",
+    "label": {
+    "en": " Third block hover image"
+    }
+    },
+    {
+    "type": "text",
+    "id": "nav_3_title",
+    "label": {
+    "en": " Third block title"
+    },
+    "default":"LOCATION"
+    }
+    ]
+    }
+{% endschema %}
+
+<div id="about-navigation" class="about-section about-section--navigation" data-section-type="about-navigation"
+     data-section-id="{{ section.id }}">
+    <div class="about-section__bg">
+        <div class="container about-section__container">
+            <div class="about-navigation">
+                <div class="about-navigation__icon">
+                    {% include 'icon-dots' %}
+                </div>
+                <a href="#about" class="about-navigation__item js-go-to">
+                    <div class="about-navigation__image-wrapper ">
+                        {% if section.settings.nav_1_img %}
+                            <img
+                                    class="about-navigation__image lazyload"
+                                    src="{{ section.settings.nav_1_img | img_url: '447x365', crop: 'center' }}"
+                                    data-src="{{ section.settings.nav_1_img | img_url: '447x365', crop: 'center' }}"
+                                    data-aspectratio="{{ section.settings.nav_1_img.aspect_ratio }}"
+                                    data-sizes="auto"
+                                    alt="{{ section.settings.nav_1_img.alt | escape }}">
+                        {% endif %}
+                        {% if section.settings.nav_1_img_hover %}
+                            <img
+                                    class="about-navigation__image lazyload about-navigation__image--hover"
+                                    src="{{ section.settings.nav_1_img_hover | img_url: '447x365', crop: 'center' }}"
+                                    data-src="{{ section.settings.nav_1_img_hover | img_url: '447x365', crop: 'center' }}"
+                                    data-aspectratio="{{ section.settings.nav_1_img_hover.aspect_ratio }}"
+                                    data-sizes="auto"
+                                    alt="{{ section.settings.nav_1_img_hover.alt | escape }}">
+                        {% endif %}
+                    </div>
+                    {% if section.settings.nav_1_title != '' %}
+                        <h2 class="about-navigation__title">
+                            {{ section.settings.nav_1_title }}
+                        </h2>
+                    {% endif %}
+                </a>
+                <a href="#mission" class="about-navigation__item  js-go-to">
+                    <div class="about-navigation__image-wrapper">
+                        {% if section.settings.nav_2_img %}
+                            <img
+                                    class="about-navigation__image lazyload"
+                                    src="{{ section.settings.nav_2_img | img_url: '297x365', crop: 'center' }}"
+                                    data-src="{{ section.settings.nav_2_img | img_url: '297x365', crop: 'center' }}"
+                                    data-aspectratio="{{ section.settings.nav_2_img.aspect_ratio }}"
+                                    data-sizes="auto"
+                                    alt="{{ section.settings.nav_2_img.alt | escape }}">
+                        {% endif %}
+                        {% if section.settings.nav_2_img_hover %}
+                            <img
+                                    class="about-navigation__image lazyload about-navigation__image--hover"
+                                    src="{{ section.settings.nav_2_img_hover | img_url: '297x365', crop: 'center' }}"
+                                    data-src="{{ section.settings.nav_2_img_hover | img_url: '297x365', crop: 'center' }}"
+                                    data-aspectratio="{{ section.settings.nav_2_img_hover.aspect_ratio }}"
+                                    data-sizes="auto"
+                                    alt="{{ section.settings.nav_2_img_hover.alt | escape }}">
+                        {% endif %}
+                    </div>
+                    {% if section.settings.nav_2_title != '' %}
+                        <h2 class="about-navigation__title">
+                            {{ section.settings.nav_2_title }}
+                        </h2>
+                    {% endif %}
+                </a>
+                <a href="#location" class="about-navigation__item  js-go-to">
+                    <div class="about-navigation__image-wrapper">
+                        {% if section.settings.nav_3_img %}
+                            <img
+                                    class="about-navigation__image lazyload"
+                                    src="{{ section.settings.nav_3_img | img_url: '491x365', crop: 'center' }}"
+                                    data-src="{{ section.settings.nav_3_img | img_url: '491x365', crop: 'center' }}"
+                                    data-aspectratio="{{ section.settings.nav_3_img.aspect_ratio }}"
+                                    data-sizes="auto"
+                                    alt="{{ section.settings.nav_3_img.alt | escape }}">
+                        {% endif %}
+                        {% if section.settings.nav_3_img_hover %}
+                            <img
+                                    class="about-navigation__image lazyload about-navigation__image--hover"
+                                    src="{{ section.settings.nav_3_img_hover | img_url: '491x365', crop: 'center' }}"
+                                    data-src="{{ section.settings.nav_3_img_hover | img_url: '491x365', crop: 'center' }}"
+                                    data-aspectratio="{{ section.settings.nav_3_img_hover.aspect_ratio }}"
+                                    data-sizes="auto"
+                                    alt="{{ section.settings.nav_3_img_hover.alt | escape }}">
+                        {% endif %}
+                    </div>
+                    {% if section.settings.nav_3_title != '' %}
+                        <h2 class="about-navigation__title">
+                            {{ section.settings.nav_3_title }}
+                        </h2>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

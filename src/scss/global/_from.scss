@@ -1,0 +1,178 @@
+.form {
+  &__label {
+    display: block;
+    font-size: em(11);
+    line-height: (18/11);
+    margin: 0 0 em(3, 11);
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: color('primary');
+  }
+  &__label--md {
+    margin: 0 0 em(7, 11);
+  }
+  &__textarea,
+  &__field {
+    width: 100%;
+    font-size: em(11);
+    line-height: (18/11);
+    border: 1px solid color('primary');
+    color: color('primary');
+    font-family: inherit;
+    letter-spacing: 0.9px;
+    padding: em(6, 11) em(16, 11);
+    text-transform: uppercase;
+    background: #fff;
+    &::placeholder {
+      color: color('primary');
+      opacity: 1;
+    }
+  }
+  &__field {
+    height: 30px;
+  }
+  &__field--md {
+    height: 44px;
+    padding: em(12, 11) em(14, 11) em(14, 11);
+    color: color('body');
+    &::placeholder {
+      color: color('body');
+    }
+  }
+  &__field--transparent {
+    background: transparent;
+    color: color('primary_dark');
+    border: 0 solid color('primary_dark');
+    border-bottom: 1px solid color('primary_dark');
+    font-size: em(14.38);
+    height: auto;
+    padding: em(5, 14.38) em(7, 14.38) em(5, 14.38) em(7, 14.38);
+    position: relative;
+    z-index: 1;
+    &::placeholder {
+      color: color('red');
+      opacity: 1;
+    }
+  }
+
+  &__textarea--transparent-default,
+  &__field--transparent-default{
+    background: transparent;
+    color: color('body');
+    border: 0 solid #00727D;
+    border-bottom: 1px solid #00727D;
+    font-size: 1em;
+    height: auto;
+    padding: em(8, 13) 0 em(10, 13) 0;
+    position: relative;
+    text-transform: none;
+    z-index: 1;
+    &::placeholder {
+      color: color('body');
+    }
+  }
+  &__textarea--transparent-default{
+    border-top: 1px solid #00727D;
+    margin-top: em(14,13);
+  }
+  &__select {
+    width: 100%;
+    font-size: em(11);
+    line-height: (18/11);
+    border: 1px solid color('primary');
+    color: color('primary');
+    font-family: inherit;
+    letter-spacing: 0.9px;
+    padding: em(6, 11) em(16, 11);
+    text-transform: uppercase;
+    height: 30px;
+    background: #fff url("select-bg.svg") no-repeat calc(100% + 1px)  -1px;
+    appearance: none;
+    border-radius: 0;
+    &--md {
+      height: 44px;
+      padding: em(12, 11) em(14, 11) em(14, 11);
+      //color: color('body');    background: #fff url(select-bg.svg) no-repeat calc(100% + 2px) -2px;
+      //background-size: 32px;
+      background: #fff;
+    }
+  }
+  &__row {
+    margin: 0 0 em(20);
+    &--btn {
+      margin-top: em(33);
+    }
+  }
+  &__row--md {
+    margin: 0 0 em(24);
+    &.form__row--btn {
+      margin-top: em(29);
+    }
+  }
+  &__btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+  &__textarea--gray {
+    border-color: #F7F8FA;
+    background: #F7F8FA;
+  }
+  &__message {
+    font-size: em(13);
+    line-height: (21/13);
+    letter-spacing: 0.9px;
+    max-width: 476px;
+    margin: 0 auto em(22, 13);
+    &--error {
+      color: color('pink');
+    }
+    ol, ul {
+      list-style-position: inside;
+    }
+  }
+  &__text {
+    font-size: em(13);
+    line-height: (21/13);
+    letter-spacing: 0.9px;
+    margin: 0 0 em(22, 13);
+  }
+  &__checkbox {
+    display: flex;
+
+    input[type="checkbox"] {
+      margin-right: em(10);
+    }
+    input[type="checkbox"],
+    .form__label {
+    }
+  }
+  &__datefield {
+    position: relative;
+  }
+  &__placeholder {
+    position: absolute;
+    font-size: em(14.38);
+    z-index: 1;
+    height: auto;
+    padding: em(5, 14.38) em(7, 14.38) em(5, 14.38) em(7, 14.38);
+    left: 0;
+    color: color('red');
+    text-transform: uppercase;
+    top: -2px;
+    small{
+      font-size: em(7.48,14.38);
+      vertical-align: super;
+    }
+  }
+  &__note{
+    font-size: em(9,13);
+    color:#898F9B;
+    letter-spacing: 0.6px;
+    margin-top: 1px;
+  }
+
+}
+

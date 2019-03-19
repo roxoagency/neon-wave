@@ -1,0 +1,31 @@
+<nav id="AccessibleNav" role="navigation">
+  {% for block in section.blocks %}
+    {% include 'block_site-nav' | nav: block.settings.linklist %}
+  {% endfor %}
+  {{ submenus }}
+</nav>
+{% schema %}
+{
+  "name": {
+    "en": "Menu"
+  },
+  "class": "header__navigation",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "linklist",
+          "label": {
+            "en": "Menu"
+          },
+          "default": "main-menu"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

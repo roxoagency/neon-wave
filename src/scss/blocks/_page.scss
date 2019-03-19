@@ -1,0 +1,92 @@
+.page {
+  &__title {
+    color: color('primary');
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding: em(53) 0;
+    h1 {
+      margin: 0;
+    }
+  }
+  &--default {
+    .container {
+      max-width: 1276px;
+    }
+    .page__content {
+      max-width: 1006px;
+      margin: 0 auto em(118, 13);
+    }
+  }
+  &--support {
+    .page__title {
+      span {
+        display: block;
+
+        color: #fff;
+        text-shadow: color('primary') 0px 0px 1px, color('primary') 0px 0px 1px, color('primary') 0px 0px 1px, color('primary') 0px 0px 1px, color('primary') 0px 0px 1px, color('primary') 0px 0px 1px;
+        -webkit-font-smoothing: antialiased;
+
+      }
+    }
+    .page__content {
+      padding: em(86, 13) 0 0;
+    }
+    .form__row {
+      margin: 0 0 em(31, 13);
+    }
+    .form__row--btn {
+      margin-top: em(60, 13);
+    }
+    .btn {
+      font-size: em(14, 13);
+      min-width: 180px;
+      padding: em(4, 14) em(20, 14) em(3, 14);
+      justify-content: center;
+    }
+    .form {
+      margin: em(59, 13) 0 0;
+    }
+    .form__text {
+      font-size: 1em;
+    }
+
+  }
+  &--blog {
+    .container {
+      padding-left: em(60);
+      padding-right: em(60);
+      .container {
+        padding-left: 0;
+        padding-right: 0;
+
+      }
+    }
+    .row {
+      margin-left: em(-30);
+      margin-right: em(-30);
+    }
+    .col-12 {
+
+      padding-left: em(30);
+      padding-right: em(30);
+    }
+    .page__title{
+      padding-bottom: em(27);
+      h1{
+        font-size: em(52.45);
+        line-height: (65.56/52.45);
+      }
+    }
+    .page__title-text {
+      display: block;
+      &--top {
+
+        display: block;
+        color: #fff;
+        text-shadow: #03707B 0px 0px 1px, #03707B 0px 0px 1px, #03707B 0px 0px 1px, #03707B 0px 0px 1px, #03707B 0px 0px 1px, #03707B 0px 0px 1px;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+  }
+}

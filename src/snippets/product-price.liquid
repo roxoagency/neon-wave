@@ -1,0 +1,37 @@
+<!-- snippet/product-price.liquid -->
+{% if variant.title %}
+    {%- assign compare_at_price = variant.compare_at_price -%}
+    {%- assign price = variant.price -%}
+    {%- assign available = variant.available -%}
+{% else %}
+    {%- assign compare_at_price = 1999 -%}
+    {%- assign price = 1999 -%}
+    {%- assign available = true -%}
+{% endif %}
+
+{%- assign money_price = price | money | replace: ',00', ''-%}
+
+<div class="price{% if available and compare_at_price > price %} price--on-sale{% endif %}" data-price>
+    <div class="price__sale ">
+      <span class="price-item price-item--sale {% if compare_at_price > price %}{% else %} hide{% endif %}" data-sale-price>
+        {% if compare_at_price > price %}
+            {{ compare_at_price | money | replace: ',00', '' }}
+        {% else %}
+            {{ money_price }}
+        {% endif %}
+      </span>
+    </div>
+    <div class="price__regular">
+      <span class="price-item price-item--regular" data-regular-price>
+            {{ money_price }}
+      </span>
+    </div>
+
+
+    {% comment %}
+    {% endcomment %}
+    {% include 'icon-wave' %}
+    <div class="price__vendor">
+        {{ product.vendor }}
+    </div>
+</div>

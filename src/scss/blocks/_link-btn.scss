@@ -1,0 +1,35 @@
+.link-btn {
+  font-size: em(11);
+  line-height: (18/11);
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: color('primary');
+  background: transparent;
+  padding: 0;
+  border: 0 solid;
+  box-shadow: none;
+  &:focus{
+    outline: none;
+  }
+  &:hover {
+    color: color('body');
+    text-decoration: none;
+  }
+  &--md{
+    font-size: em(13);
+  }
+  svg{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.07692em 0 0;
+    fill:currentColor;
+  }
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &--bold{
+    font-family: $font-stack-header;
+    font-weight: 700;
+  }
+}
