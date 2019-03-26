@@ -15,6 +15,7 @@ $block: '.featured-collections';
   @at-root &__col {
     #{$block}__item {
       margin-bottom: 1.8em;
+      width:100%;
 
       &:last-child {
         margin-bottom: 0;
@@ -22,7 +23,7 @@ $block: '.featured-collections';
     }
 
     #{$block}__image {
-      min-height: 197px;
+      height: 197px;
     }
   }
 
@@ -32,8 +33,8 @@ $block: '.featured-collections';
   }
 
   @at-root &__image {
-    min-height: 425px;
-
+    height: 425px;
+    min-height: 0;
     .hero__content {
       font-size: 0.6em;
 

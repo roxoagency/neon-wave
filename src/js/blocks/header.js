@@ -29,12 +29,13 @@ export class HeaderBlock {
 	}
 
 	_initMiniCart() {
-		$(this.selectors.miniCartToggle).on('click', (e)=> {
+		$(this.selectors.miniCartToggle).on('click', (e) => {
 			e.preventDefault();
 			$('body').toggleClass('is-open-mini-cart');
 			$(this.selectors.miniCart).fadeToggle(200);
 		})
 	}
+
 	_cacheSelectors() {
 		this.cache.rootItems = $(this.selectors.rootItems, this.$container);
 		this.cache.rootItems.each((index, el) => {
@@ -113,6 +114,17 @@ export class HeaderBlock {
 
 			self.hideSubmenu(this);
 		});
+		if ($('[data-root-item="content"]').length > 0) {
+			let menuContent = $('.js-menu-content .block_menu-content-blog').clone();
+			$('[data-root-item="content"] .js-blog-block').html(menuContent);
+			menuContent = $('.js-menu-content .block_menu-content-lookbook').clone();
+			$('[data-root-item="content"] .js-lookbook-block').html(menuContent);
+
+			const blockSize = $('.block_menu-content-lookbook').attr('data-block-size');
+			if (blockSize === '1') {
+				$('[data-root-item="content"]').addClass('is-one-lookbook');
+			}
+		}
 	}
 
 	showSubmenu(dropdown) {

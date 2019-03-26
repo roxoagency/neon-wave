@@ -8,14 +8,14 @@
     "id": "sustainability_5_title_top",
     "label": "Top title text",
     "type": "text",
-    "default":"WE ALL"
+    "default":"SECURED"
     },
 
     {
     "id": "sustainability_5_title_bottom",
     "label": "Bottom title text",
     "type": "text",
-    "default":"NEED WINTER"
+    "default":"THE BAG"
     },
     {
     "id": "sustainability_5_text",
@@ -27,30 +27,92 @@
     "id": "sustainability_5_img",
     "label": "Image"
     }
+    ],
+    "blocks": [
+    {
+    "type": "sustainability_5_slide",
+    "name": "Slide",
+    "settings": [
+    {
+    "type": "image_picker",
+    "id": "image",
+    "label": "Background image"
+    },
+    {
+    "type": "color",
+    "id": "color",
+    "label": "Background color"
+    },
+    {
+    "type": "text",
+    "id": "text",
+    "label": "Text",
+    "default":"WWEAR_GI_001"
+    }
+    ]
+    }
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--fifth" data-section-type="sustainability-section--fifth"
+<div class="sustainability-section sustainability-section--fifth" data-section-type="sustainability-section--fifth" id="sustainability-section--fifth"
      data-section-id="{{ section.id }}">
     <div class="container">
-        <h2 class="sustainability-section__title">
-            {% if section.settings.sustainability_5_title_top != '' %}
-                <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_5_title_top }}</span>
-            {% endif %}
-            {% if section.settings.sustainability_5_title_bottom != '' %}
-                <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_5_title_bottom }}</span>
-            {% endif %}
-        </h2>
-        {% if section.settings.sustainability_5_text != '' %}
-            <div class="sustainability-section__content">
-                {{ section.settings.sustainability_5_text }}
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <h2 class="sustainability-section__title">
+                    {% if section.settings.sustainability_5_title_top != '' %}
+                        <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_5_title_top }}</span>
+                    {% endif %}
+                    {% if section.settings.sustainability_5_title_bottom != '' %}
+                        <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_5_title_bottom }}</span>
+                    {% endif %}
+                </h2>
+                {% if section.settings.sustainability_5_text != '' %}
+                    <div class="sustainability-section__content">
+                        {{ section.settings.sustainability_5_text }}
+                    </div>
+                {% endif %}
+                {% if section.settings.sustainability_5_img %}
+                    <div class="sustainability-section__image-wrapper">
+                        <img class="sustainability-section__image"
+                             src="{{ section.settings.sustainability_5_img | img_url: 'master' }}" alt="">
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
-        {% if section.settings.sustainability_5_img  %}
-            <div class="sustainability-section__image-wrapper">
-                <img class="sustainability-section__image"
-                     src="{{ section.settings.sustainability_5_img | img_url: 'origin' }}" alt="">
+
+            <div class="col-12 col-md-7">
+                {% if section.blocks.size %}
+                    <div class="block-slider js-block-slider">
+                        {% for block in section.blocks %}
+                            <div class="block-slider__item js-block-slider__item " data-text="{{ block.settings.text }}">
+
+                                <div class="block-slider__item-bg lazyload {% unless block.settings.image %} block-slider__item--no-image {% endunless %}"
+                                        {% if block.settings.image %}
+                                            data-bgset="{% include 'bgset', image: block.settings.image %}"
+                                            data-sizes="auto"
+                                            data-parent-fit="cover"
+                                            style="background-image: url('{{ block.settings.image  | img_url: 'master' }});"
+                                        {% endif %}
+                                >
+                                </div>
+                                <div class="block-slider__item-bg block-slider__item-bg--color {% unless block.settings.image %} block-slider__item--no-image {% endunless %}" {% if block.settings.color %}
+                                    style="background-color: {{ block.settings.color }};"
+                                        {% endif %}>
+
+                                </div>
+                                {% if block.settings.text !='' %}
+                                    <div class="block-slider__item-title">
+                                        {{ block.settings.text }}
+                                    </div>
+                                    <div class="block-slider__item-text">
+                                        {{ block.settings.text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
     </div>
 </div>

@@ -10,9 +10,11 @@ $content_width: 33.333%;
   }
 
   @at-root &__content {
-    flex: 1;
-    padding: 74px 30px;
 
+    padding: 74px 30px;
+    width:100%;
+    flex: 0 0  33.333%;
+    max-width:33.333%;
     &-title {
       letter-spacing: 0.9px;
       font-size: 1.7em;
@@ -29,6 +31,7 @@ $content_width: 33.333%;
   }
 
   @at-root &__images {
+    width:100%;
     flex: 0 0 calc(100% - #{$content_width});
     max-width: calc(100% - #{$content_width});
     display: flex;

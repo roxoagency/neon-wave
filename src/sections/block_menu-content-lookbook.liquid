@@ -1,0 +1,82 @@
+<div class="block_menu-content-lookbook"  data-block-size="{{ section.blocks.size }}"
+     >
+    {% if section.settings.menu_lookbook_title!='' %}
+    <h4 class="site-nav__link site-nav__childlist-heading">
+        <span class="site-nav__label">{{  section.settings.menu_lookbook_title}}</span>
+    </h4>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {% for block in section.blocks %}
+            <div class="post-card post-card--menu  {% if forloop.index>1 %} post-card--menu-half{% endif %}">
+                    {% if block.settings.img %}
+                        {% if block.settings.url != '' %}
+                            <a class="post-card__image-wrapper" href="{{ block.settings.url }}">
+                        {% endif %}
+                        {{ block.settings.img | img_url: '261x150', crop: 'center' | img_tag: block.settings.title }}
+                        {% if block.settings.url != '' %}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="post-card__content-wrapper">
+                        {% if block.settings.title != '' %}
+                            <h2 class="post-card__title">
+                                {% if block.settings.url != '' %}
+                                <a href="{{ block.settings.url }}">
+                                    {% endif %}
+                                    {{ block.settings.title }}
+                                    {% if block.settings.url != '' %}
+                                </a>
+                                {% endif %}
+                            </h2>
+                        {% endif %}
+                    </div>
+            </div>
+            {% if forloop.index ==1 %}
+        </div>
+        <div class="col-12 col-md-6">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+    "name": {
+    "en": "Menu content blog"
+    },
+    "settings": [
+    {
+    "type": "text",
+    "id": "menu_lookbook_title",
+    "label":"Title",
+    "default":"LOOKBOOK"
+    }
+    ],
+    "blocks": [
+    {
+    "type": "menu_lookbook_article",
+    "name": "Article",
+    "settings": [
+    {
+    "type": "image_picker",
+    "id": "img",
+    "label": "Image"
+    },
+    {
+    "type": "text",
+    "id": "title",
+    "label":  "Title"
+    },
+    {
+    "type": "url",
+    "id": "url",
+    "label":"Url"
+    }
+    ]
+    }
+    ]
+    }
+{% endschema %}

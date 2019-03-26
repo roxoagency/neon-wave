@@ -1,0 +1,14 @@
+.related-articles{
+  margin-bottom: em(58);
+  padding-top: em(21);
+
+  &__title{
+    font-size: em(36);
+    text-align: center;
+    color:color('body');
+    text-transform: uppercase;
+    margin-bottom: em(73,36);
+    letter-spacing: 0;
+  }
+
+}

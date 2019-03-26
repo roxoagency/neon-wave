@@ -41,8 +41,9 @@
       -webkit-text-stroke-width: 1px;
       -webkit-text-stroke-color: color('body');
       -webkit-text-fill-color: color('white');
-      //text-shadow: color('body') 0px 0px 1px, color('body') 0px 0px 1px, color('body') 0px 0px 1px, color('body') 0px 0px 1px, color('body') 0px 0px 1px, color('body') 0px 0px 1px;
-
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        text-shadow: -1px 0 color('body'), 0 1px color('body'), 1px 0 color('body'), 0 -1px color('body');
+      }
       &:after {
         background: color('body');
       }

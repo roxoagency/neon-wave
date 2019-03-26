@@ -1,0 +1,59 @@
+{% assign related_tag = '' %}
+{% for tag in article.tags %}
+    {% assign stringToCheck = tag %}
+    {% assign startsWith =  'category-' %}
+    {% assign checkArray = stringToCheck | split:startsWith %}
+    {% if checkArray[0] == blank %}
+        {% assign related_tag = tag %}
+
+    {% endif %}
+{% endfor %}
+{% assign related_posts = "" %}
+{% assign count = 0 %}
+{% for related_article in blog.articles %}
+    {% if related_article.tags contains related_tag  and related_article.handle != article.handle %}
+
+        {% assign count = count | plus: 1 %}
+        {% capture post %}
+
+            <div class="post-card post-card col-12 col-md-4">
+
+                {% if related_article.image %}
+                    <a class="post-card__image-wrapper" href="{{ related_article.url }}">
+                        {{ related_article | img_url: '376x376', crop: 'center' | img_tag: related_article.title }}
+                    </a>
+                {% endif %}
+                <h2 class="post-card__title"><a href="{{ related_article.url }}">{{ related_article.title }}</a></h2>
+                {% for tag in related_article.tags %}
+                    {% assign stringToCheck = tag %}
+                    {% assign startsWith =  'category-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+                        {% assign title = tag | replace: 'category-','' %}
+                        <div class="post-card__category">
+                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}"> {{ title }}</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="post-card__content">
+                    {% if related_article.excerpt.size > 0 %}
+                        {{ related_article.excerpt }}
+                    {% else %}
+                        <p>{{ related_article.content | strip_html | truncatewords: 20 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endcapture %}
+        {% assign related_posts = related_posts | append:post %}
+        {% if count == 3 %}{% break %}{% endif %}
+    {% endif %}
+{% endfor %}
+
+{% if related_posts.size > 0 %}
+    <div class="related-articles">
+        <div class="container">
+            <h2 class="related-articles__title">RELATED ARTICLES</h2>
+            <div class="row">{{ related_posts }}</div>
+        </div>
+    </div>
+{% endif %}

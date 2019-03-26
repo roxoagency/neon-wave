@@ -52,8 +52,11 @@
     font-weight: 700;
     font-family: $font-stack-header;
     color:color('white');
-    text-shadow: color('body') 0px 0px 1px,   color('body') 0px 0px 1px,   color('body') 0px 0px 1px,
-    color('body') 0px 0px 1px,   color('body') 0px 0px 1px,  color('body') 0px 0px 1px;
+    text-shadow:
+            -1px -1px 0 color('body'),
+            1px -1px 0 color('body'),
+            -1px 1px 0 color('body'),
+            1px 1px 0 color('body');
     -webkit-font-smoothing: antialiased;
     .price-item {
       margin-right: em(20,40);
@@ -128,7 +131,7 @@
   }
  .product-single__sizes .product-card__form-group .option {
     max-width: none;
-    flex: 0 0 1;
+    flex: 0 0 auto;
     line-height: 27px;
     height: 30px;
     font-size: em(11);

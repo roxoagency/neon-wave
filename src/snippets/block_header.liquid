@@ -19,6 +19,18 @@
                     </div>
                     {% section 'block_site-nav' %}
                     {% section 'block_menu-slider' %}
+                    <div class="js-menu-content hide">
+                        <div class="menu-content">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    {% section 'block_menu-content-blog' %}
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    {% section 'block_menu-content-lookbook' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -66,6 +78,9 @@
 
 
 
+
+
+
 </script>
 
 {% if template.name == 'index' %}
@@ -81,6 +96,9 @@
     },
     "url": "{{ shop.url }}{{ page.url }}"
   }
+
+
+
 
 
 

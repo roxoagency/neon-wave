@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/tab';
@@ -13,8 +14,6 @@ import { CurrencySwitcherBlock } from './blocks/currency-switcher';
 import {CollectionBlock} from "./blocks/collection";
 import './blocks/quantity';
 import {RelatedProductsBlock} from "./blocks/related-products";
-
-
 const theme = new Theme();
 theme.register('hero', HeroBlock);
 theme.register('coordinates-block', CoordinatesBlock);
@@ -35,6 +34,10 @@ import './blocks/addresses';
 import './blocks/mailchimp-form';
 import './blocks/faq';
 import './sections/about-location';
+import './sections/blog';
+import './sections/sustainability-section--fifth';
+import './sections/sustainability-section';
+import './sections/single-post';
 load('*');
 
 

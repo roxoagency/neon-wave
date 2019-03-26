@@ -1,5 +1,6 @@
 {% if nav != blank %}
 <ul class="site-nav list--inline">
+
   {% for link in linklists[nav].links %}
     {%- assign child_list_handle = link.title | handleize -%}
 
@@ -16,7 +17,7 @@
 
     {% if link.links != blank %}
 
-      <li class="site-nav__item site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% if link.active %} site-nav__item--active{% endif %}" data-has-dropdown="{{link.handle}}-{{ forloop.index }}">
+      <li class="site-nav__item site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% if link.active %} site-nav__item--active{% endif %}" data-has-dropdown="{{link.handle}}-{{ forloop.index }}" >
         <a href="{{ link.url }}"
           class="site-nav__link site-nav__link--root"
           {% if link.current %} aria-current="page"{% endif %} aria-haspopup="true" aria-expanded="false">
@@ -74,15 +75,28 @@
         {% capture submenus %}{{ submenus }}{{ submenus_tmp }}{% endcapture %}
       </li>
     {% else %}
-      <li class="site-nav__item site-nav__item--root{% if link.active %} site-nav__item--active{% endif %}">
+      <li class="site-nav__item site-nav__item--root{% if link.active %} site-nav__item--active{% endif %} {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1%}site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% endif %}" {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1%} data-has-dropdown="content"{% endif %}>
         <a href="{{ link.url }}"
           class="site-nav__link site-nav__link--root"
           {% if link.current %} aria-current="page"{% endif %}
         >
           <span class="site-nav__label">{{ link.title | escape }}</span>
         </a>
+        {% if linklists[nav].handle  == 'main-menu'  and forloop.index == 1%}
+        <div class="site-nav__dropdown" data-slug="content" data-root-item="content">
+            <div class="menu-content">
+                <div class="row">
+                    <div class="col-12 col-md-6 js-blog-block">
+                    </div>
+                    <div class="col-12 col-md-6 js-lookbook-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
       </li>
     {% endif %}
   {% endfor %}
 </ul>
 {% endif %}
+

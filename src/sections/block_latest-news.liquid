@@ -13,7 +13,7 @@
     <div class="row">
       {% unless blog.articles_count == 0 %}
         {% for article in blog.articles limit: 6 %}
-          <div class="article-card col-sm-2">
+          <div class="article-card col-12 col-md-2">
             {% if article.image %}
                 {%- assign img_url = article.image | img_url: '100x100', crop: 'center' -%}
 

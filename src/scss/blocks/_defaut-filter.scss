@@ -36,7 +36,9 @@
       -webkit-text-stroke-width: 1px;
       -webkit-text-stroke-color: color('body');
       -webkit-text-fill-color: color('white');
-
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        text-shadow: -1px 0 color('body'), 0 1px color('body'), 1px 0 color('body'), 0 -1px color('body');
+      }
       &:after {
         background: color('body');
       }
@@ -47,6 +49,9 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: color('body');
     -webkit-text-fill-color: color('white');
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      text-shadow: -1px 0 color('body'), 0 1px color('body'), 1px 0 color('body'), 0 -1px color('body');
+    }
 
     &:after {
       background: color('body');

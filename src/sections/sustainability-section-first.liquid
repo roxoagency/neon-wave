@@ -15,13 +15,13 @@
     "id": "sustainability_1_title_bottom",
     "label": "Bottom title text",
     "type": "text",
-    "default":"OF CHANGE"
+    "default":"FOR CHANGE"
     }
 
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--first" data-section-type="sustainability-section--first"
+<div class="sustainability-section sustainability-section--first" data-section-type="sustainability-section--first" id="sustainability-section--first"
      data-section-id="{{ section.id }}">
     <div class="container">
         <h1 class="sustainability-section__title">
@@ -32,7 +32,7 @@
                 <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_1_title_bottom }}</span>
             {% endif %}
         </h1>
-        <a href="#sustainability-section--second">
+        <a href="#sustainability-section--second" class="js-go-to sustainability-section__next">
             {% include 'icon-go-next' %}
         </a>
     </div>

@@ -27,6 +27,11 @@
       color: color('primary');
       opacity: 1;
     }
+    &:focus {
+      box-shadow: none;
+      outline: none
+    }
+
   }
   &__field {
     height: 30px;
@@ -56,7 +61,7 @@
   }
 
   &__textarea--transparent-default,
-  &__field--transparent-default{
+  &__field--transparent-default {
     background: transparent;
     color: color('body');
     border: 0 solid #00727D;
@@ -71,9 +76,9 @@
       color: color('body');
     }
   }
-  &__textarea--transparent-default{
+  &__textarea--transparent-default {
     border-top: 1px solid #00727D;
-    margin-top: em(14,13);
+    margin-top: em(14, 13);
   }
   &__select {
     width: 100%;
@@ -144,6 +149,10 @@
 
     input[type="checkbox"] {
       margin-right: em(10);
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        margin-bottom: em(6);
+      }
     }
     input[type="checkbox"],
     .form__label {
@@ -162,14 +171,14 @@
     color: color('red');
     text-transform: uppercase;
     top: -2px;
-    small{
-      font-size: em(7.48,14.38);
+    small {
+      font-size: em(7.48, 14.38);
       vertical-align: super;
     }
   }
-  &__note{
-    font-size: em(9,13);
-    color:#898F9B;
+  &__note {
+    font-size: em(9, 13);
+    color: #898F9B;
     letter-spacing: 0.6px;
     margin-top: 1px;
   }

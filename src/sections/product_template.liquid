@@ -22,7 +22,7 @@
                         <div class="product-single__photo">
                             <img
                                  class="product-single__image {{ img_class }} lazyload"
-                                 src="{{ img_url }}"
+                                 src="{{ image | img_url: '600x600', crop: 'center' }}"
                                  data-src="{{ image | img_url: '600x600', crop: 'center' }}"
                                  data-aspectratio="{{ image.aspect_ratio }}"
                                  data-sizes="auto"
@@ -48,7 +48,7 @@
                             <div  class="product-single__photo-wrapper-modal ">
                                 <div class="product-single__photo">
                                     <img class="product-single__image {{ img_class }} lazyload"
-                                         src="{{ img_url }}"
+                                         src="{{ image | img_url: '980x' }}"
                                          data-src="{{ image | img_url: '980x' }}"
                                          data-aspectratio="{{ image.aspect_ratio }}"
                                          data-sizes="auto"

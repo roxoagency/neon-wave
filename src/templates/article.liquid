@@ -1,41 +1,102 @@
-{% assign number_of_comments = article.comments_count %}
-{% if comment and comment.created_at %}
-  {% assign number_of_comments = article.comments_count %}
-{% endif %}
+<div class="page page--article single-post page--default" data-section-type="single-post" data-section-id="single-post">
+    <div class="container">
+        <div class="page__header ">
+            {% include 'breadcrumbs' %}
+        </div>
 
-<h1>{{ article.title }}</h1>
-{% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-{% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-{{ article.author }} @ {{ article.created_at }}
+        <div class="page__title single-post__header">
+            <h1 class="single-post__title">{{ article.title }}</h1>
+        </div>
+        <div class="single-post__meta">
+            {% for tag in article.tags %}
+                {% assign stringToCheck = tag %}
+                {% assign startsWith =  'category-' %}
+                {% assign checkArray = stringToCheck | split:startsWith %}
+                {% if checkArray[0] == blank %}
+                    {% assign title = tag | replace: 'category-','' %}
+                    <div class="single-post__category">
+                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}"> {{ title }}</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="single-post__date">
+                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>
+            </div>
+        </div>
 
-<div>{{ article.content }}</div>
-{% if blog.comments_enabled? %}
-  <h2>{{ number_of_comments }} comments</h2>
-  {% paginate article.comments by 5 %}
-    {% for comment in article.comments %}
-      <div>
-        <div>{{ comment.content }}</div>
-        {{ comment.author }} @ {{ comment.created_at }}
-      </div>
-    {% endfor %}
-    {% if paginate.pages > 1 %}
-      {{ paginate | default_pagination }}
-    {% endif %}
-  {% endpaginate %}
+    </div>
+    <div class="single-post__content">
+        {% if article.image  or article.excerpt.size > 0 %}
+            <div class="single-post__info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-8">
+                            {% if article.image %}
+                                <div class="single-post__image-wrapper">
+                                    <img class="single-post__image lazyload"
+                                         src="{{ article.image | img_url: '400x' }}"
+                                         data-src="{{ article.image | img_url: '870x' }}"
+                                         data-aspectratio="{{ article.image.aspect_ratio }}"
+                                         data-sizes="auto"
+                                         alt="">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 col-md-4">
+                            {% if article.excerpt.size > 0 %}
+                                <div class="single-post__excerpt">
+                                    {{ article.excerpt }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="single-post__section page__content">
+        <div class="container ">
+            {{ article.content }}
+        </div>
+        </div>
+        {% include "related-articles" %}
+        {% include "related-products-for-article" %}
 
-  <div>
-    {% form 'new_comment', article %}
-      {{ form.errors | default_errors }}
-      <label for="CommentAuthor">name</label>
-      <input type="text" name="comment[author]" id="CommentAuthor" placeholder="name" value="{{ form.author }}" autocapitalize="words">
+    </div>
+    <div class="single-post__nav">
+        {% if  blog.previous_article %}
+            <span class="single-post__nav-text single-post__nav-text--prev js-single-post-nav-toogle"
+                  data-action="prev">PREV ARTICLE</span>
+            <div class="single-post__nav-item single-post__nav-item--prev">
+                <div class="post-card post-card--nav single-post__nav-post">
+                    {% if blog.previous_article.image %}
+                        <a class="post-card__image-wrapper" href="{{ blog.previous_article.url }}">
+                            {{ blog.previous_article.image | img_url: '322x322', crop: 'center' | img_tag: blog.previous_article.title }}
+                        </a>
+                    {% endif %}
+                    <h2 class="post-card__title">
+                        <a href="{{ blog.previous_article.url }}">{{ blog.previous_article.title }}</a>
+                    </h2>
+                </div>
+            </div>
+        {% endif %}
+        {% if  blog.next_article %}
 
-      <label for="CommentEmail">email</label>
-      <input type="email" name="comment[email]" id="CommentEmail" placeholder="email" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
-
-      <label for="CommentBody">message</label>
-      <textarea name="comment[body]" id="CommentBody" placeholder="message">{{ form.body }}</textarea>
-
-      <input type="submit" value="post">
-    {% endform %}
-  </div>
-{% endif %}
+            <span class="single-post__nav-text js-single-post-nav-toogle single-post__nav-text--next"
+                  data-action="next">NEXT ARTICLE</span>
+            <div class="single-post__nav-item single-post__nav-item--next">
+                <div class="post-card post-card--nav single-post__nav-post">
+                    {% if blog.next_article.image %}
+                        <a class="post-card__image-wrapper" href="{{ blog.next_article.url }}">
+                            {{ blog.next_article.image | img_url: '322x322', crop: 'center' | img_tag: blog.next_article.title }}
+                        </a>
+                    {% endif %}
+                    <h2 class="post-card__title">
+                        <a href="{{ blog.next_article.url }}">{{ blog.next_article.title }}</a>
+                    </h2>
+                </div>
+            </div>
+            <a href="{{ blog.next_article }}"></a>
+        {% endif %}
+        <div class="single-post__nav-overlay"></div>
+    </div>
+</div>

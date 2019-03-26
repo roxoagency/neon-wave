@@ -13,5 +13,12 @@
     color:color('primary');
     text-transform: uppercase;
     margin-bottom: em(48,36);
+    letter-spacing: 0;
+  }
+  &--article{
+    padding-top: 0;
+    .related-products__title{
+      color:color('body');
+    }
   }
 }

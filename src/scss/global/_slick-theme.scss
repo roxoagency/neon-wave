@@ -108,7 +108,10 @@
 
     background: color('primary');
   }
-  &:hover {
+  &.slick-disabled{
+    cursor: not-allowed;
+  }
+  &:hover:not(.slick-disabled) {
     opacity: 1;
 
   }

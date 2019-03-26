@@ -30,7 +30,7 @@
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--second" data-section-type="sustainability-section--second"
+<div class="sustainability-section sustainability-section--fourth" data-section-type="sustainability-section--fourth" id="sustainability-section--fourth"
      data-section-id="{{ section.id }}">
     <div class="container">
         <h2 class="sustainability-section__title">
@@ -49,7 +49,7 @@
         {% if section.settings.sustainability_4_img  %}
             <div class="sustainability-section__image-wrapper">
                 <img class="sustainability-section__image"
-                     src="{{ section.settings.sustainability_4_img | img_url: 'origin' }}" alt="">
+                     src="{{ section.settings.sustainability_4_img | img_url: 'master' }}" alt="">
             </div>
         {% endif %}
     </div>

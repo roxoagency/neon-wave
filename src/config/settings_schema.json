@@ -95,8 +95,7 @@
         "id": "customer_support_menu",
         "label": {
           "en": "Menu"
-        },
-        "default":"customer-support"
+        }
       }
     ]
   }

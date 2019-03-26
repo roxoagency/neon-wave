@@ -5,6 +5,19 @@
     },
     "settings": [
     {
+    "id": "sustainability_2_title_top",
+    "label": "Top title text",
+    "type": "text",
+    "default":"A SEA"
+    },
+
+    {
+    "id": "sustainability_2_title_bottom",
+    "label": "Bottom title text",
+    "type": "text",
+    "default":"FOR CHANGE"
+    },
+    {
     "id": "sustainability_2_text",
     "label": "Text",
     "type": "richtext"
@@ -12,9 +25,17 @@
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--second" data-section-type="sustainability-section--second"
-     data-section-id="{{ section.id }}">
+<div class="sustainability-section sustainability-section--second" data-section-type="sustainability-section--second" id="sustainability-section--second"
+     data-section-id="{{ section.id }}" id="sustainability-section--second">
     <div class="container">
+        <h2 class="sustainability-section__title">
+            {% if section.settings.sustainability_2_title_top != '' %}
+                <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_2_title_top }}</span>
+            {% endif %}
+            {% if section.settings.sustainability_2_title_bottom != '' %}
+                <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_2_title_bottom }}</span>
+            {% endif %}
+        </h2>
         {% if section.settings.sustainability_2_text != '' %}
             <div class="sustainability-section__content">
                 {{ section.settings.sustainability_2_text }}

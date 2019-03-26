@@ -178,8 +178,9 @@ body {
     margin: 0;
     height: 12px;
     width: auto;
-    padding-left: 0;
     text-align: left;
+    padding: 0;
+    line-height: 12px;
   }
   .bc-sf-filter-block-content .bc-sf-filter-option-range-amount .bc-sf-filter-option-range-amount-split {
     font-size: inherit;
