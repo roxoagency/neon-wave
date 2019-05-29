@@ -1,13 +1,13 @@
 {% paginate blog.articles by 14 %}
 
-    <div class="page page--blog " data-section-type="blog" data-section-id="blog">
+    <div class="page page--blog animated-pages" data-section-type="blog" data-section-id="blog">
     <div class="container">
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
         {% section 'blog' %}
         <div class="page__content blog-list">
-            <div class="row blog-list__row">
+            <div class="row blog-list__row ">
                 {% for article in blog.articles %}
                 {% if forloop.index0 == 7 %}
             </div>
@@ -17,23 +17,24 @@
                 {% endif %}
                 {% if forloop.index0 == 1 or forloop.index0 == 8 %}
                 <div class="col-12 col-md-6 ">
-                    <div class="row">
+                    <div class="row blog-list__row-inner">
 
                 {% endif %}
                 {% if forloop.index0 == 0  or  forloop.index0 == 7 %}
-                <div class=" blog-list__item col-12   col-md-6  blog-list__item--highlighted blog-list__item--{{ forloop.index0 }} ">
+                <div class=" blog-list__item col-12   col-md-6  blog-list__item--highlighted blog-list__item--{{ forloop.index0 }} is-sticky ">
                     <div class="post-card--{{ forloop.index0 }}">
-                    <div class="post-card post-card--highlighted ">
+                    <div class="post-card   post-card--highlighted ">
                         {% else %}
-                        <div class="post-card post-card blog-list__item col-12 col-md-6">
+                        <div class="post-card   post-card blog-list__item col-6 col-lg-6">
                             {% endif %}
                             {% if article.image %}
-                                <a class="post-card__image-wrapper" href="{{ article.url }}">
-                                    {% if forloop.index0 == 0  or  forloop.index0 == 7 %}
-                                        {{ article | img_url: '498x640', crop: 'center' | img_tag: article.title }}
-                                    {% else %}
-                                        {{ article | img_url: '284x284', crop: 'center' | img_tag: article.title }}
-                                    {% endif %}
+                                {% assign image = article.image %}
+
+                                <a class="post-card__image-wrapper lazyload" href="{{ article.url }}"
+                                    data-bgset="{% include 'bgset', image: image %}"
+                                    data-sizes="auto"
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ image  | img_url: '750x960' }});">
                                 </a>
                             {% endif %}
                             <h2 class="post-card__title"><a href="{{ article.url }}">{{ article.title }}</a></h2>

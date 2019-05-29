@@ -1,22 +1,22 @@
-<div class="cart" data-section-id="{{ section.id }}" data-section-type="cart-template">
+<div class="cart animated-pages" data-section-id="{{ section.id }}" data-section-type="cart-template">
     <div class="container">
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
         {% if cart.item_count > 0 %}
-            <div class="page__title">
+            <div class="page__title ">
                 <h1>{{ 'cart.general.title' | t }}</h1>
             </div>
 
             <div class="page__content ">
                 <form action="/cart" method="post" novalidate class="cart__form">
-                    <table class="cart__table">
+                    <table class="cart__table ">
 
                         <tbody>
                         {% for item in cart.items %}
                             <tr class="cart__row border-bottom line{{ forloop.index }}{% if forloop.first %} border-top{% endif %}">
                                 <td class="cart__image-wrapper">
-                                    <img class="cart__image" src="{{ item | img_url: '100x100', crop: 'center' }}"
+                                    <img class="cart__image" src="{{ item | img_url: '170x170', crop: 'center' }}"
                                          alt="{{ item.title | escape }}" data-item-url="{{ item.url }}">
                                 </td>
                                 <td class="cart__meta small--text-left">
@@ -64,6 +64,40 @@
                                             {% endfor %}
                                         </div>
                                     {% endif %}
+                                    <div class="cart__item-price">
+                                        {{ item.price | money }}
+
+                                        {% for discount in item.discounts %}
+                                            <div class="cart-item__discount medium-up--hide">{{ discount.title }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="cart__qty">
+                                        <div class="quantity js--quantity quantity--lg">
+                                            <input class="product-form__input quantity__item js--quantity-item cart__qty-input"
+                                                   type="number" name=""
+                                                   value="{{ item.quantity }}" min="0" pattern="[0-9]*"
+                                                   data-quantity-item="{{ forloop.index }}">
+                                            <button class="quantity__button quantity__button--top js--quantity--top"
+                                                    type="button">{% include 'icon-plus' %}</button>
+                                            <button class="quantity__button quantity__button--bottom js--quantity-bottom"
+                                                    type="button">{% include 'icon-minus' %}</button>
+                                        </div>
+                                    </div>
+                                    <div class="cart__item-price">
+                                        {% if item.original_line_price != item.line_price %}
+                                            <div class="cart-item__original-price">
+                                                <s>{{ item.original_line_price | money }}</s>
+                                            </div>
+                                        {% endif %}
+
+                                        <div>
+                                            {{ item.line_price | money }}
+                                        </div>
+                                    </div>
+                                    {% for discount in item.discounts %}
+                                        <div class="cart-item__discount">{{ discount.title }}</div>
+                                    {% endfor %}
+
                                 </td>
                                 <td class="cart__price-wrapper">
                                     <div class="cart__item-price">
@@ -121,34 +155,43 @@
                     </table>
 
                     <div class="cart__footer">
-                        <div class="cart__submit-controls">
-                            <a href="collections/all"
-                               class="cart__continue cart__submit-control">
-                                {% include 'icon-continue' %} <span
-                                        class="cart__submit-control-text">{{ 'cart.general.continue_shopping' | t }}</span>
-                            </a>
-                            <a href="/cart/clear"
-                               class="cart__clear cart__submit-control">{% include 'icon-remove' %} <span
-                                        class="cart__submit-control-text">{{ 'cart.general.clear' | t }}</span></a>
-                            <button type="submit" name="update"
-                                    class="cart__update cart__submit-control">
-                                {% include 'icon-update' %} <span
-                                        class="cart__submit-control-text">{{ 'cart.general.update' | t }}</span>
-                            </button>
+                        <div class="cart__submit-controls  ">
+                            <div>
+                                <a href="collections/all"
+                                   class="cart__continue cart__submit-control">
+                                    {% include 'icon-continue' %} <span
+                                            class="cart__submit-control-text">{{ 'cart.general.continue_shopping' | t }}</span>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/cart/clear"
+                                   class="cart__clear cart__submit-control">{% include 'icon-remove' %} <span
+                                            class="cart__submit-control-text">{{ 'cart.general.clear' | t }}</span></a>
+                            </div>
+                            <div>
+                                <button type="submit" name="update"
+                                        class="cart__update cart__submit-control">
+                                    {% include 'icon-update' %} <span
+                                            class="cart__submit-control-text">{{ 'cart.general.update' | t }}</span>
+                                </button>
+                            </div>
                         </div>
                         <div class="cart__row">
                             <div class="row">
-                                <div class="col-12 col-md-4 cart__shipping-wrapper">
+                                <div class="col-12 col-lg-4 cart__shipping-wrapper  ">
                                     {% include 'shipping-calculator' %}
                                 </div>
-                                <div class="col-12 col-md-4 cart__note-wrapper">
-                                    <h3>{{ 'cart.general.note' | t }}</h3>
-                                    <label for="CartSpecialInstructions"
-                                           class="form__label">{{ 'cart.general.note_text' | t }}</label>
-                                    <textarea name="note" id="CartSpecialInstructions"
-                                              class="form__textarea form__textarea--gray">{{ cart.note }}</textarea>
+                                <div class="col-12 col-lg-4 cart__note-wrapper  ">
+                                    <div class="cart__note">
+                                        <h3>{{ 'cart.general.note' | t }}</h3>
+                                        <label for="CartSpecialInstructions"
+                                               class="form__label">{{ 'cart.general.note_text' | t }}</label>
+                                        <textarea name="note" id="CartSpecialInstructions"
+                                                  class="form__textarea form__textarea--gray">{{ cart.note }}</textarea>
+                                    </div>
                                 </div>
-                                <div class="col-12 col-md-4  cart__total-wrapper">
+                                <div class="col-12 col-lg-4  cart__total-wrapper  ">
+                                    <div class="cart__total-el">
                                     <div class="cart__total-row">
                                         <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
                                         <span class="cart__subtotal">{{ cart.total_price | money }}</span>
@@ -166,13 +209,14 @@
 
                                     <div class="cart__submit-wrapper">
 
-                                        <input type="submit" name="checkout"
+                                        <button type="submit" name="checkout"
                                                class="btn btn--default btn--md cart__submit"
-                                               value="{{ 'cart.general.proceed_to_checkout' | t }}">
+                                        >{{ 'cart.general.proceed_to_checkout' | t }}</button>
                                     </div>
                                     {% if additional_checkout_buttons %}
                                         <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
                                     {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +226,7 @@
             </div>
         {% else %}
 
-            <div class="page__title">
+            <div class="page__title ">
                 <h1>{{ 'cart.general.title' | t }}</h1>
             </div>
 

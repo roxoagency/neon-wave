@@ -22,8 +22,8 @@
                        name="address[zip]"{% if shop.customer_accounts_enabled and customer %} value="{{ customer.default_address.zip }}"{% endif %} />
             </div>
             <div class="form__row form__row--btn">
-                <input type="button" class="get-rates shipping-calculator__btn  btn  btn--outline  btn--md"
-                       value="{{ section.settings.shipping_calculator_submit_button_label | default: 'Calculate shipping' }}"/>
+                <button type="button" class="get-rates shipping-calculator__btn  btn  btn--outline  btn--md"
+                >{{ section.settings.shipping_calculator_submit_button_label | default: 'Calculate shipping' }}</button>
             </div>
         </div>
 

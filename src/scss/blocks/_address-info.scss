@@ -1,18 +1,48 @@
 .address-info {
 
   margin: 0 0 em(27);
-  &:after,
-  &__title:after {
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    margin: 0 0 em(11,10);
+    text-align: center;
+    text-align-last: center;
+  }
+  &:after {
     content: '';
-    width: 136px;
+    width: em(136,14.95);
     height: 1px;
     background: color('light');
     display: block;
-    margin: 1px 0 0 ;
+    margin: em(1,14.95) 0 0 ;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+
+      width: em(87,10);
+      margin: em(12,10) auto 0 ;
+    }
+  }
+  &__title:after {
+    content: '';
+    width: em(136,20);
+    height: 1px;
+    background: color('light');
+    display: block;
+    margin: em(1,20) 0 0 ;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      width: em(87,12.77);
+      margin: em(8,12.77) auto 0 ;
+    }
   }
   &__title{
     font-size: em(20);
     letter-spacing: 0.8px;
     margin: 0 0 em(26,20);
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(12.77,10);
+      letter-spacing: letterspacing-to-pixels(140,12.77);
+
+      margin: 0 0 em(10,12.77);
+    }
+  }
+  .about-section__content & p{
+    margin-bottom: 0;
   }
 }

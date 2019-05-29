@@ -21,7 +21,16 @@ const slickConfig = {
 	slidesToShow: 1,
 	slidesToScroll: 1,
 	dots: true,
-	// appendDots:
+	responsive: [
+		{
+			breakpoint: 768,
+			settings: {
+				arrows: false,
+				dots: false,
+				autoplay:true,
+			}
+		}
+	]
 };
 
 

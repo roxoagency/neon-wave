@@ -3,13 +3,13 @@
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
-        <div class="page__title">
+        <div class="page__title  animated-block">
             <h1>{{ 'customer.account.title' | t }}</h1>
         </div>
 
-        <h2 class="account-page__title ">{{ 'customer.account.my_account' | t }}</h2>
+        <h2 class="account-page__title  animated-block">{{ 'customer.account.my_account' | t }}</h2>
 
-        <div class="account-page__orders">
+        <div class="account-page__orders animated-block">
             <h2 class="account-page__subtitle h6">{{ 'customer.orders.title' | t }}</h2>
 
             {% paginate customer.orders by 20 %}
@@ -55,7 +55,7 @@
                 {% endif %}
             {% endpaginate %}
         </div>
-        <div class="account-page__address">
+        <div class="account-page__address animated-block">
             <h2 class="account-page__subtitle h6">{{ 'customer.account.details' | t }}</h2>
             {% include "block-address"  , customer_address: customer.default_address %}
             <div class="form__row form__row--md form__row--btn">

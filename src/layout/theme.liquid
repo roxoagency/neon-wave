@@ -6,6 +6,11 @@
     <meta name="description" content="{{ page_description | escape }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | img_url: '180x180' }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | img_url: '32x32' }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ settings.favicon | img_url: '16x16' }}">
+    <meta name="msapplication-TileColor" content="#00717b">
+    <meta name="theme-color" content="#ffffff">
     {{ content_for_header }} <!-- Header hook for plugins -->
     <link rel="stylesheet" href="https://use.typekit.net/ucf7mrk.css">
     {{ 'styles.bundle.css' | asset_url | stylesheet_tag }}
@@ -13,11 +18,11 @@
     <script type="text/javascript">
 		var theme = {
 			strings: {
-				validEmail: {{ 'general.singup.valid_email_msg' | t  | json}},
-				validFirstName: {{ 'general.singup.valid_first_name_msg' | t  | json}},
-				addToCart: {{ 'products.product.add_to_cart' | t  | json}},
-				soldOut:{{ 'products.product.sold_out' | t | json}},
-				unavailable:{{ 'products.product.unavailable' | t  | json}},
+				validEmail: {{ 'general.singup.valid_email_msg' | t  | json }},
+				validFirstName: {{ 'general.singup.valid_first_name_msg' | t  | json }},
+				addToCart: {{ 'products.product.add_to_cart' | t  | json }},
+				soldOut:{{ 'products.product.sold_out' | t | json }},
+				unavailable:{{ 'products.product.unavailable' | t  | json }},
 				addedToCart: 'Successfully added item to your basket',
 				slickArrowLeft: '<button class="slick-prev" aria-label="Previous" type="button">{% capture arrow %}{% include "icon-arrow-left" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
 				slickArrowRight: '<button class="slick-next" aria-label="Next" type="button">{% capture arrow %}{% include "icon-arrow-right" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
@@ -25,7 +30,7 @@
 				slickArrowRightLong: '<button class="slick-next slick-next--long" aria-label="Next" type="button">{% capture arrow %}{% include "related-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
 				slickArrowLeftModal: '<button class="slick-prev slick-prev--modal" aria-label="Previous" type="button">{% capture arrow %}{% include "icon-modal-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
 				slickArrowRightModal: '<button class="slick-next slick-next--modal" aria-label="Next" type="button">{% capture arrow %}{% include "icon-modal-arrow" %}{% endcapture %}{{ arrow | strip | strip_newlines }}</button>',
-
+				newsletterNotification: {{ 'general.singup.notification' | t | json }},
 			},
 			products: {},
 			shopCurrency: '{{ shop.currency }}',
@@ -34,8 +39,8 @@
 			defaultCurrency: '{{ settings.default_currency | default: shop.currency }}',
 			currencyFormat: '{{ settings.currency_format | default: 'money_with_currency_format' }}',
 			manifest: [
-				{src:'{{ "globe_rotation_atlas_.png" | asset_url }}', id:"globe_rotation_atlas_"},
-				{src:'{{ "globe_rotation_atlas_2.png" | asset_url }}', id:"globe_rotation_atlas_2"}
+				{src: '{{ "globe_rotation_atlas_.png" | asset_url }}', id: "globe_rotation_atlas_"},
+				{src: '{{ "globe_rotation_atlas_2.png" | asset_url }}', id: "globe_rotation_atlas_2"}
 			]
 
 		};
@@ -56,14 +61,32 @@
     {% include 'bc-sf-filter-style' %}
     <!--end-bc-sf-filter-css-->
 </head>
-<body>
-<div class="page">
-    {% include 'block_header' %}
-    <main role="main">
-        {{ content_for_layout }}
-    </main>
-    {% section 'block_footer' %}
-    {% section 'block_product-colors' %}
+<body class="{% if template.suffix == 'sustainability' %}no-custom-scroll body--sustainability{% endif %}{% if template == 'article' %} no-custom-scroll{% endif %}" >
+<div class="page-view template-{{ template.name | handle }}{{ template.suffix | handle }}">
+    <div class="page-view__wrapper" {% if template.name == 'product' %} id="ProductSection"
+        data-section-id="product"
+        data-section-type="product"
+        data-enable-history-state="true"{% endif %}>
+        {% include 'block_header' %}
+        <div class="page-view__scroll"  data-section-type="animations" data-section-id="animations">
+            <div class="page-view__scroll-content">
+                <main role="main" class="{% if template != 'index' %}main-page{% endif %}">
+                    {{ content_for_layout }}
+                </main>
+                {% if template contains 'customers' %}{% else %}
+            </div>
+        </div>
+        {% endif %}
+
+
+        {% section 'block_footer' %}
+        {% if template contains 'customers' %}
+    </div>
+</div>
+{% endif %}
+        {% section 'block_product-colors' %}
+
+    </div>
 </div>
 <!--begin-bc-sf-filter-js-->
 {% include 'bc-sf-filter' %}
@@ -80,5 +103,6 @@
     <!--start-bc-most-popular-product-init-->
     {% include 'bc-most-popular-product-init' %}
     <!--end-bc-most-popular-product-init-->{% endcomment %}
+{% include 'swymSnippet' %}
 </body>
 </html>

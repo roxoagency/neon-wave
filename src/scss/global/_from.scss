@@ -23,6 +23,9 @@
     padding: em(6, 11) em(16, 11);
     text-transform: uppercase;
     background: #fff;
+    box-shadow:none;
+    border-radius: 0;
+    background-clip: padding-box;
     &::placeholder {
       color: color('primary');
       opacity: 1;
@@ -34,10 +37,10 @@
 
   }
   &__field {
-    height: 30px;
+    height: em(30,11);
   }
   &__field--md {
-    height: 44px;
+    height: em(44, 11);
     padding: em(12, 11) em(14, 11) em(14, 11);
     color: color('body');
     &::placeholder {
@@ -90,12 +93,13 @@
     letter-spacing: 0.9px;
     padding: em(6, 11) em(16, 11);
     text-transform: uppercase;
-    height: 30px;
+    height: em(30,11);
     background: #fff url("select-bg.svg") no-repeat calc(100% + 1px)  -1px;
+    background-size: calc(100% + 2px);
     appearance: none;
     border-radius: 0;
     &--md {
-      height: 44px;
+      height: em(44, 11);
       padding: em(12, 11) em(14, 11) em(14, 11);
       //color: color('body');    background: #fff url(select-bg.svg) no-repeat calc(100% + 2px) -2px;
       //background-size: 32px;
@@ -170,7 +174,7 @@
     left: 0;
     color: color('red');
     text-transform: uppercase;
-    top: -2px;
+    top: em(-2, 14.38);
     small {
       font-size: em(7.48, 14.38);
       vertical-align: super;
@@ -185,3 +189,13 @@
 
 }
 
+.form__checkbox {
+  align-items: center;
+  input[type="checkbox"] {
+    margin-bottom: 0.6em;
+  }
+}
+
+textarea{
+  -webkit-appearance: none;
+}

@@ -1,32 +1,89 @@
+@keyframes like-gif {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
 .globe {
-  width: 444px;
-  height: 444px;
+  width: 100%;
   position: relative;
-  background: url(globe_rotation_atlas_.png) no-repeat top left;
-  background-size: 970px;
-  &:after{
+  z-index: 1;
+
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    width: 285px;
+    //padding: 285px 0 0;
+    margin: 0 auto em(40);
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    width: 150px;
+    //padding: 200px 0 0;
+  }
+  @media (max-width: 215px) {
+    width: 100%;
+    //padding: 100% 0 0;
+  }
+  &:after {
     content: '';
     background: url(globe-shadow.png) no-repeat center;
     display: block;
-    width:1290px;
+    width: 1290px;
     height: 152px;
     position: absolute;
     bottom: -121px;
-    left:50%;
+    left: 50%;
     transform: translateX(-50%);
+    z-index: 1;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      width: 830px;
+      height: 98px;
+      bottom: -78px;
+      background-size: contain;
+    }
+  }
+  &__wrapper {
+    max-width: 75%;
+    min-width: 444px;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      width: 285px;
+      margin: 0 auto em(43);
+      max-width: 100%;
+      min-width: 0;
+    }
   }
   &__content {
     max-width: 100%;
-    max-height: 100%;
+    z-index: 2;
+    position: relative;
+    img {
+      width: auto;
+      max-height: 60vh;
+    }
   }
-  &__canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+
+  &__animation {
+    display: block;
+    padding-bottom: 100%;
+    background: url(globe-animation-shadows.png);
+    background: {
+      repeat: no-repeat;
+      position: 0 100%;
+      size: 100% auto;
+    };
+
+    &.is--played {
+      animation: like-gif steps(6) 1.4s infinite both;
+    }
+
+    &-container {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+    }
   }
 
 }
+
+

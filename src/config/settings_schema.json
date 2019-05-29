@@ -9,6 +9,42 @@
   },
   {
     "name": {
+      "en": "Information"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "en": "Information"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": {
+          "en": "Favicon"
+        }
+      },
+      {
+        "type": "text",
+        "id": "address",
+        "label": {
+          "en": "Address"
+        },
+        "default": "1328B University Ave Rochester, NY 14604"
+      },
+      {
+        "type": "text",
+        "id": "phone",
+        "label": {
+          "en": "Phone"
+        },
+        "default": "133456789"
+      }
+    ]
+  },
+  {
+    "name": {
       "en": "Social media"
     },
     "settings": [

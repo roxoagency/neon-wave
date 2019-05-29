@@ -10,7 +10,7 @@
   class="featured-collections__inner"
   data-section-type="featured-collections"
   data-section-id="{{ section.id }}">
-  <div class="featured-collections__header section-header">
+  <div class="featured-collections__header section-header animated-block">
     {% if section.settings.title != blank %}
       <h2 class="section-header__title">{{ section.settings.title }}</h2>
     {% endif %}
@@ -19,7 +19,7 @@
     {% endif %}
   </div>
   <div class="container">
-    <div class="featured-collections__content featured-collections__content--size-{{ section.blocks.size }}">
+    <div class="featured-collections__content featured-collections__content--size-{{ section.blocks.size }} ">
       {% for block in section.blocks %}
         {% if section.blocks.size == 3 and forloop.index == 2 %}
           <div class="featured-collections__col">
@@ -53,7 +53,7 @@
           <div class="featured-collections__row">
         {% endif %}
         {% if block.settings.image != blank %}
-        <div class="featured-collections__item">
+        <div class="featured-collections__item animated-block">
           <div class="hero__slide featured-collections__image">
             {% if block.settings.link != blank %}
               <a href="{{ block.settings.link }}" class="hero__link--full"></a>
@@ -74,10 +74,10 @@
                     <h3 class="hero__title">{{ block.settings.title }}</h3>
                   {% endif %}
                   {% if block.settings.subtitle != blank %}
-                    <h4 class="hero__subtitle">{{ block.settings.subtitle }}</h3>
+                    <h4 class="hero__subtitle">{{ block.settings.subtitle }}</h4>
                   {% endif %}
                   {% if block.settings.link_text != blank %}
-                    <a href="{{ block.settings.link }}" class="hero__link">{{ block.settings.link_text }}</a>
+                    <a href="{{ block.settings.link }}" class="hero__link"><span class="hero__link-text hero__link-text--md">{{ block.settings.link_text }}</span><span class="hero__link-text hero__link-text--sm">{{ block.settings.link_text_sm }}</span></a>
                   {% endif %}
                 </div>
               </div>
@@ -194,7 +194,14 @@
           "label": {
             "en": "Link text"
           }
-        },
+        }, {
+  "type": "text",
+  "id": "link_text_sm",
+  "label": {
+  "en": "Mobile link text"
+  },
+  "default": "Shop today"
+  },
         {
           "type": "select",
           "id": "alignment",

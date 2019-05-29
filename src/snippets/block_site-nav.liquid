@@ -1,102 +1,251 @@
 {% if nav != blank %}
-<ul class="site-nav list--inline">
+    <ul class="site-nav list--inline">
 
-  {% for link in linklists[nav].links %}
-    {%- assign child_list_handle = link.title | handleize -%}
+        {% for link in linklists[nav].links %}
+            {%- assign child_list_handle = link.title | handleize -%}
 
-    {% comment %}
-      Check if third-level nav exists on each parent link.
-    {% endcomment %}
-    {%- assign three_level_nav = false -%}
-    {% if link.links != blank %}
-      {% if link.levels == 2 %}
-        {%- assign three_level_nav = true -%}
-      {% endif %}
-    {% endif %}
-
-
-    {% if link.links != blank %}
-
-      <li class="site-nav__item site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% if link.active %} site-nav__item--active{% endif %}" data-has-dropdown="{{link.handle}}-{{ forloop.index }}" >
-        <a href="{{ link.url }}"
-          class="site-nav__link site-nav__link--root"
-          {% if link.current %} aria-current="page"{% endif %} aria-haspopup="true" aria-expanded="false">
-          <span class="site-nav__label">{{ link.title | escape }}</span>
-        </a>
-
-        {% capture submenus_tmp %}
-        <div class="site-nav__dropdown" data-slug="{{ link.title | handleize }}" data-root-item="{{link.handle}}-{{ forloop.index }}">
-          <div class="site-nav__childlist">
-            <ul class="site-nav__childlist-grid">
-              {% if three_level_nav %}
-                {% if link.links != blank %}
-                  {% for childlink in link.links %}
-                    <li class="site-nav__item">
-                      <h4 class="site-nav__link site-nav__childlist-heading"
-                        {% if childlink.current %} aria-current="page"{% endif %}
-                      >
-                        <span class="site-nav__label">{{ childlink.title | escape }}</span>
-                      </h4>
-
-                      {% if childlink.links != blank %}
-                        <ul>
-                        {% for grandchildlink in childlink.links %}
-                          <li class="site-nav__item">
-                            <a href="{{ grandchildlink.url }}"
-                            class="site-nav__link"
-                            {% if grandchildlink.current %} aria-current="page"{% endif %}
-                          >
-                              <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
-                            </a>
-                          </li>
-                        {% endfor %}
-                        </ul>
-                      {% endif %}
-
-                    </li>
-                  {% endfor %}
+            {% comment %}
+                Check if third-level nav exists on each parent link.
+            {% endcomment %}
+            {%- assign three_level_nav = false -%}
+            {% if link.links != blank %}
+                {% if link.levels == 2 %}
+                    {%- assign three_level_nav = true -%}
                 {% endif %}
-              {% else %}
-                {% for childlink in link.links %}
-                  <li class="site-nav__item">
-                    <a href="{{ childlink.url }}"
-                    class="site-nav__link site-nav__child-link"
-                    {% if childlink.current %} aria-current="page"{% endif %}
-                  >
-                      <span class="site-nav__label">{{ childlink.title | escape }}</span>
+            {% endif %}
+
+
+            {% if link.links != blank %}
+
+                <li class="site-nav__item site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% if link.active %} site-nav__item--active{% endif %}"
+                    data-has-dropdown="{{ link.handle }}-{{ forloop.index }}">
+                    <a href="{{ link.url }}"
+                       class="site-nav__link site-nav__link--root"
+                            {% if link.current %} aria-current="page"{% endif %} aria-haspopup="true"
+                       aria-expanded="false">
+                        <span class="site-nav__label">{{ link.title | escape }}</span>
                     </a>
-                  </li>
-                {% endfor %}
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-        {% endcapture %}
-        {% capture submenus %}{{ submenus }}{{ submenus_tmp }}{% endcapture %}
-      </li>
-    {% else %}
-      <li class="site-nav__item site-nav__item--root{% if link.active %} site-nav__item--active{% endif %} {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1%}site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% endif %}" {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1%} data-has-dropdown="content"{% endif %}>
-        <a href="{{ link.url }}"
-          class="site-nav__link site-nav__link--root"
-          {% if link.current %} aria-current="page"{% endif %}
-        >
-          <span class="site-nav__label">{{ link.title | escape }}</span>
-        </a>
-        {% if linklists[nav].handle  == 'main-menu'  and forloop.index == 1%}
-        <div class="site-nav__dropdown" data-slug="content" data-root-item="content">
-            <div class="menu-content">
-                <div class="row">
-                    <div class="col-12 col-md-6 js-blog-block">
-                    </div>
-                    <div class="col-12 col-md-6 js-lookbook-block">
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+
+                    {% capture submenus_tmp %}
+                    {% assign first_col ='' %}
+                    {% assign second_col ='' %}
+                    {% assign third_col ='' %}
+                    {% assign fourth_col ='' %}
+                    {% assign fifth_col ='' %}
+                    {% assign other_col ='' %}
+                        <div class="site-nav__dropdown" data-slug="{{ link.title | handleize }}"
+                             data-root-item="{{ link.handle }}-{{ forloop.index }}">
+                            <div class="site-nav__childlist">
+                                <ul class="site-nav__childlist-grid">
+                                    {% if three_level_nav %}
+                                        {% if link.links != blank %}
+                                            {% for childlink in link.links %}
+                                                {% if forloop.index == 1 %}
+                                                    {% capture first_col %}
+                                                        <h4 class="site-nav__link site-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="site-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="site-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="site-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 2 %}
+                                                    {% capture second_col %}
+                                                        <h4 class="site-nav__link site-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="site-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="site-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="site-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 3 %}
+                                                    {% capture third_col %}
+                                                        <h4 class="site-nav__link site-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="site-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="site-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="site-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 4 %}
+                                                    {% capture fourth_col %}
+                                                        <h4 class="site-nav__link site-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="site-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="site-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="site-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 5 %}
+                                                    {% capture fifth_col %}
+                                                        <h4 class="site-nav__link site-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="site-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="site-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="site-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index >5 %}
+                                                    {% capture other_col %}
+                                                        <li class="site-nav__item">
+                                                            <h4 class="site-nav__link site-nav__childlist-heading"
+                                                                    {% if childlink.current %} aria-current="page"{% endif %}
+                                                            >
+                                                                <a href="{{ childlink.url }}"
+                                                                   class="site-nav__label">{{ childlink.title | escape }}</a>
+                                                            </h4>
+
+                                                            {% if childlink.links != blank %}
+                                                                <ul>
+                                                                    {% for grandchildlink in childlink.links %}
+                                                                        <li class="site-nav__item">
+                                                                            <a href="{{ grandchildlink.url }}"
+                                                                               class="site-nav__link"
+                                                                                    {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                            >
+                                                                                <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            {% endif %}
+                                                        </li>
+                                                    {% endcapture %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if first_col != '' %}
+                                                <li class="site-nav__item">{{ first_col }}<br/><br/>{{ fifth_col }}</li>
+                                            {% endif %}
+                                            {% if second_col != '' %}
+                                                <li class="site-nav__item">{{ second_col }}</li>
+                                            {% endif %}
+                                            {% if third_col != '' %}
+                                                <li class="site-nav__item">{{ third_col }}<br/><br/>{{ fourth_col }}
+                                                </li>
+                                            {% endif %}
+                                            {{ other_col }}
+                                        {% endif %}
+                                    {% else %}
+                                        {% for childlink in link.links %}
+                                            <li class="site-nav__item">
+                                                <a href="{{ childlink.url }}"
+                                                   class="site-nav__link site-nav__child-link"
+                                                        {% if childlink.current %} aria-current="page"{% endif %}
+                                                >
+                                                    <span class="site-nav__label">{{ childlink.title | escape }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endcapture %}
+                    {% capture submenus %}{{ submenus }}{{ submenus_tmp }}{% endcapture %}
+                </li>
+            {% else %}
+                <li class="site-nav__item site-nav__item--root{% if link.active %} site-nav__item--active{% endif %} {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %}site-nav__item--root js--has-dropdown site-nav__item--has-dropdown{% endif %}" {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %} data-has-dropdown="content"{% endif %}>
+                    <a href="{{ link.url }}"
+                       class="site-nav__link site-nav__link--root"
+                            {% if link.current %} aria-current="page"{% endif %}
+                    >
+                        <span class="site-nav__label">{{ link.title | escape }}</span>
+                    </a>
+                    {% if linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %}
+                        <div class="site-nav__dropdown" data-slug="content" data-root-item="content">
+                            <div class="menu-content">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 js-blog-block">
+                                    </div>
+                                    <div class="col-12 col-md-6 js-lookbook-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 {% endif %}
 

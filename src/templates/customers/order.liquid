@@ -3,20 +3,20 @@
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
-        <div class="page__title">
+        <div class="page__title animated-block">
             <h1>{{ 'customer.account.title' | t }}</h1>
         </div>
-        <h2 class="account-page__title ">{{ 'customer.order.title' | t: name: order.name }}</h2>
+        <h2 class="account-page__title animated-block">{{ 'customer.order.title' | t: name: order.name }}</h2>
 
-            <p><a href="/account" class="link-btn link-btn--md">{% include "icon-continue" %} <span class="link-btn__text">{{ 'customer.account.return' | t }}</span></a></p>
+            <p class="animated-block"><a href="/account" class="link-btn link-btn--md">{% include "icon-continue" %} <span class="link-btn__text">{{ 'customer.account.return' | t }}</span></a></p>
 
 
 
         {%- assign order_date = order.created_at | date: "%B %d, %Y %I:%M%p" -%}
-        <div class="form__text"><p class="">{{ 'customer.order.date' | t: date: order_date }}</p></div>
+        <div class="form__text animated-block"><p class="">{{ 'customer.order.date' | t: date: order_date }}</p></div>
 
         {% if order.cancelled %}
-            <div class="form__text">
+            <div class="form__text animated-block">
                 <div class="order--cancelled ">
                     {%- assign cancelled_at = order.cancelled_at | date: "%B %d, %Y %I:%M%p" -%}
                     <p>{{ 'customer.order.cancelled' | t: date: cancelled_at }}</p>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         {% endif %}
-        <div class="table__wrappper">
+        <div class="table__wrappper animated-block">
             <table class="table table--responsive table--center ">
                 <thead>
                 <tr>
@@ -114,15 +114,15 @@
             </table>
         </div>
 
-        <h3 class="account-page__subtitle h6">{{ 'customer.order.billing_address' | t }}</h3>
-        <div class="form__text">
+        <h3 class="account-page__subtitle h6 animated-block">{{ 'customer.order.billing_address' | t }}</h3>
+        <div class="form__text animated-block">
             <p class=""><strong>{{ 'customer.order.payment_status' | t }}:</strong> {{ order.financial_status_label }}
             </p>
 
             {{ order.billing_address | format_address }}
         </div>
-        <h3 class="account-page__subtitle h6">{{ 'customer.order.shipping_address' | t }}</h3>
-        <div class="form__text">
+        <h3 class="account-page__subtitle h6 animated-block">{{ 'customer.order.shipping_address' | t }}</h3>
+        <div class="form__text animated-block">
             <p><strong>{{ 'customer.order.fulfillment_status' | t }}:</strong> {{ order.fulfillment_status_label }}
             </p>
 

@@ -1,6 +1,6 @@
 <div class="bg  bg--white-texture o-account">
     <div class="o-account__holder">
-        <div class="form__title">
+        <div class="form__title animated-block">
             <h1 class="t-heading--big">
                 <span class="t-heading--large-text">{{ 'customer.activate_account.title' | t }}</span>
             </h1>
@@ -8,10 +8,10 @@
                 {% include  "black_brush_stroke" %}
             </div>
         </div>
-        <div class="form__text">
+        <div class="form__text animated-block">
             <p>{{ 'customer.activate_account.subtext' | t }}</p>
         </div>
-        {% form 'activate_customer_password', class:'c-form' %}
+        {% form 'activate_customer_password', class:'c-form animated-block' %}
             {%- if form.errors -%}
                 <div class="form__message c_form__message--error form__text">
                     {{ form.errors | default_errors }}

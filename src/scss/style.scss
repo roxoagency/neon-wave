@@ -1,17 +1,12 @@
 @import 'global/variables';
 @import 'global/mixins';
 @import 'global/functions';
-
 // Bootstrap normalize and grid
 @import "bootstrap/scss/bootstrap-reboot";
 @import "bootstrap/scss/bootstrap-grid";
 @import "bootstrap/scss/modal";
-
-
-
 // Slick slider
 @import "slick-carousel/slick/slick.scss";
-
 // Base styles
 @import 'global/base';
 @import 'global/typography';
@@ -23,7 +18,6 @@
 @import 'vendor/selectric';
 // Blocks
 @import 'blocks/nav';
-
 @import 'blocks/header';
 @import 'blocks/currency-switcher';
 @import 'blocks/logo';
@@ -31,17 +25,14 @@
 @import 'blocks/customer-nav';
 @import 'blocks/progress-bar';
 @import 'blocks/search-form';
-
 @import 'blocks/product-card';
 @import 'blocks/article-card';
-
 @import 'blocks/section-header';
 @import 'blocks/hero';
 @import 'blocks/featured-collection';
 @import 'blocks/featured-collections';
 @import 'blocks/latest-news';
 @import 'blocks/rich-text';
-
 @import 'blocks/breadcrumb';
 @import 'blocks/products-list';
 @import 'blocks/filter';
@@ -76,9 +67,14 @@
 @import 'blocks/sustainability-nav';
 @import 'blocks/single-post';
 @import 'blocks/related-articles';
-
-
+@import 'blocks/mobile-nav';
+@import 'blocks/search-page';
+@import 'blocks/size-cart';
 @import 'blocks/footer';
+@import 'blocks/page-view';
+@import 'blocks/animated-block';
+@import 'blocks/collections-list';
 // Apps
 @import 'app/bc-sf-filter';
 @import 'app/shogun';
+@import 'app/swymWishlist';

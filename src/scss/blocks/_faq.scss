@@ -5,6 +5,11 @@
     margin: 0;
     position: relative;
     padding: em(25.5, 13) em(25.5, 13) em(25.5, 13) 0;
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      line-height: 2;
+    }
+
   }
   &__arrow {
     position: absolute;
@@ -12,6 +17,10 @@
     top: 50%;
     transform: translateY(-50%);
     margin-top: -2px;
+    svg{
+      transform: rotate(-90deg);
+      transition: transform 0.15s linear;
+    }
 
   }
   &__content {
@@ -20,7 +29,7 @@
   }
   &--open {
     .faq__arrow svg {
-      transform: rotate(-90deg);
+      transform: rotate(0);
     }
   }
 }
@@ -28,5 +37,16 @@
 .page__content {
   .faq__header.h6 {
     margin: 0;
+  }
+
+  .shopify-section {
+
+    .faq__title {
+      display: inline-block;
+      border-bottom: 1px solid color('primary');
+      font-size: 1.5em;
+      text-transform: uppercase;
+      margin: 1.6em 0 0;
+    }
   }
 }

@@ -10,14 +10,14 @@
 {% if collections[related_tag].products.size > 0 %}
     <div class="related-products related-products--article" data-section-type="related-products" data-section-id="related-products">
         <div class="container"  >
-            <h2 class="related-products__title">{{ 'products.product.related_products' | t }}</h2>
+            <h2 class="related-products__title animated-block">{{ 'products.product.related_products' | t }}</h2>
 
         </div>
         <div class="related-products__slider" data-section-type="product-list" data-section-id="related-products-list">
 
             {% assign collection = collections[related_tag] %}
             {% for product in collection.products limit: 10 %}
-                    <div class="related-products__item">
+                    <div class="related-products__item animated-block">
                         {% include 'block_product-card' %}
                     </div>
             {% endfor %}

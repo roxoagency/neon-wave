@@ -1,5 +1,6 @@
-
+<div class="js-mini-cart-hide"></div>
 <div class="cart_content cart cart--mini_cart js--min-cart">
+    <a href="#" class="close-mini-cart js-mini-cart-hide">{% include 'icon-cancel' %}</a>
     <div class="cart__header">
         <h2 class="cart__title h1">
             {{ 'cart.general.title' | t }}
@@ -18,13 +19,15 @@
                     <td class="cart__image-wrapper">
                         <img class="cart__image" src="{{ item | img_url: '85x85', crop: 'center' }}"
                              alt="{{ item.title | escape }}" data-item-url="{{ item.url }}">
+
                     </td>
                     <td class="cart__item-quantity-wrapper"><span
                                 class="cart__item-quantity">x{{ item.quantity }}</span></td>
                     <td class="cart__meta small--text-left">
                         <div class="cart__item-title">
                             <a href="{{ item.url }}">
-                                {{ item.product.title }}
+                                {{ item.product.title }} <span
+                                        class="cart__item-quantity">x{{ item.quantity }}</span>
                             </a>
                         </div>
                         <div class="cart__item-vendor">
@@ -56,6 +59,20 @@
                                 {% endfor %}
                             </div>
                         {% endif %}
+                        <div class="cart__item-price">
+                            {% if item.original_line_price != item.line_price %}
+                                <div class="cart-item__original-price">
+                                    <s>{{ item.original_line_price | money }}</s>
+                                </div>
+                            {% endif %}
+
+                            <div>
+                                {{ item.line_price | money }}
+                            </div>
+                        </div>
+                        {% for discount in item.discounts %}
+                            <div class="cart-item__discount">{{ discount.title }}</div>
+                        {% endfor %}
                     </td>
 
                     <td class="cart__item-total-price-wrapper">
@@ -90,7 +107,8 @@
                 </div>
                 <div class="cart__submit-wrapper">
                     <a href="/cart" class="cart__edit cart__submit-control">
-                        <span class="cart__submit-control-text">{{ 'cart.general.edit' | t }}</span> {% include "icon-edit" %}</a>
+                        <span class="cart__submit-control-text">{{ 'cart.general.edit' | t }}</span> {% include "icon-edit" %}
+                    </a>
                     <button type="submit" class="btn btn--default btn--md cart__submit">
                         {{ 'cart.general.checkout' | t }}
                     </button>

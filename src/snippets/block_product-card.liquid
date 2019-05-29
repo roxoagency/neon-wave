@@ -14,24 +14,27 @@
         {%- assign hasColorOption = true -%}
     {% endif %}
 {% endfor %}
-<div class="product-card {% if hasColorOption and hasSizeOption %}product-card--with-colors{% endif %}"
+<div class="product-card animated-block {% if hasColorOption and hasSizeOption %}product-card--with-colors{% endif %}"
      data-section-type="product-card" data-section-id="{{ product.id }}">
 
     <div class="product-card__image">
     {% form 'product', product, class:'js--product-card-form', data-product-id: product.id, novalidate: 'novalidate' %}
         <div class="product-card__image-wrapper">
                 <a href="{{ product.url }}" class="product-card__image-link">
-                    <img class="product-card__image--featured active js--default-image"
-                         src="{{ product.featured_image | img_url: '420x420', crop: 'center' }}">
+                    <img class="product-card__image--featured active js--default-image lazyload"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                        data-src="{{ product.featured_image | img_url: '420x420', crop: 'center' }}">
                     {% if product.images.size > 1 %}
-                        <img class="product-card__image--alt active js--default-image"
-                             src="{{ product.images[1] | img_url: '420x420', crop: 'center' }}">
+                        <img class="product-card__image--alt active js--default-image lazyload"
+                            src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                            data-src="{{ product.images[1] | img_url: '420x420', crop: 'center' }}">
                     {% endif %}
                     {% for variant in product.variants %}
                         {% if variant.featured_image != blank %}
-                            <img class="product-card__image--featured product-card__image--variant-featured js--variant-image"
+                            <img class="product-card__image--featured product-card__image--variant-featured js--variant-image lazyload"
                                  data-variant="{{ variant.id }}"
-                                 src="{{ variant.featured_image | img_url: '420x420', crop: 'center' }}">
+                                 src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                 data-src="{{ variant.featured_image | img_url: '420x420', crop: 'center' }}">
                         {% endif %}
                     {% endfor %}
                 </a>
@@ -47,11 +50,11 @@
                                 {% if option.name == 'Size' %}
                                     <div class="product-card__form-group btn-group js--quick-buy-group product-card__form-group--size"
                                          data-index="option{{ loop.index }}">
-                                        {% for value in option.values %}
-                                            <button type="button" class="option btn-group__item js--quick-buy"
+                                        {% assign values = option.values | sort_natural %}
+                                        {% for value in values %}
+                                            <button type="button" class="option btn-group__item js--quick-buy" data-value-sort="{{ value | escape | downcase }}"
                                                     data-value="{{ value | escape }}">{{ value }}</button>
                                         {% endfor %}
-                                        <span class="product-card__form-group-label">select size to add to cart</span>
                                     </div>
                                     {% elsif option.name == 'Color' and hasSizeOption %}
 
@@ -63,7 +66,7 @@
                                             {%- assign productOptions = productOptions | append: ' / ' -%}
                                             {% endunless %}
                                             <input type="hidden" class="js--product-option"
-                                                   data-index="option{{ loop.index }}" value="{{ value | escape }}">
+                                                   data-index="option{{ loop.index }}" value="{{ value | escape }} ">
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
@@ -71,9 +74,11 @@
                             <input type="hidden" name="quantity js--product-quantity" value="1">
 
                         </div>
+                        {% if hasSizeOption %}
+                          <span class="product-card__form-group-label">select size to add to cart</span>
+                        {% endif %}
                     {% endunless %}
                 {% endif %}
-
             </div>
             {%- assign productOptions = '' -%}
             {% if product.available %}

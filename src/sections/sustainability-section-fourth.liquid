@@ -26,31 +26,55 @@
     "type": "image_picker",
     "id": "sustainability_4_img",
     "label": "Image"
+    },
+    {
+    "type": "url",
+    "id": "sustainability_4_url",
+    "label": "Url"
     }
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--fourth" data-section-type="sustainability-section--fourth" id="sustainability-section--fourth"
-     data-section-id="{{ section.id }}">
-    <div class="container">
-        <h2 class="sustainability-section__title">
-            {% if section.settings.sustainability_4_title_top != '' %}
-                <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_4_title_top }}</span>
+<div class="sustainability-section sustainability-section--fourth" data-section-type="sustainability-section--fourth"
+     id="sustainability-section--fourth"
+     data-section-id="{{ section.id }}" data-section-index="3">
+
+    <div class="sustainability-section__container-wrapper">
+        <div class="container">
+            <h2 class="sustainability-section__title">
+                {% if section.settings.sustainability_4_title_top != '' %}
+                    <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_4_title_top }}</span>
+                {% endif %}
+                {% if section.settings.sustainability_4_title_bottom != '' %}
+                    <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_4_title_bottom }}</span>
+                {% endif %}
+            </h2>
+            {% if section.settings.sustainability_4_text != '' %}
+                <div class="sustainability-section__content">
+                    {{ section.settings.sustainability_4_text }}
+                </div>
             {% endif %}
-            {% if section.settings.sustainability_4_title_bottom != '' %}
-                <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_4_title_bottom }}</span>
+            {% if section.settings.sustainability_4_img %}
+                <div class="sustainability-section__image-wrapper">
+                    {% if section.settings.sustainability_4_url!='' %}
+                    <a href="{{  section.settings.sustainability_4_url }}" target="_blank">
+
+                        {% endif %}
+                    <img class="sustainability-section__image"
+                         src="{{ section.settings.sustainability_4_img | img_url: 'master' }}" alt="">
+                    </a>
+
+                    {% if section.settings.sustainability_4_url!='' %}
+                    {% endif %}
+                </div>
             {% endif %}
-        </h2>
-        {% if section.settings.sustainability_4_text != '' %}
-            <div class="sustainability-section__content">
-                {{ section.settings.sustainability_4_text }}
-            </div>
-        {% endif %}
-        {% if section.settings.sustainability_4_img  %}
-            <div class="sustainability-section__image-wrapper">
-                <img class="sustainability-section__image"
-                     src="{{ section.settings.sustainability_4_img | img_url: 'master' }}" alt="">
-            </div>
-        {% endif %}
+            <a href="#sustainability-section--fifth" class="js-sustainability-go-to sustainability-section__next">
+                {% include 'icon-go-next' %}
+            </a>
+        </div>
+        <div class="sustainability-section__snow"></div>
+        <b class="snow-el--xlg snow-el"></b>
+        <div class="sustainability-section__bottom"></div>
+
     </div>
 </div>

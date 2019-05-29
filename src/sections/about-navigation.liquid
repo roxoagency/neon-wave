@@ -6,6 +6,14 @@
     "settings": [
 
     {
+    "type": "text",
+    "id": "nav_1_title",
+    "label": {
+    "en": " First block title"
+    },
+    "default":"ABOUT"
+    },
+    {
     "type": "image_picker",
     "id": "nav_1_img",
     "label": {
@@ -21,11 +29,11 @@
     },
     {
     "type": "text",
-    "id": "nav_1_title",
+    "id": "nav_2_title",
     "label": {
-    "en": " First block title"
+    "en": " Second block title"
     },
-    "default":"ABOUT"
+    "default":"MISSION"
     },
     {
     "type": "image_picker",
@@ -43,11 +51,11 @@
     },
     {
     "type": "text",
-    "id": "nav_2_title",
+    "id": "nav_3_title",
     "label": {
-    "en": " Second block title"
+    "en": " Third block title"
     },
-    "default":"MISSION"
+    "default":"LOCATION"
     },
     {
     "type": "image_picker",
@@ -62,14 +70,6 @@
     "label": {
     "en": " Third block hover image"
     }
-    },
-    {
-    "type": "text",
-    "id": "nav_3_title",
-    "label": {
-    "en": " Third block title"
-    },
-    "default":"LOCATION"
     }
     ]
     }
@@ -83,25 +83,23 @@
                 <div class="about-navigation__icon">
                     {% include 'icon-dots' %}
                 </div>
-                <a href="#about" class="about-navigation__item js-go-to">
+                <a href="#about" class="about-navigation__item js-go-to ui-paralax"   data-speed="-0.08" data-multiply="1" data-end="parent" data-start="-200">
                     <div class="about-navigation__image-wrapper ">
                         {% if section.settings.nav_1_img %}
-                            <img
-                                    class="about-navigation__image lazyload"
-                                    src="{{ section.settings.nav_1_img | img_url: '447x365', crop: 'center' }}"
-                                    data-src="{{ section.settings.nav_1_img | img_url: '447x365', crop: 'center' }}"
-                                    data-aspectratio="{{ section.settings.nav_1_img.aspect_ratio }}"
+                            <div
+                                    class="about-navigation__image about-navigation__image--1 lazyload"
+                                    data-bgset="{% include 'bgset', image: section.settings.nav_1_img %}"
                                     data-sizes="auto"
-                                    alt="{{ section.settings.nav_1_img.alt | escape }}">
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ section.settings.nav_1_img | img_url: '500x' }});"></div>
                         {% endif %}
                         {% if section.settings.nav_1_img_hover %}
-                            <img
-                                    class="about-navigation__image lazyload about-navigation__image--hover"
-                                    src="{{ section.settings.nav_1_img_hover | img_url: '447x365', crop: 'center' }}"
-                                    data-src="{{ section.settings.nav_1_img_hover | img_url: '447x365', crop: 'center' }}"
-                                    data-aspectratio="{{ section.settings.nav_1_img_hover.aspect_ratio }}"
+                            <div
+                                    class="about-navigation__image  about-navigation__image--1 lazyload about-navigation__image--hover"
+                                    data-bgset="{% include 'bgset', image: section.settings.nav_1_img_hover %}"
                                     data-sizes="auto"
-                                    alt="{{ section.settings.nav_1_img_hover.alt | escape }}">
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ section.settings.nav_1_img_hover | img_url: '500x' }});"></div>
                         {% endif %}
                     </div>
                     {% if section.settings.nav_1_title != '' %}
@@ -110,25 +108,23 @@
                         </h2>
                     {% endif %}
                 </a>
-                <a href="#mission" class="about-navigation__item  js-go-to">
+                <a href="#mission" class="about-navigation__item  js-go-to ui-paralax"  data-end="parent"  data-speed="-0.02" data-multiply="2" data-start="-50">
                     <div class="about-navigation__image-wrapper">
                         {% if section.settings.nav_2_img %}
-                            <img
-                                    class="about-navigation__image lazyload"
-                                    src="{{ section.settings.nav_2_img | img_url: '297x365', crop: 'center' }}"
-                                    data-src="{{ section.settings.nav_2_img | img_url: '297x365', crop: 'center' }}"
-                                    data-aspectratio="{{ section.settings.nav_2_img.aspect_ratio }}"
+                            <div
+                                    class="about-navigation__image  about-navigation__image--2 lazyload"
+                                    data-bgset="{% include 'bgset', image: section.settings.nav_2_img %}"
                                     data-sizes="auto"
-                                    alt="{{ section.settings.nav_2_img.alt | escape }}">
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ section.settings.nav_2_img | img_url: '500x' }});"></div>
                         {% endif %}
                         {% if section.settings.nav_2_img_hover %}
-                            <img
-                                    class="about-navigation__image lazyload about-navigation__image--hover"
-                                    src="{{ section.settings.nav_2_img_hover | img_url: '297x365', crop: 'center' }}"
-                                    data-src="{{ section.settings.nav_2_img_hover | img_url: '297x365', crop: 'center' }}"
-                                    data-aspectratio="{{ section.settings.nav_2_img_hover.aspect_ratio }}"
+                            <div
+                                    class="about-navigation__image   about-navigation__image--2 lazyload about-navigation__image--hover"
+                                    data-bgset="{% include 'bgset', image: section.settings.nav_2_img_hover %}"
                                     data-sizes="auto"
-                                    alt="{{ section.settings.nav_2_img_hover.alt | escape }}">
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ section.settings.nav_2_img_hover | img_url: '500x' }});"></div>
                         {% endif %}
                     </div>
                     {% if section.settings.nav_2_title != '' %}
@@ -137,25 +133,23 @@
                         </h2>
                     {% endif %}
                 </a>
-                <a href="#location" class="about-navigation__item  js-go-to">
+                <a href="#location" class="about-navigation__item  js-go-to ui-paralax"  data-speed="-0.06" data-multiply="2" data-end="100" data-start="-300">
                     <div class="about-navigation__image-wrapper">
                         {% if section.settings.nav_3_img %}
-                            <img
-                                    class="about-navigation__image lazyload"
-                                    src="{{ section.settings.nav_3_img | img_url: '491x365', crop: 'center' }}"
-                                    data-src="{{ section.settings.nav_3_img | img_url: '491x365', crop: 'center' }}"
-                                    data-aspectratio="{{ section.settings.nav_3_img.aspect_ratio }}"
+                            <div
+                                    class="about-navigation__image  about-navigation__image--3 lazyload"
+                                    data-bgset="{% include 'bgset', image: section.settings.nav_3_img %}"
                                     data-sizes="auto"
-                                    alt="{{ section.settings.nav_3_img.alt | escape }}">
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ section.settings.nav_3_img | img_url: '500x' }});"></div>
                         {% endif %}
                         {% if section.settings.nav_3_img_hover %}
-                            <img
-                                    class="about-navigation__image lazyload about-navigation__image--hover"
-                                    src="{{ section.settings.nav_3_img_hover | img_url: '491x365', crop: 'center' }}"
-                                    data-src="{{ section.settings.nav_3_img_hover | img_url: '491x365', crop: 'center' }}"
-                                    data-aspectratio="{{ section.settings.nav_3_img_hover.aspect_ratio }}"
+                            <div
+                                    class="about-navigation__image  about-navigation__image--3 lazyload about-navigation__image--hover"
+                                    data-bgset="{% include 'bgset', image: section.settings.nav_3_img_hover %}"
                                     data-sizes="auto"
-                                    alt="{{ section.settings.nav_3_img_hover.alt | escape }}">
+                                    data-parent-fit="cover"
+                                    style="background-image: url({{ section.settings.nav_3_img_hover | img_url: '500x' }});"></div>
                         {% endif %}
                     </div>
                     {% if section.settings.nav_3_title != '' %}

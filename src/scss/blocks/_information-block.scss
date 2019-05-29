@@ -1,19 +1,37 @@
 .information-block {
-  margin-bottom: 42px;
+  margin-bottom: em(42);
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    margin-bottom: em(51);
+  }
   float: left;
   clear: both;
-  &--wrapper{
-  display: inline-block;
+
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    float: none;
+  }
+  &--wrapper {
+    display: inline-block;
   }
   &__title {
     font-size: em(23);
     letter-spacing: 0.9px;
     text-transform: uppercase;
-    margin: 0 0 3px;
+    margin: 0 0 em(3, 23);
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      font-size: em(18);
+      margin: 0;
+      letter-spacing: letterspacing-to-pixels(70, 18);
+    }
   }
   &__content {
     font-size: em(15.5);
     text-transform: uppercase;
+    font-weight: 300;
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      font-size: em(13);
+      letter-spacing: letterspacing-to-pixels(100, 13);
+    }
   }
   &--weight {
     .information-block__content {

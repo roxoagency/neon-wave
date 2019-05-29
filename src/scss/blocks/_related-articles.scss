@@ -1,14 +1,41 @@
-.related-articles{
+.related-articles {
   margin-bottom: em(58);
   padding-top: em(21);
-
-  &__title{
-    font-size: em(36);
-    text-align: center;
-    color:color('body');
-    text-transform: uppercase;
-    margin-bottom: em(73,36);
-    letter-spacing: 0;
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    margin-bottom: em(25);
+    padding-top: em(33);
   }
 
+  &__title {
+    font-size: em(36);
+    font-weight: 700;
+    text-align: center;
+    color: color('body');
+    text-transform: uppercase;
+    margin-bottom: em(73, 36);
+    letter-spacing: 0;
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(24);
+      line-height: (29/24);
+      margin-bottom: em(21, 24);
+    }
+  }
+  .post-card:nth-child(4) {
+    display: none;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      display: block;
+    }
+  }
+
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    .row {
+      margin-left: em(-10);
+      margin-right: em(-10);
+    }
+    .post-card {
+      padding-left: em(10);
+      padding-right: em(10);
+    }
+  }
 }

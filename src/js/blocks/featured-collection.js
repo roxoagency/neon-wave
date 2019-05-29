@@ -12,24 +12,32 @@ export class FeaturedCollectionBlock {
 			nextArrow: theme.strings.slickArrowRight,
 			slidesToShow: 4,
 			slidesToScroll: 4,
+			responsive: [
+				{
+					breakpoint: 1023,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						arrows: false
+					}
+				}]
 		};
 
 		this.init();
 	}
 
 	init() {
-
-		var maxHeight = Math.max.apply(null, $( '.featured-collection__products .product-card_content').map(function () {
+		var maxHeight = Math.max.apply(null, $('.featured-collection__products .product-card_content').map(function () {
 			return $(this).outerHeight();
 		}).get());
-		$('.featured-collection__products .product-card_content').css('min-height',maxHeight);
+		$('.featured-collection__products .product-card_content').css('min-height', maxHeight);
 		$(this.selectors.sliderSelector, this.$container).slick(this.slickConfig);
-		$( window ).resize(function() {
-			$('.featured-collection__products .product-card_content').css('min-height',0);
-			maxHeight = Math.max.apply(null, $( '.featured-collection__products .product-card_content').map(function () {
+		$(window).resize(function () {
+			$('.featured-collection__products .product-card_content').css('min-height', 0);
+			maxHeight = Math.max.apply(null, $('.featured-collection__products .product-card_content').map(function () {
 				return $(this).outerHeight();
 			}).get());
-			$('.featured-collection__products .product-card_content').css('min-height',maxHeight);
+			$('.featured-collection__products .product-card_content').css('min-height', maxHeight);
 		});
 
 	}

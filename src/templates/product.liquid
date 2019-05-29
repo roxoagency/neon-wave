@@ -1,16 +1,11 @@
 <div class="product-template__container"
-     id="ProductSection"
-     data-section-id="product"
-     data-section-type="product"
-     data-enable-history-state="true">
+     >
     <div class="product-single">
         <div class="container">
-            <div class="page__header ">
+            <div class="page__header  ">
                 {% include 'breadcrumbs' %}
-                {% capture productForm %}
-                    {% include 'product-inline-form' %}
-                {% endcapture %}
-                {% include 'breadcrumbs' , productForm: productForm , className:"breadcrumb--product"%}
+
+
             </div>
             {% section 'product_template' %}
 

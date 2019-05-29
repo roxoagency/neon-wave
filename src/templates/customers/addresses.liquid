@@ -4,18 +4,18 @@
             <div class="page__header ">
                 {% include 'breadcrumbs' %}
             </div>
-            <div class="page__title">
+            <div class="page__title animated-block">
                 <h1>{{ 'customer.account.title' | t }}</h1>
             </div>
-            <h2 class="account-page__subtitle h6">{{ 'customer.addresses.title' | t }}</h2>
-            <div class="form__row form__row--md form__row--btn ">
+            <h2 class="account-page__subtitle h6 animated-block">{{ 'customer.addresses.title' | t }}</h2>
+            <div class="form__row form__row--md form__row--btn animated-block">
                 <button type="button"
                         class="btn btn--default address-new-toggle">
                     <span>{{ 'customer.addresses.add_new' | t }}</span>
 
                 </button>
             </div>
-            <div class="form__row form__row--md form__row--btn">
+            <div class="form__row form__row--md form__row--btn animated-block">
                 <a href="/account" class="link-btn link-btn--md link-btn--bold">
                     {% include "icon-continue" %}
                     <span class="link-btn__text">{{ 'customer.account.return' | t }}</span>
@@ -146,7 +146,7 @@
             {% endcomment %}
             <div class="">
                 {% for address in customer.addresses %}
-                <div class="account-page__address">
+                <div class="account-page__address animated-block">
                     <h3 class="account-page__subtitle h6">{{ address.address1 }} {% if address == customer.default_address %}({{ 'customer.addresses.default' | t }}){% endif %}</h3>
                     {% include "block-address"  , customer_address: address %}
                     <p class="c-button__wrapper">

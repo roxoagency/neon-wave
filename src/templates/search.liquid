@@ -1,22 +1,40 @@
-{% paginate search.results by 10 %}
-  <form action="/search" method="get" role="search">
-    <input type="search" name="q" value="{{ search.terms | escape }}">
-    <button type="submit">search</button>
-  </form>
-
-  {% if search.performed %}
-    {% for item in search.results %}
-      {% if item.featured_image %}
-        <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-          {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
-        </a>
-      {% endif %}
-      <h5>{{ item.title | link_to: item.url }}</h5>
-      <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
-    {% else %}
-      no results
-    {% endfor %}
-  {% endif %}
-
-  {% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}
+{% paginate search.results by 9 %}
+    <div class="page page--search search-page animated-pages">
+        <div class="header__search-form header__search-form--search  animated-block">
+            {% include 'block_search-form-sm' %}
+            {% include 'block_search-form' %}
+        </div>
+        <div class="container" data-section-type="collection" data-section-id="collection">
+            <div class="page__title">
+                <h1 class="search-page__title">
+                    {% if search.performed %}
+                        <span class="search-page__title-text search-page__title-text--top"><span
+                                    class="counter-el__digit">{% if search.results_count < 10 %}0{% endif %}{{ search.results_count }}</span></span>
+                        <span class="search-page__title-text search-page__title-text--bottom">{{ 'general.search.results' | t: count: search.results_count }}</span>
+                    {% else %}
+                        <span class="search-page__title-text search-page__title-text--top">{{ 'general.search.title' | t }}</span>
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="page__content">
+                {% if search.performed %}
+                    <div class="products-list products-list--3{% if search.results_count == 0 %} products-list--no-result{% endif %} "
+                         data-section-type="product-list" data-section-id="search">
+                        {% for product in search.results %}
+                            {% include 'block_product-card' %}
+                        {% else %}
+                            <div class="page__content">
+                                <p>{{ 'general.search.no_results_html' | t }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if paginate.pages > 1 %}
+                    <div class="pagination animated-block">
+                        {{ paginate | default_pagination }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endpaginate %}

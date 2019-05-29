@@ -3,12 +3,16 @@ $selectric-secondary-color: #BBB !default; // Color used in button
 $selectric-text-color: $selectric-main-color !default; // Color used in label
 $selectric-bg-color: #fff !default; // Background color
 $selectric-btn-bg-color: #fff !default; // Button background color
-$selectric-height: 30px !default; // Outer height
-$selectric-spacing: 10px !default; // Label left padding
+$selectric-height: em(30) !default; // Outer height
+$selectric-spacing: em(10) !default; // Label left padding
 $selectric-border-width: 1px !default; // Outer border width
 $selectric-border-radius: 0px !default; // Border radius
-$selectric-inner-height: $selectric-height - ($selectric-border-width * 2) !default; // Inner height
+$selectric-inner-height: em(28) !default; // Inner height
 $selectric-font-size: 12px !default; // Font size
+
+.selectric-hide-select.selectric-is-native select {
+  visibility: visible;
+}
 
 .selectric-wrapper {
   position: relative;
@@ -26,19 +30,27 @@ $selectric-font-size: 12px !default; // Font size
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
+  min-height: 30px;
   .label {
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 $selectric-inner-height 0 $selectric-spacing;
+    margin: 0 em(28, 11) 0 em(10, 11);
     font-size: em(11);
     letter-spacing: 0.9px;
-    line-height: (15.6/11);
+    line-height: 1.6;
     color: $selectric-text-color;
-    height: $selectric-inner-height;
+    height: em(28, 11);
     user-select: none;
-    padding: 5px 0;
+    padding: em(5, 11) 0;
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(9);
+      letter-spacing: letterspacing-to-pixels(70, 9);
+      height: em(28, 9);
+      padding: em(7, 9) em(3, 9);
+    }
   }
 
   .button {
@@ -46,23 +58,25 @@ $selectric-font-size: 12px !default; // Font size
     position: absolute;
     right: 0;
     top: 0;
-    width: 17px;
+    width: em(17);
     border-left: 1px solid $selectric-main-color;
     height: $selectric-inner-height;
     line-height: $selectric-inner-height;
     color: $selectric-secondary-color;
     background: #fff url(arrow-green.svg) no-repeat center;
-    text-indent: -100px;
+    text-indent: em(-100);
     overflow: hidden;
-    background-size: 6px;
-    transition:  background-color 0.15s linear;
+    background-size: em(6);
+    transition: background-color 0.15s linear;
     &:hover {
       background: $selectric-main-color url(arrow-white.svg) no-repeat center;
-      background-size: 6px;
+      background-size: em(6);
     }
-    .cart &{
-      width: 20px;
-      background: #fff url("select-bg.svg") no-repeat calc(100% + 1px)  -1px;
+    .cart & {
+      width: em(20);
+      border-left: 0 solid;
+      background: #fff url("select-bg.svg") no-repeat calc(100% + 2px)  -1px;
+      background-size: calc(100% + 1px);
     }
   }
 }
@@ -91,7 +105,15 @@ $selectric-font-size: 12px !default; // Font size
   }
 
   .selectric-items {
-    display: block;
+    visibility: visible;
+    transform: none;
+    opacity: 1;
+    transition: 0.5s transform cubic-bezier(0.19, 1, 0.22, 1), 0.5s opacity cubic-bezier(0.19, 1, 0.22, 1);
+    ul {
+      opacity: 1;
+      transition: 1s opacity cubic-bezier(0.19, 1, 0.22, 1);
+      transition-delay: 0.3s;
+    }
   }
   .button {
     background: $selectric-main-color url(arrow-white.svg) no-repeat center;
@@ -162,15 +184,18 @@ $selectric-font-size: 12px !default; // Font size
 
 /* Items box */
 .selectric-items {
-  display: none;
   position: absolute;
   top: 100%;
   left: 0;
   max-width: 100%;
   background: $selectric-bg-color;
-  z-index: -1;
+
   margin-top: -1px;
   border: $selectric-border-width solid $selectric-main-color;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: 0.1s transform cubic-bezier(0.165, 0.84, 0.44, 1);
+
   .selectric-scroll {
     height: 100%;
     overflow: auto;
@@ -185,14 +210,18 @@ $selectric-font-size: 12px !default; // Font size
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+  ul {
+    opacity: 0;
+    transition: 0.05s opacity cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition-delay: 0.4s;
     font-size: em(11);
     letter-spacing: 0.9px;
     line-height: (15.6/11);
   }
-
   li {
     display: block;
-    padding: 2px 10px 3px;
+    padding: em(2, 11) em(10, 11) em(3, 11);
     color: $selectric-main-color;
     cursor: pointer;
     text-transform: uppercase;
@@ -225,7 +254,7 @@ $selectric-font-size: 12px !default; // Font size
   .selectric-group {
     .selectric-group-label {
       font-weight: bold;
-      padding-left: 10px;
+      padding-left: em(10);
       cursor: default;
       user-select: none;
       background: none;
@@ -238,7 +267,7 @@ $selectric-font-size: 12px !default; // Font size
     }
 
     li {
-      padding-left: 25px;
+      padding-left: em(25);
     }
   }
 }

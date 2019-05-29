@@ -2,14 +2,36 @@ $block: '.article-card';
 
 #{$block} {
   padding: 0 1.9em;
+  @include media-breakpoint-down('lg', $grid-breakpoints) {
+    padding: 0 1em;
+  }
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    padding: 0 em(30);
+    margin: 0 0 em(20);
 
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    padding: 0 em(30);
+    margin: 0 0 em(20);
+    &.col-md-6 {
+      &:nth-child(2n-1) {
+        padding-left: em(20);
+      }
+      &:nth-child(2n) {
+        padding-right: em(20);
+      }
+    }
+  }
   @at-root &__image-container {
     position: relative;
   }
 
   @at-root &__image {
     width: 100%;
-    height: 100%;
+    padding-top: 101.8%;
+    display: block;
+    background: no-repeat center;
+    background-size: cover;
   }
 
   @at-root &__content {
@@ -17,20 +39,63 @@ $block: '.article-card';
   }
 
   @at-root &__title {
-    font-size: 0.5em;
+    font-size: 0.5625em;
     margin: 1em 0 0.5em;
     text-transform: uppercase;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin: em(6, 7.79) 0 0;
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(7.79);
+      line-height: (9.35/7.79);
+    }
   }
 
   @at-root &__excerpt {
-    font-size: 7px;
+    font-size: 0.5em;
     text-transform: uppercase;
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      display: none;
+    }
 
     a {
       color: inherit;
-
       &:hover {
         text-decoration: none;
+      }
+    }
+  }
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    &:nth-child(6) {
+      display: none;
+    }
+    &:nth-child(1) {
+      margin-bottom: em(38);
+      .article-card__image-wrapper {
+        margin-right: em(-60);
+        margin-left: em(-60);
+      }
+      .article-card__excerpt {
+        display: block;
+        font-size: em(13);
+        line-height: (18, 13);
+        letter-spacing: letterspacing-to-pixels(75, 13);
+      }
+      .article-card__title {
+        font-size: em(21.61);
+        line-height: (25.94/21.61);
+        letter-spacing: 0;
+        margin: em(20) 0 em(16);
+      }
+    }
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    &:nth-child(1) {
+      .article-card__image-wrapper {
+        margin-right: em(-30);
+        margin-left: em(-30);
       }
     }
   }

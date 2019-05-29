@@ -3,3 +3,24 @@
   background: $button-color;
 }
 
+@mixin nav_link {
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
+    position: relative;
+    &:after {
+      content: '';
+      width: 0;
+      border-bottom: 1px solid currentColor;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      transition: width 0.15s linear;
+    }
+    &:hover {
+      text-decoration: none;
+      &:after {
+        width: 100%;
+      }
+    }
+  }
+}
+

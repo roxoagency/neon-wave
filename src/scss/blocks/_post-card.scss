@@ -1,6 +1,13 @@
-.post-card {
-  margin: 0 0 em(60);
+.post-card--7,
+.post-card--0 {
+  padding-bottom: 1px;
+}
 
+.post-card {
+  margin: 0 0 60px;
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    margin: 0 0 em(30);
+  }
   &__title {
     font-size: em(18);
     line-height: (26/18);
@@ -8,11 +15,26 @@
     text-transform: uppercase;
     letter-spacing: 0.9px;
     min-height: em(50, 18);
+    font-weight: 700;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      min-height: 0;
+    }
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(13);
+      line-height: (17/13);
+      margin: 0 0 em(10, 13);
+      letter-spacing: letterspacing-to-pixels(70, 13);
+    }
   }
   &__content {
     font-size: em(11);
     line-height: (18/11);
     letter-spacing: 0.9px;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(9);
+      line-height: (15.5/9);
+      letter-spacing: letterspacing-to-pixels(75, 9);
+    }
   }
   &__category {
     font-size: em(11);
@@ -22,6 +44,11 @@
     margin: 0 0 em(14, 11);
     font-family: font('heading');
     font-weight: 700;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(9);
+      line-height: (15/9);
+      letter-spacing: letterspacing-to-pixels(75, 9);
+    }
     &:after {
       content: '';
       display: block;
@@ -39,12 +66,21 @@
     }
   }
   &--highlighted {
+    //margin: 0;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin: 0 0 em(50);
+    }
     .post-card__image-wrapper {
+      padding-top: 128%;
       margin: 0 0 em(54);
     }
     .post-card__category {
       font-size: em(14);
       margin: 0 0 em(30, 14);
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+
+        margin: 0 0 em(25, 14);
+      }
       &:after {
         width: 46px;
       }
@@ -53,14 +89,28 @@
       font-size: em(30);
       line-height: (41.06/30);
       margin: 0 0 em(22, 30);
-      padding: 0 em(60) 0 0;
+      padding: 0 em(60, 30) 0 0;
       min-height: 0;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        font-size: em(24);
+        line-height: (32/24);
+        margin: 0 0 em(22, 24);
+        padding: 0 em(30, 24) 0 0;
+        letter-spacing: letterspacing-to-pixels(70, 24);
+      }
     }
     .post-card__content {
       font-size: em(13);
       line-height: (25/13);
       letter-spacing: 0.9px;
-      padding: 0 em(60) 0 0;
+      padding: 0 em(60, 13) 0 0;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+
+        font-size: em(11);
+        line-height: (18/11);
+        letter-spacing: letterspacing-to-pixels(70, 11);
+        padding: 0 em(30, 11) 0 0;
+      }
     }
     a {
       &:hover {
@@ -69,46 +119,81 @@
     }
   }
   &__image-wrapper {
-
+    padding-top: 100%;
+    overflow: hidden;
     display: block;
-    margin: 0 0 16px;
+    margin: 0 0 em(16);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   &--menu {
     margin-bottom: em(9);
     font-family: "ibm-plex-mono", sans-serif;
     font-weight: 400;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin: 0 0;
+      background: color('light');
+      padding: em(10) em(30) em(9);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #F2D975;
+      min-height: 56px;
+
+    }
     .post-card__title {
-      font-size: em(9);
+      font-size: 0.5em;
       letter-spacing: letterspacing-to-pixels(80, 9);
       line-height: (11/9);
       margin-bottom: em(7, 9);
       min-height: 0;
       font-family: "ibm-plex-mono", sans-serif;
       font-weight: 600;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        margin-bottom: 0;
+      }
 
     }
     .post-card__content {
       font-size: em(5.5);
-      //font-size: 5.5px;
-
       letter-spacing: letterspacing-to-pixels(70, 5.5);
       line-height: (7/5.5);
+      @include media-breakpoint-up('xll', $grid-breakpoints-custom) {
+        margin-bottom: em(10, 5.5);
+      }
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        display: none;
+      }
 
     }
     .post-card__image-wrapper {
       margin: 0 0 em(10);
-      img {
+      padding: 0;
 
-        //width:100%;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        width: 130px;
+        min-width: 130px;
+        max-width: 130px;
+        margin: 0 em(15) 0 0;
+      }
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        width: 62px;
+        min-width: 62px;
+        max-width: 62px;
       }
     }
   }
   &--nav {
-
     background: #55BE97;
     width: 412px;
     padding: 0 0 em(50) em(90);
     margin: 0;
+
+    @include media-breakpoint-up('xll', $grid-breakpoints-custom) {
+      width: 30.162vw;
+      max-width: 578px;
+    }
     .single-post__nav-item--next & {
       padding: 0 em(90) em(50) 0;
       .post-card__title {
@@ -118,19 +203,18 @@
     }
     .post-card__title {
       color: #fff;
-      font-size: em(24);
-      letter-spacing: letterspacing-to-pixels(70, 24);
-      line-height: (32/24);
+      font-size: em(22);
+      letter-spacing: letterspacing-to-pixels(70, 22);
+      line-height: (32/22);
       margin-bottom: 0;
       min-height: 0;
       padding-right: em(38, 24);
-       a:hover {
+      a:hover {
         color: color('body');
       }
     }
     .post-card__image-wrapper {
       margin-bottom: em(57);
-
     }
   }
 }
@@ -138,12 +222,28 @@
 .post-card--menu-half {
   display: flex;
   align-items: center;
-
   .post-card__image-wrapper {
     width: 50%;
     min-width: 50%;
     max-width: 50%;
     padding-right: em(15);
-  }
 
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      width: 130px;
+      min-width: 130px;
+      max-width: 130px;
+      margin: 0 em(15) 0 0;
+      padding-right: 0;
+    }
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      width: 62px;
+      min-width: 62px;
+      max-width: 62px;
+    }
+  }
+}
+
+@include media-breakpoint-up('xll', $grid-breakpoints-custom) {
+  .post-card {
+  }
 }

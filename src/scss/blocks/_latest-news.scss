@@ -2,7 +2,18 @@ $block: '.latest-news';
 
 #{$block} {
   .container {
-    //display: flex;
-    padding: 0 2.8em 1em;
+    padding-bottom: 1em;
+  }
+background: #fff;
+  z-index: 2;
+  position: relative;
+  margin-bottom: -1px;
+  .row {
+    @include media-breakpoint-down('lg', $grid-breakpoints) {
+      margin: 0 em(-16);
+    }
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin: 0 em(-30);
+    }
   }
 }

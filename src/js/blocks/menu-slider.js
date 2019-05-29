@@ -33,9 +33,9 @@ export class MenuSliderBlock {
 
     $.each(this.sliders, (index, slider) => {
         const menu_slider = $(`
-          <div class="site-nav__slider">
+          <div class="site-nav__slider"><div class="site-nav__slider-wrapper">
           ${slider}
-          </div>
+          </div></div>
         `);
 
         const target = $(`${this.selectors.dropdown}[data-slug="${index}"]`, nav);
@@ -44,13 +44,13 @@ export class MenuSliderBlock {
 
         target.on('dropdown.show', () => {
           if (!menu_slider.hasClass('slick-initialized')) {
-            menu_slider.slick(this.slickConfig);
+            menu_slider.find('.site-nav__slider-wrapper').slick(this.slickConfig);
           }
         });
 
         target.on('dropdown.hide', () => {
           if (menu_slider.hasClass('slick-initialized')) {
-            menu_slider.slick('unslick');
+            menu_slider.find('.site-nav__slider-wrapper').slick('unslick');
           }
         });
     });

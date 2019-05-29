@@ -36,11 +36,13 @@ if ($newAddressForm.length) {
 	// Toggle new/edit address forms
 	$(".address-new-toggle").on("click", () => {
 		$newAddressForm.toggleClass("hide");
+		$(window).trigger('resize');
 	});
 
 	$(".address-edit-toggle").on("click", function () {
 		const formId = $(this).data("form-id");
 		$(`#EditAddress_${formId}`).toggleClass("hide");
+		$(window).trigger('resize');
 	});
 
 	$(".address-delete").on("click", function () {
@@ -57,6 +59,7 @@ if ($newAddressForm.length) {
 				parameters: {_method: "delete"}
 			});
 		}
+		$(window).trigger('resize');
 	});
 	$(function () {
 		var addressProvince = $('.js__address_province');

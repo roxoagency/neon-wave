@@ -1,0 +1,24 @@
+.animated-block {
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: .05s transform cubic-bezier(.165, .84, .44, 1), .05s opacity cubic-bezier(.165, .84, .44, 1);
+    &--visible {
+      transform: none;
+      opacity: 1;
+      transition: 1s transform cubic-bezier(.19, 1, .22, 1), 1s opacity cubic-bezier(.19, 1, .22, 1);
+    }
+  }
+}
+
+// #bc-sf-filter-products .product-card{
+//   opacity: 0;
+//   transform: translateY(20px);
+//   transition: .05s transform cubic-bezier(.165, .84, .44, 1), .05s opacity cubic-bezier(.165, .84, .44, 1);
+
+//   &.animated-block--visible {
+//     transform: none;
+//     opacity: 1;
+//     transition: 1s transform cubic-bezier(.19, 1, .22, 1), 1s opacity cubic-bezier(.19, 1, .22, 1);
+//   }
+// }

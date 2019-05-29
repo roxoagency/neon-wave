@@ -1,19 +1,20 @@
-import "@babel/polyfill";
+import "core-js/modules/es.object.values";
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/js/dist/tab';
-import { Theme } from './theme';
-import { HeaderBlock } from './blocks/header';
-import { HeroBlock } from './blocks/hero';
-import { CoordinatesBlock } from './blocks/coordinates';
-import { ProgressBarBlock } from './blocks/progress-bar';
-import { MenuSliderBlock } from './blocks/menu-slider';
-import { FeaturedCollectionBlock } from './blocks/featured-collection';
-import { ProductListBlock } from './blocks/product-list';
-import { CurrencySwitcherBlock } from './blocks/currency-switcher';
+import {Theme} from './theme';
+import {HeaderBlock} from './blocks/header';
+import {HeroBlock} from './blocks/hero';
+import {CoordinatesBlock} from './blocks/coordinates';
+import {ProgressBarBlock} from './blocks/progress-bar';
+import {MenuSliderBlock} from './blocks/menu-slider';
+import {FeaturedCollectionBlock} from './blocks/featured-collection';
+import {ProductListBlock} from './blocks/product-list';
+import {CurrencySwitcherBlock} from './blocks/currency-switcher';
 import {CollectionBlock} from "./blocks/collection";
 import './blocks/quantity';
 import {RelatedProductsBlock} from "./blocks/related-products";
+
 const theme = new Theme();
 theme.register('hero', HeroBlock);
 theme.register('coordinates-block', CoordinatesBlock);
@@ -34,11 +35,17 @@ import './blocks/addresses';
 import './blocks/mailchimp-form';
 import './blocks/faq';
 import './sections/about-location';
+import './sections/about-about';
 import './sections/blog';
 import './sections/sustainability-section--fifth';
 import './sections/sustainability-section';
 import './sections/single-post';
+import './sections/footer';
+import './blocks/sniffer-block';
+import './sections/animations';
 load('*');
+
+
 
 
 

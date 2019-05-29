@@ -5,10 +5,10 @@
  *
  * @namespace product
  */
-
 import Variants from '@shopify/theme-variants';
 import {formatMoney} from '@shopify/theme-currency';
 import {register} from '@shopify/theme-sections';
+import {Product} from "../theme/product";
 
 
 const selectors = {
@@ -19,6 +19,7 @@ const selectors = {
 	originalSelectorId: '[data-product-select]',
 	priceWrapper: '[data-price]',
 	productImageWrapper: '[data-product-image-wrapper]',
+	productSliderImageWrapper: '[data-product-slider-image-wrapper]',
 	productFeaturedImage: '[data-product-featured-image]',
 	productJson: '[data-product-json]',
 	productPrice: '[data-regular-price]',
@@ -27,8 +28,6 @@ const selectors = {
 	singleOptionSize: '[data-single-option-size]',
 	singleForm: '[data-single-form]',
 	sliderSelector: '.js--product-single__slider',
-	stickyBreadcrumb: '.breadcrumb--product',
-	stickyWrapper: '.product-single__meta',
 	modalSliderSelector: '.js--product-single__slider-modal',
 	modalToogle: '.js--product-single__zoom-link',
 
@@ -38,16 +37,19 @@ const cssClasses = {
 	activeThumbnail: 'active-thumbnail',
 	hide: 'hide',
 	priceOnSale: 'price--on-sale',
-	stickyShow: 'breadcrumb--show'
 };
 
 const keyboardKeys = {
 	ENTER: 13,
 };
+
+let slideIndex = $('.product-single__photo-wrapper--active').length > 0 ? parseInt($('.product-single__photo-wrapper--active').attr('data-index')) : 0;
 const slickConfig = {
 	arrows: false,
 	slidesToShow: 1,
 	slidesToScroll: 1,
+	dots: true,
+	initialSlide: slideIndex
 };
 const modalSlickConfig = {
 	slidesToShow: 1,
@@ -55,6 +57,7 @@ const modalSlickConfig = {
 	arrows: true,
 	prevArrow: theme.strings.slickArrowLeftModal,
 	nextArrow: theme.strings.slickArrowRightModal,
+	cssEase:'ease-out'
 };
 /**
  * Product section constructor. Runs on page load as well as Theme Editor
@@ -68,6 +71,8 @@ register('product', {
 		this.$container = $(this.container);
 		var sectionId = this.$container.attr('data-section-id');
 		this.namespace = `.${this.id}`;
+
+		this.$featuredImage = $(selectors.productFeaturedImage, this.$container);
 		// Stop parsing if we don't have the product json script tag when loading
 		// section in the Theme Editor
 		if (!$(selectors.productJson, this.$container).html()) {
@@ -92,7 +97,6 @@ register('product', {
 			self.settings = {};
 			self.variants = new Variants(options);
 
-			// self.$featuredImage = $(selectors.productFeaturedImage, self.$container);
 
 			self.$container.on(
 				`variantChange${self.namespace}`,
@@ -122,41 +126,42 @@ register('product', {
 				var value = $(this).attr('data-value');
 				var index = $(this).parent().attr('data-index');
 				$('select[data-index="' + index + '"]').val(value).trigger('change');
+				select.selectric('refresh');
 				$(this).parent().find('.btn-group__item--selected').removeClass('btn-group__item--selected');
 				$(this).addClass('btn-group__item--selected');
 			});
 
 		});
+		this.toggleSlider();
+		$(window).resize(() => {
+			this.toggleSlider();
+		});
 
-		// $(selectors.sliderSelector, this.$container).slick(slickConfig);
-
-		var slider = $(selectors.modalSliderSelector, this.$container).slick(modalSlickConfig);
+		let slider = $(selectors.modalSliderSelector, this.$container);
 		$(selectors.modalToogle, this.$container).on('click', function (e) {
-			setTimeout(function () {
-				var dataId = $(selectors.modalSliderSelector, this.$container).find('.slick-current').attr("data-slick-index");
-
-				slider.slick('slickGoTo', parseInt(dataId), true);
-			}, 200)
-		});
-
-
-		this.initStickyForm();
-	},
-	initStickyForm() {
-
-		var $stickyElem = $(selectors.stickyBreadcrumb);
-		var $elem = $(selectors.stickyWrapper);
-		$(window).scroll(function () {
-			var scrollTop = $(window).scrollTop();
-			var elemTop = $elem.offset().top;
-			var elemBottom = elemTop + $elem.height();
-			if (elemBottom < scrollTop) {
-				$stickyElem.addClass(cssClasses.stickyShow).css('top', $('.header__inner').outerHeight());
-			} else {
-				$stickyElem.removeClass(cssClasses.stickyShow).css('top', $('.header__inner').outerHeight());
+			if ($(selectors.modalSliderSelector, this.$container).hasClass('slick-initialized')) {
+				$(selectors.modalSliderSelector, this.$container).slick('unslick');
 			}
+			setTimeout(function () {
+				slider = $(selectors.modalSliderSelector, this.$container).slick(modalSlickConfig);
+			}, 400)
 		});
+		this.initQuickBuy();
+
+
 	},
+	toggleSlider() {
+		if ($(window).width() < 1024) {
+			if (!$(selectors.sliderSelector).hasClass('slick-initialized')) {
+				$(selectors.sliderSelector, this.$container).slick(slickConfig);
+			}
+		} else {
+			if ($(selectors.sliderSelector).hasClass('slick-initialized')) {
+				$(selectors.sliderSelector, this.$container).slick('unslick');
+			}
+		}
+	},
+
 	/**
 	 * Updates the DOM state of the add to cart button
 	 *
@@ -184,6 +189,7 @@ register('product', {
 			$(selectors.addToCart, this.$container).prop('disabled', true);
 			$(selectors.addToCartText, this.$container).html(theme.strings.soldOut);
 		}
+		this.updateProductImage(evt);
 	},
 
 	/**
@@ -200,25 +206,75 @@ register('product', {
 			this.$container,
 		);
 
-		$(selectors.productPrice, this.$container).html(
-			formatMoney(variant.price, theme.moneyFormat),
+		$(selectors.productPrice, this.$container).html('<span class="money">' +
+			formatMoney(variant.price, theme.moneyFormat) + '</span>'
 		);
 
 		if (variant.compare_at_price > variant.price) {
-			$comparePrice.html(
-				formatMoney(variant.compare_at_price, theme.moneyFormat),
+			$comparePrice.html('<span class="money">' +
+				formatMoney(variant.compare_at_price, theme.moneyFormat) + '</span>'
 			);
 			$compareEls.removeClass(cssClasses.hide).parent().addClass(cssClasses.priceOnSale);
 		} else {
 			$comparePrice.html('');
 			$compareEls.addClass(cssClasses.hide).parent().removeClass(cssClasses.priceOnSale);
 		}
+		Currency.convertAll(theme.defaultCurrency, Currency.currentCurrency);
+
+	},
+	updateProductImage(evt) {
+		const variant = evt.variant;
+		if (variant.featured_image != null) {
+			const imageId = variant.featured_image.id;
+			let index = null;
+			variant.options.forEach(function (el) {
+				const slide = $(`.js--product-single__slider [data-image-option='${el}']`);
+				if (slide.length > 0) {
+					index = slide.attr('data-index');
+				}
+			});
+			this.switchImage(imageId, index);
+		}
+
 	},
 
+	switchImage(imageId, index) {
+		this.$featuredImage = $(selectors.productFeaturedImage, self.$container);
+		if (this.$featuredImage.length > 0) {
+			const $newImage = $(
+				`${selectors.productImageWrapper}[data-image-id='${imageId}']`,
+				this.$container,
+			);
+			const $otherImages = $(
+				`${selectors.productImageWrapper}:not([data-image-id='${imageId}'])`,
+				this.$container,
+			);
+			$newImage.removeClass(cssClasses.hide);
+			$otherImages.addClass(cssClasses.hide);
+			const $newSliderImage = $(
+				`${selectors.productSliderImageWrapper}[data-image-id='${imageId}']`,
+				this.$container,
+			);
+			if ($(selectors.sliderSelector).hasClass('slick-initialized')) {
+				if (index != null) {
+					$(selectors.sliderSelector).slick('slickGoTo', parseInt(index));
+				}
+			}
+		}
+	},
 	/**
 	 * Event callback for Theme Editor `section:unload` event
 	 */
 	onUnload() {
 		this.$container.off(this.namespace);
 	},
+	initQuickBuy() {
+		$(selectors.addToCart, this.$container).on('click', (e) => {
+			e.preventDefault();
+
+			const form = $(e.target).closest(selectors.singleForm);
+			const data = form.serializeArray();
+			Product.addToCart(data, true);
+		});
+	}
 });

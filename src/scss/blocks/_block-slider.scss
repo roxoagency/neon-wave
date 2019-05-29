@@ -2,12 +2,20 @@
   display: flex;
   text-align: left;
   margin-top: em(18);
+  margin-right: em(16);
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    margin:em(30) auto 0 ;
+    max-width: 768px;
+  }
   &__item {
     position: relative;
     width: 100%;
     transition: all 0.3s ease-in-out;
-    height: 581px;
+    padding-top: 85%;
     overflow: hidden;
+    cursor: pointer;
+    border-right: 1px solid color('light');
+    border-left: 1px solid color('light');
     &:hover {
       width: 100%;
     }
@@ -19,23 +27,40 @@
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 686px;
-    margin-left: -343px;
+    width: 100%;
+    width: 47vw;
+    transform: translate(-50%, 0);
     transition: opacity 0.3s ease-in-out;
-
+    background-blend-mode: multiply;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      width: 80vw;
+    }
   }
 
-  &--is-hover {
+  &--is-active {
+    .block-slider__item {
+      border-right: 0px solid color('light');
+      border-left: 0px solid color('light');
+    }
     .block-slider__item:not(.block-slider__item--active) {
-      width: 22px;
-      min-width: 22px;
-      .block-slider__item-text{
+      width: em(22);
+      min-width: em(22);
+      &.block-slider__item--with-color {
+        .block-slider__item-bg {
+          background-image: none !important;
+        }
+      }
+      .block-slider__item-text {
         opacity: 1;
       }
     }
     .block-slider__item--active {
       width: 100%;
-      .block-slider__item-bg--color:not(.block-slider__item--no-image) {
+      .block-slider__item-bg {
+
+        background-blend-mode: inherit;
+      }
+      .block-slider__item-text {
         opacity: 0;
       }
       .block-slider__item-title {
@@ -57,21 +82,28 @@
     letter-spacing: letterspacing-to-pixels(80, 11.82);
     line-height: 1;
     position: absolute;
-    transform: rotate(-90deg);
-    left: 14px;
+    right: em(7, 11.82);
     z-index: 3;
-    bottom: 9px;
+    bottom: em(9, 11.82);
     transform-origin: left bottom;
-    opacity: 0;
+
+    transform: translate(100%, 0) rotate(-90deg);
     transition: opacity 0.3s ease-in-out;
   }
   &__item-title {
     font-size: em(32.69);
     line-height: 1;
     letter-spacing: letterspacing-to-pixels(80, 32.69);
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
     z-index: 1;
-    padding: 7px 12px;
+    padding: em(7, 32.69) em(12, 32.69);
     opacity: 0;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(13);
+      letter-spacing: 0.75px;
+    }
   }
 }

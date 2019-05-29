@@ -1,0 +1,23 @@
+{% capture tmp %}{%- if image != blank -%}
+    {% capture set %}
+        {{ image | img_url: '720x' }} 180w ,
+        {{ image | img_url: '900x' }} 360w ,
+        {{ image | img_url: '1080x' }} 540w ,
+        {{ image | img_url: '1296x' }} 720w ,
+        {{ image | img_url: '1512x' }} 900w ,
+        {{ image | img_url: '1728x' }} 1080w ,
+        {{ image | img_url: '1950x' }} 1296w ,
+        {{ image | img_url: '2100x' }} 1512w ,
+        {% if image.width > 1728 %}{{ image | img_url: '1728x' }} 1728w {{ 1728 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 1950 %}{{ image | img_url: '1950x' }} 1950w {{ 1950 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 2100 %}{{ image | img_url: '2100x' }} 2100w {{ 2100 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 2260 %}{{ image | img_url: '2260x' }} 2260w {{ 2260 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 2450 %}{{ image | img_url: '2450x' }} 2450w {{ 2450 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 2700 %}{{ image | img_url: '2700x' }} 2700w {{ 2700 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 3000 %}{{ image | img_url: '3000x' }} 3000w {{ 3000 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 3350 %}{{ image | img_url: '3350x' }} 3350w {{ 3350 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 3750 %}{{ image | img_url: '3750x' }} 3750w {{ 3750 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {% if image.width > 4100 %}{{ image | img_url: '4100x' }} 4100w {{ 4100 | divided_by: image.aspect_ratio | round }}h,{% endif %}
+        {{ image | img_url: 'master' }} {{ image.width }}w {{ image.height }}h{% endcapture %}
+{%- endif -%}
+{% endcapture %}{{ set }}

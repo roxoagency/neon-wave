@@ -1,0 +1,25 @@
+.size-cart {
+  .modal-dialog {
+    max-width: 1127px;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  &__image {
+    &--sm {
+      display: none;
+      width: 494px;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    &--lg {
+      width: 100%;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        display: none;
+      }
+    }
+  }
+}

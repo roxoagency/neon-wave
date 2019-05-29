@@ -1,15 +1,26 @@
 $block: '.featured-collection';
 
 #{$block} {
+  margin-bottom: -1px;
 
   @at-root &__inner {
     padding: 0;
+    background: #fff;
+    z-index: 2;
+    position: relative;
   }
 
   @at-root &__content {
     display: flex;
     padding-bottom: 3.7em;
     justify-content: center;
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      display: block;
+    }
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      padding-bottom: em(48);
+    }
 
     &--right {
       flex-direction: row-reverse;
@@ -22,16 +33,67 @@ $block: '.featured-collection';
     font-size: 0.4em;
     min-height: 424px;
 
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      max-width: calc(100% - 60px);
+      min-height: 326px;
+      position: relative;
+      padding-top: 100%;
+      margin-bottom: em(30, 6);
+
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      max-width: calc(100% - 30px);
+      font-size: em(16);
+      margin-bottom: em(30);
+    }
+
+    .hero__content .container {
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        padding-top: em(7);
+        padding-bottom: em(9);
+      }
+    }
+
     .hero__content {
       &::before,
       &::after {
-        max-height: 50px;
+        height: 50px;
+        @include media-breakpoint-down('sm', $grid-breakpoints) {
+          height: em(43);
+        }
+      }
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        padding: em(30);
       }
     }
 
     .hero__title {
       letter-spacing: 1.8px;
       -webkit-text-stroke-width: 1px;
+
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        letter-spacing: 0;
+        font-size: em(21.01);
+      }
+    }
+
+    .hero__subtitle {
+
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        font-size: em(21.01);
+      }
+    }
+
+    .hero__link {
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        margin-top: em(5, 8.32)
+      }
     }
   }
 
@@ -41,6 +103,16 @@ $block: '.featured-collection';
     max-width: 68%;
     padding: 0 1.1em 0 1.6em;
     overflow: hidden;
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding: 0 em(36);
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      padding: 0 em(23);
+    }
 
     .slick-arrow {
       color: color('primary');
@@ -63,11 +135,26 @@ $block: '.featured-collection';
     flex: 0 0 25%;
     max-width: 25%;
     padding: 0 1.5em;
+    @include media-breakpoint-down('lg', $grid-breakpoints) {
+      padding: 0 ;
+    }
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      flex: 0 0 50%;
+      max-width: 50%;
+      padding: 0 em(24);
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      padding: 0 em(7);
+    }
   }
 
   .product-card {
     &:last-child {
       margin-bottom: 0;
+    }
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      padding: 0;
     }
   }
 }

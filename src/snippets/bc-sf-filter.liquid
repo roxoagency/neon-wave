@@ -72,10 +72,11 @@
 <script>bcsffilter.initFilter();</script>
 {% endunless %}
 {% endif %}
-
+{% comment %}
 {% if template contains 'search' %}
 <script>bcsffilter.initFilter();</script>
 {% endif %}
 
 <!-- Initialize & Customize Search -->
 <script>bcsffilter.initSearchBox();</script>
+{% endcomment %}

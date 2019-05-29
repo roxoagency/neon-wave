@@ -1,31 +1,30 @@
 <div class="page  page--sustainability"  data-section-type="sustainability-section"  data-section-id="sustainability-section">
-    <div class="sustainability-section__bg">
-        {% section "sustainability-section-first" %}
-        {% section "sustainability-section-second" %}
-        {% section "sustainability-section-third" %}
-        <div class="sustainability-section__bg-bottom"></div>
-    </div>
-    {% section "sustainability-section-fourth" %}
-    {% section "sustainability-section-fifth" %}
-    {% section "sustainability-section-sixth" %}
+  {% assign image = "sustainability__bg.jpg" | asset_url %}
+  <div class="sustainability-section__bg"> </div>
+  {% section "sustainability-section-first" %}
+  {% section "sustainability-section-second" %}
+  {% section "sustainability-section-third" %}
+  {% section "sustainability-section-fourth" %}
+  {% section "sustainability-section-fifth" %}
+  {% section "sustainability-section-sixth" %}
     <div class="sustainability-nav">
         <div class="sustainability-nav__item">
-            <a href="#sustainability-section--first" class="sustainability-nav__link "></a>
+            <a href="#sustainability-section--first" class="sustainability-nav__link sustainability-nav__link--active">{% include 'icon-page-dot' %}</a>
         </div>
         <div class="sustainability-nav__item">
-            <a href="#sustainability-section--second" class="sustainability-nav__link"></a>
+            <a href="#sustainability-section--second" class="sustainability-nav__link">{% include 'icon-page-dot' %}</a>
         </div>
         <div class="sustainability-nav__item">
-            <a href="#sustainability-section--third"  class="sustainability-nav__link"></a>
+            <a href="#sustainability-section--third"  class="sustainability-nav__link">{% include 'icon-page-dot' %}</a>
         </div>
         <div class="sustainability-nav__item">
-            <a href="#sustainability-section--fourth" class="sustainability-nav__link "></a>
+            <a href="#sustainability-section--fourth" class="sustainability-nav__link ">{% include 'icon-page-dot' %}</a>
         </div>
         <div class="sustainability-nav__item">
-            <a href="#sustainability-section--fifth" class="sustainability-nav__link "></a>
+            <a href="#sustainability-section--fifth" class="sustainability-nav__link ">{% include 'icon-page-dot' %}</a>
         </div>
         <div class="sustainability-nav__item">
-            <a href="#sustainability-section--sixth" class="sustainability-nav__link "></a>
+            <a href="#sustainability-section--sixth" class="sustainability-nav__link ">{% include 'icon-page-dot' %}</a>
         </div>
     </div>
 </div>

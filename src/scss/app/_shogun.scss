@@ -6,9 +6,17 @@ body {
   .shg-box {
     & > .shg-box-content {
       width: 100%;
-      max-width: 1366px;
+      max-width: $site-width-xl;
       padding: 0 em(60);
       margin: 0 auto em(67);
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+
+        margin: 0 auto em(50);
+      }
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        margin: 0 auto em(26);
+        padding: 0 em(30);
+      }
     }
 
     blockquote {
@@ -18,12 +26,24 @@ body {
       letter-spacing: letterspacing-to-pixels(70, 36);
       font-weight: 700;
       margin: 0;
+
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        margin-top: em(103, 36);
+        margin-bottom: em(64, 36);
+      }
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        font-size: em(24);
+        line-height: (30/24);
+        letter-spacing: letterspacing-to-pixels(70, 36);
+        margin-top: em(50, 24);
+      }
     }
   }
   .shg-rich-text {
     font-size: em(13);
     line-height: (22/13);
     letter-spacing: letterspacing-to-pixels(70, 13);
+
     p {
       margin: 0 0 em(21, 13);
     }
@@ -59,6 +79,12 @@ body {
       font-size: em(13, 13);
       margin: 0 0 em(24, 13);
     }
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+
+      font-size: em(10);
+      line-height: (16.5/10);
+      letter-spacing: letterspacing-to-pixels(75, 10);
+    }
   }
   .shg-row--center {
     .shg-row {
@@ -81,16 +107,37 @@ body {
     background: #00727D;;
   }
   .shg-pull--left, .shg-pull--right {
-    width: calc(100% + 60px);
+    width: calc(100% + 3.750em);
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      width: calc(100% + 1.875em);
+    }
   }
 
   .shg-pull--left {
     margin-left: em(-60);
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin-left: em(-30);
+    }
   }
 
   .shg-category-col {
     width: 20%;
     margin: 0 0.5625em;
     max-width: 360px;
+  }
+
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    .shg-box-content .shg-c .shg-row > .shg-c-sm-6,
+    .shg-box-content .shg-c .shg-row > .shg-c-sm-4 {
+      width: 100%;
+    }
+
+    .shg-pull--right .shogun-image-container {
+      margin-top: em(127);
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+
+        margin-top: em(26);
+      }
+    }
   }
 }

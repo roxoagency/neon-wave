@@ -5,232 +5,338 @@
     or settings.social_instagram_link != blank -%}
     {%- assign social_icons = true -%}
 {%- endif -%}
+     {% if section.settings.show_newsletter %}
+         <!-- Modal -->
+         <div class="modal fade modal--newsletter newsletter" id="newsletter" tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+             <div class="modal-dialog modal-dialog-centered" role="document">
+                 <div class="modal-content">
+
+                     <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         </button>
+                     </div>
+                     <div class="modal-content-wrapper">
+                         <div class="modal-bg modal-bg--lg lazyload"
+                                 {% if section.settings.show_newsletter_image %}
+                             data-bgset="{% include 'bgset', image: section.settings.newsletter_image %}"
+                             data-sizes="auto"
+                             data-parent-fit="cover"
+                             style="background-image: url({{ section.settings.newsletter_image  | img_url: 'master' }});"
+                                 {% endif %}>
+                         </div>
+                         <div class="modal-bg modal-bg--sm lazyload"
+                                 {% if section.settings.newsletter_image_mobile %}
+                             data-bgset="{% include 'bgset', image: section.settings.newsletter_image_mobile %}"
+                             data-sizes="auto"
+                             data-parent-fit="cover"
+                             style="background-image: url({{ section.settings.newsletter_image_mobile  | img_url: '375x' }});"
+                                 {% endif %}>
+                         </div>
+                         <div class="modal-body">
+                             <form action="https://thisisneonwave.us17.list-manage.com/subscribe/post-json?u=3be44795906ae5215df909e73&amp;id=694618b472&c=?"
+                                   method="get" id="mc-embedded-subscribe-form"
+                                   name="mc-embedded-subscribe-form"
+                                   class="o-subscribe-form c-form">
+                                 {% if section.settings.newsletter_modal_title!='' %}
+                                     <h2 class="newsletter__title">
+                                         {{ section.settings.newsletter_modal_title }}
+                                     </h2>
+                                 {% endif %}
+                                 {% if section.settings.newsletter_modal_text!='' %}
+                                     <div class="newsletter__text">
+                                         {{ section.settings.newsletter_modal_text }}
+
+                                     </div>
+                                 {% endif %}
 
 
-<footer class="footer" role="contentinfo">
-    <div class="container">
-        {% if section.settings.show_newsletter or section.settings.show_coordinates %}
-            <div class="footer__col">
-                {% if section.settings.show_newsletter %}
-                    <div class="footer__block footer__block--newsletter block-newsletter">
-                        {{ section.settings.newsletter_title }}
-                        {% if section.settings.newsletter_btn != blank %}
-                            <button data-toggle="modal" data-target="#newsletter" type="button"
-                                    class="btn btn--large btn--outline-light">{{ section.settings.newsletter_btn }}</button>
-                        {% endif %}
+                                 <div id="form-responses" class="form__text form__message"></div>
+                                 <div id="form-responses-success" class="form__text form__message form__message--success"></div>
+                                 <div class="form__row">
+                                     <input type="email" value="" name="EMAIL"
+                                            class="form__field form__field--transparent"
+                                            placeholder="{{ 'general.singup.email' | t }}"
+                                            id="mce-EMAIL" required>
+                                 </div>
+                                 <div class="form__row">
+                                     <input type="text" value="" name="FNAME"
+                                            class="form__field form__field--transparent"
+                                            placeholder="{{ 'general.singup.first_name' | t }}"
+                                            id="mce-FNAME" required>
+                                 </div>
+                                 <div class="form__row">
+                                     <input type="text" value="" name="LNAME"
+                                            class="form__field form__field--transparent"
+                                            placeholder="{{ 'general.singup.last_name' | t }}"
+                                            id="mce-LNAME">
+                                 </div>
+                                 <div class="form__row">
 
+                                     <div class="form__datefield js-form-datefield">
+                                                            <span class="form__placeholder">{{ 'general.singup.birthday' | t }}
+                                                                <small>(MM/DD/YYYY)</small></span>
+                                         <input
+                                                 class="form__field form__field--transparent js-date"
+                                                 type="text">
+                                         <input
+                                                 type="hidden" pattern="[0-9]*" value=""
+                                                 placeholder="MM" size="2" maxlength="2"
+                                                 name="BIRTHDAY[month]"
+                                                 id="mce-BIRTHDAY-month">
+                                         <input
+                                                 type="hidden" pattern="[0-9]*" value=""
+                                                 placeholder="DD" size="2" maxlength="2"
+                                                 name="BIRTHDAY[day]" id="mce-BIRTHDAY-day">
+                                         <input
+                                                 type="hidden" pattern="[0-9]*" value=""
+                                                 placeholder="YYYY" size="4" maxlength="4"
+                                                 name="BIRTHDAY[year]" id="mce-BIRTHDAY-year">
 
-                        <!-- Modal -->
-                        <div class="modal fade modal--newsletter newsletter" id="newsletter" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        </button>
-                                    </div>
-                                    <div class="modal-content-wrapper">
-                                        <div class="modal-bg lazyload"
-                                                {% if section.settings.show_newsletter_image %}
-                                            data-bgset="{% include 'bgset', image: section.settings.newsletter_image %}"
-                                            data-sizes="auto"
-                                            data-parent-fit="cover"
-                                            style="background-image: url('{{ section.settings.newsletter_image  | img_url: 'master' }});"
-                                                {% endif %}>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="https://thisisneonwave.us17.list-manage.com/subscribe/post-json?u=3be44795906ae5215df909e73&amp;id=694618b472&c=?"
-                                                  method="get" id="mc-embedded-subscribe-form"
-                                                  name="mc-embedded-subscribe-form"
-                                                  class="o-subscribe-form c-form">
-                                                {% if section.settings.newsletter_modal_title!='' %}
-                                                    <h2 class="newsletter__title">
-                                                        {{ section.settings.newsletter_modal_title }}
-                                                    </h2>
-                                                {% endif %}
-                                                {% if section.settings.newsletter_modal_text!='' %}
-                                                    <div class="newsletter__text">
-                                                        {{ section.settings.newsletter_modal_text }}
-
-                                                    </div>
-                                                {% endif %}
-
-
-                                                <div id="form-responses" class="form__text form__message"></div>
-                                                <div class="form__row">
-                                                    <input type="email" value="" name="EMAIL"
-                                                           class="form__field form__field--transparent"
-                                                           placeholder="{{ 'general.singup.email' | t }}"
-                                                           id="mce-EMAIL" required>
-                                                </div>
-                                                <div class="form__row">
-                                                    <input type="text" value="" name="FNAME"
-                                                           class="form__field form__field--transparent"
-                                                           placeholder="{{ 'general.singup.first_name' | t }}"
-                                                           id="mce-FNAME" required>
-                                                </div>
-                                                <div class="form__row">
-                                                    <input type="text" value="" name="LNAME"
-                                                           class="form__field form__field--transparent"
-                                                           placeholder="{{ 'general.singup.last_name' | t }}"
-                                                           id="mce-LNAME">
-                                                </div>
-                                                <div class="form__row">
-
-                                                    <div class="form__datefield js-form-datefield">
-                                                        <span class="form__placeholder">{{ 'general.singup.birthday' | t }}<small>(MM/DD/YYYY)</small></span>
-                                                        <input
-                                                                class="form__field form__field--transparent js-date" type="text">
-                                                      <input
-                                                                    type="hidden" pattern="[0-9]*" value=""
-                                                                    placeholder="MM" size="2" maxlength="2"
-                                                                    name="BIRTHDAY[month]"
-                                                                    id="mce-BIRTHDAY-month">
-                                                        <input
-                                                                    type="hidden" pattern="[0-9]*" value=""
-                                                                    placeholder="DD" size="2" maxlength="2"
-                                                                    name="BIRTHDAY[day]" id="mce-BIRTHDAY-day">
-                                                        <input
-                                                                    type="hidden" pattern="[0-9]*" value=""
-                                                                    placeholder="YYYY" size="4" maxlength="4"
-                                                                    name="BIRTHDAY[year]" id="mce-BIRTHDAY-year">
-
-                                                    </div>
-                                                </div>
-                                                <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                                                    <input type="text" name="b_3be44795906ae5215df909e73_694618b472"
-                                                           tabindex="-1" value="">
-                                                </div>
-                                                <div class="form__row">
-                                                    <button type="submit" value="Subscribe" name="subscribe"
-                                                            id="mc-embedded-subscribe"
-                                                            class="btn btn--outline btn--md ">
+                                     </div>
+                                 </div>
+                                 <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                     <input type="text" name="b_3be44795906ae5215df909e73_694618b472"
+                                            tabindex="-1" value="">
+                                 </div>
+                                 <div class="form__row">
+                                     <button type="submit" value="Subscribe" name="subscribe"
+                                             id="mc-embedded-subscribe"
+                                             class="btn btn--outline btn--md ">
                                                     <span class="btn__text">
                                                         {% if section.settings.newsletter_modal_btn!='' %}{{ section.settings.newsletter_modal_btn }}{% else %} SUBSCRIBE{% endif %}
                                                     </span>
-                                                        <span class="btn__loader"></span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                            <div class="newsletter__bottom">
-                                                {% if section.settings.newsletter_modal_bottom!='' %}{{ section.settings.newsletter_modal_bottom }}{% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
+                                         <span class="btn__loader"></span>
+                                     </button>
+                                 </div>
+                             </form>
+                             <div class="newsletter__bottom">
+                                 {% if section.settings.newsletter_modal_bottom!='' %}{{ section.settings.newsletter_modal_bottom }}{% endif %}
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     {% endif %}
+
+<footer class="footer {% if template contains 'customers' %}footer--no-parallax{% endif %}" role="contentinfo" data-section-type="footer" data-section-id="footer" data-section-index="6" >
+    <div class="footer__content animated-block">
+        <div class="container">
+            <div class="row">
+                {% if section.settings.show_newsletter or section.settings.show_coordinates %}
+                    <div class="footer__col">
+                        <div class="footer__block footer__block--newsletter block-newsletter">
+                            {% if section.settings.show_newsletter %}
+                                {{ section.settings.newsletter_title }}
+                                {% if section.settings.newsletter_btn != blank %}
+                                    <button data-toggle="modal" data-target="#newsletter" type="button"
+                                            class="btn btn--large btn--outline-light">{{ section.settings.newsletter_btn }}</span>
+                                    </button>
+                                {% endif %}
+
+
+
+
+                            {% endif %}
+                            {%- if social_icons or settings.phone != blank -%}
+                                <div class="footer__block footer__block--social footer__block--social-md">
+                                    <ul class="list--inline footer__social-icons social-icons">
+                                        {%- if settings.phone != blank -%}
+                                            <li>
+                                                <a class="social-icons__link" href="tel:{{ settings.phone | escape }}"
+                                                   target="_blank" title="Phone">
+                                                    {%- include 'icon-phone' -%}
+                                                </a>
+                                            </li>
+                                        {%- endif -%}
+                                        {%- if settings.social_instagram_link != blank -%}
+                                            <li>
+                                                <a class="social-icons__link"
+                                                   href="{{ settings.social_instagram_link | escape }}"
+                                                   target="_blank" title="Instagram">
+                                                    {%- include 'icon-instagram' -%}
+                                                </a>
+                                            </li>
+                                        {%- endif -%}
+                                        {%- if settings.social_facebook_link != blank -%}
+                                            <li>
+                                                <a class="social-icons__link"
+                                                   href="{{ settings.social_facebook_link | escape }}"
+                                                   target="_blank" title="Facebook">
+                                                    {%- include 'icon-facebook' -%}
+                                                </a>
+                                            </li>
+                                        {%- endif -%}
+                                    </ul>
                                 </div>
+                            {%- endif -%}
+                        </div>
+                        {% if section.settings.show_coordinates %}
+                            <div class="footer__block footer__block--coordinates block-coordinates"
+                                 data-section-type="coordinates-block">
+                                {% if section.settings.about_us_mobile != blank %}
+                                    <div class="footer__block footer__block--about footer__block--about-md">
+                                        {{ section.settings.about_us_mobile }}
+                                    </div>
+                                {% endif %}
+                                {%- if social_icons or settings.phone != blank -%}
+                                    <div class="footer__block footer__block--social footer__block--social-sm">
+                                        <ul class="list--inline footer__social-icons social-icons">
+                                            {%- if settings.phone != blank -%}
+                                                <li>
+                                                    <a class="social-icons__link"
+                                                       href="tel:{{ settings.phone | escape }}"
+                                                       target="_blank" title="Phone">
+                                                        {%- include 'icon-phone' -%}
+                                                    </a>
+                                                </li>
+                                            {%- endif -%}
+                                            {%- if settings.social_instagram_link != blank -%}
+                                                <li>
+                                                    <a class="social-icons__link"
+                                                       href="{{ settings.social_instagram_link | escape }}"
+                                                       target="_blank" title="Instagram">
+                                                        {%- include 'icon-instagram' -%}
+                                                    </a>
+                                                </li>
+                                            {%- endif -%}
+                                            {%- if settings.social_facebook_link != blank -%}
+                                                <li>
+                                                    <a class="social-icons__link"
+                                                       href="{{ settings.social_facebook_link | escape }}"
+                                                       target="_blank" title="Facebook">
+                                                        {%- include 'icon-facebook' -%}
+                                                    </a>
+                                                </li>
+                                            {%- endif -%}
+                                        </ul>
+                                    </div>
+                                {%- endif -%}
+                                {% if section.settings.coordinates_lat and section.settings.coordinates_lng %}
+                                    <p>We Are Here: <span class="block-coordinates__value"><a
+                                                    href="https://www.google.com/maps/@{{ section.settings.coordinates_lat }},{{ section.settings.coordinates_lng }},17z"
+                                                    target="_blank"><span
+                                                        class="lat">{{ section.settings.coordinates_lat }}</span>˚N, <span
+                                                        class="lng">{{ section.settings.coordinates_lng }}</span>˚W</span></a>
+                                    </p>
+                                {% endif %}
+                                <p class="js--user-coords hide">You Are Here: <span class="block-coordinates__value"><a
+                                                class="js--dir-link"
+                                                href="https://www.google.com/maps/dir/USER_LAT,USER_LNG/{{ section.settings.coordinates_lat }},{{ section.settings.coordinates_lng }}"
+                                                target="_blank"><span class="lat"></span>˚N, <span
+                                                    class="lng"></span>˚W</span></a></p>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if section.blocks.size > 0 %}
+                    <div class="footer__col">
+                        <div class="footer__block footer__block--menus">
+                            {% for block in section.blocks %}
+
+                                {% if block.settings.menu == blank %}
+                                    {% continue %}
+                                {% endif %}
+
+                                <nav class="nav footer-nav">
+                                    <ul class="footer-nav__list nav__list">
+                                        {%- for link in linklists[block.settings.menu].links -%}
+                                            <li class="nav__item">
+                                                <a class="nav__link" href="{{ link.url }}"
+                                                   title="{{ link.title | escape }}" {% if link.title == 'POW' %}target="_blank"{% endif %}><span>{{ link.title | escape }}</span></a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="footer__col">
+                    {%- if social_icons -%}
+                        <div class="footer__block footer__block--social">
+                            <ul class="list--inline footer__social-icons social-icons">
+                                {%- if settings.social_instagram_link != blank -%}
+                                    <li>
+                                        <a class="social-icons__link"
+                                           href="{{ settings.social_instagram_link | escape }}"
+                                           target="_blank" title="Instagram">
+                                            {%- include 'icon-instagram' -%}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                                {%- if settings.social_facebook_link != blank -%}
+                                    <li>
+                                        <a class="social-icons__link"
+                                           href="{{ settings.social_facebook_link | escape }}"
+                                           target="_blank" title="Facebook">
+                                            {%- include 'icon-facebook' -%}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                            </ul>
+                            <div class="footer__block footer__block--deco">{% include 'icon-deco' %}</div>
+                        </div>
+                    {%- endif -%}
+                    {% if section.settings.about_us != blank %}
+                        <div class="footer__block footer__block--about">
+                            {{ section.settings.about_us }}
+                        </div>
+                    {% endif %}
+                    {% if section.settings.show_payment_icons %}
+                        <div class="footer__block footer__block--payment-icons">
+                            <div class="footer__payment-icons">
+                                <ul class="payment-icons list--inline">
+                                    <li class="payment-icon">
+                                        {%- include 'payment-icon1' -%}
+                                    </li>
+                                    <li class="payment-icon">
+                                        {%- include 'payment-icon2' -%}
+                                    </li>
+                                    <li class="payment-icon">
+                                        {%- include 'payment-icon3' -%}
+                                    </li>
+                                    <li class="payment-icon">
+                                        {%- include 'payment-icon4' -%}
+                                    </li>
+                                    <li class="payment-icon">
+                                        {%- include 'payment-icon5' -%}
+                                    </li>
+                                    <li class="payment-icon">
+                                        {%- include 'payment-icon6' -%}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
-                {% if section.settings.show_coordinates %}
-                    <div class="footer__block footer__block--coordinates block-coordinates"
-                         data-section-type="coordinates-block">
-                        {% if section.settings.coordinates_lat and section.settings.coordinates_lng %}
-                            <p>We Are Here: <span class="block-coordinates__value"><a
-                                            href="https://www.google.com/maps/@{{ section.settings.coordinates_lat }},{{ section.settings.coordinates_lng }},17z"
-                                            target="_blank"><span
-                                                class="lat">{{ section.settings.coordinates_lat }}</span>˚N, <span
-                                                class="lng">{{ section.settings.coordinates_lng }}</span>˚W</span></a>
-                            </p>
-                        {% endif %}
-                        <p class="js--user-coords hide">You Are Here: <span class="block-coordinates__value"><a
-                                        class="js--dir-link"
-                                        href="https://www.google.com/maps/dir/USER_LAT,USER_LNG/{{ section.settings.coordinates_lat }},{{ section.settings.coordinates_lng }}"
-                                        target="_blank"><span class="lat"></span>˚N, <span
-                                            class="lng"></span>˚W</span></a></p>
-                    </div>
-                {% endif %}
-            </div>
-        {% endif %}
-        {% if section.blocks.size > 0 %}
-            <div class="footer__col">
-                <div class="footer__block footer__block--menus">
-                    {% for block in section.blocks %}
-
-                        {% if block.settings.menu == blank %}
-                            {% continue %}
-                        {% endif %}
-
-                        <nav class="nav footer-nav">
-                            <ul class="footer-nav__list nav__list">
-                                {%- for link in linklists[block.settings.menu].links -%}
-                                    <li class="nav__item">
-                                        <a class="nav__link" href="{{ link.url }}"
-                                           title="{{ link.title | escape }}">{{ link.title | escape }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </nav>
-                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="footer__col">
+                    {% include 'icon-logo-large' %}
                 </div>
             </div>
-        {% endif %}
-        <div class="footer__col">
-            {%- if social_icons -%}
-                <div class="footer__block footer__block--social">
-                    <ul class="list--inline footer__social-icons social-icons">
-                        {%- if settings.social_instagram_link != blank -%}
-                            <li>
-                                <a class="social-icons__link" href="{{ settings.social_instagram_link | escape }}"
-                                   target="_blank" title="Instagram">
-                                    {%- include 'icon-instagram' -%}
-                                </a>
+        </div>
+        <div class="footer__copyright copyright">
+            <div class="container">
+                <p class="copyright__text"><span class="copyright__span">{{ section.settings.copyright }}</span> <span
+                            class="copyright__vat">{{ section.settings.copyright_vat }}</span></p>
+                {% if section.settings.copyright_menu != blank %}
+                    <ul class="list--inline copyright__menu">
+                        <li class="copyright__menu__item copyright__menu__item--vat"><span
+                                    class="copyright__vat">{{ section.settings.copyright_vat }}</span></li>
+                        {%- for link in linklists[section.settings.copyright_menu].links -%}
+                            <li class="copyright__menu__item">
+                                <a class="copyright__menu__link" href="{{ link.url }}"
+                                   title="{{ link.title | escape }}">{{ link.title | escape }}</a>
                             </li>
-                        {%- endif -%}
-                        {%- if settings.social_facebook_link != blank -%}
-                            <li>
-                                <a class="social-icons__link" href="{{ settings.social_facebook_link | escape }}"
-                                   target="_blank" title="Facebook">
-                                    {%- include 'icon-facebook' -%}
-                                </a>
-                            </li>
-                        {%- endif -%}
+                            {% unless forloop.last %}
+                                <li>&nbsp;|&nbsp;</li>
+                            {% endunless %}
+                        {% endfor %}
                     </ul>
-                    <div class="footer__block footer__block--deco">{% include 'icon-deco' %}</div>
-                </div>
-            {%- endif -%}
-            {% if section.settings.about_us != blank %}
-                <div class="footer__block footer__block--about">
-                    {{ section.settings.about_us }}
-                </div>
-            {% endif %}
-            {% if section.settings.show_payment_icons %}
-                {% unless shop.enabled_payment_types == empty %}
-                    <div class="footer__block footer__block--payment-icons">
-                        <div class="footer__payment-icons">
-                            <ul class="payment-icons list--inline">
-                                {% for type in shop.enabled_payment_types %}
-                                    <li class="payment-icon">
-                                        {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                {% endunless %}
-            {% endif %}
-        </div>
-        <div class="footer__col">
-            {% include 'icon-logo-large' %}
-        </div>
-    </div>
-    <div class="footer__copyright copyright">
-        <div class="container">
-            <p class="copyright__text">{{ section.settings.copyright }}&nbsp;</p>
-            {% if section.settings.copyright_menu != blank %}
-                <ul class="list--inline copyright__menu">
-                    {%- for link in linklists[section.settings.copyright_menu].links -%}
-                        <li class="copyright__menu__item">
-                            <a class="copyright__menu__link" href="{{ link.url }}"
-                               title="{{ link.title | escape }}">{{ link.title | escape }}</a>
-                        </li>
-                        {% unless forloop.last %}
-                            <li>&nbsp;|&nbsp;</li>
-                        {% endunless %}
-                    {% endfor %}
-                </ul>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </footer>
@@ -376,7 +482,13 @@
     "en": "Text"
     }
     },
-
+    {
+    "type": "richtext",
+    "id": "about_us_mobile",
+    "label": {
+    "en": "Tablet/mobile Text"
+    }
+    },
     {
     "type": "header",
     "content": {
@@ -388,6 +500,13 @@
     "id": "copyright",
     "label": {
     "en": "Text"
+    }
+    },
+    {
+    "type": "text",
+    "id": "copyright_vat",
+    "label": {
+    "en": "Vat text"
     }
     },
     {

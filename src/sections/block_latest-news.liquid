@@ -1,7 +1,7 @@
 {%- assign blog = blogs[section.settings.blog] -%}
 <div id="latest-news-{{ section.id }}"
   class="latest-news__inner">
-  <div class="latest-news__header section-header">
+  <div class="latest-news__header section-header animated-block">
     {% if section.settings.title != blank %}
       <h2 class="section-header__title">{{ section.settings.title }}</h2>
     {% endif %}
@@ -10,24 +10,21 @@
     {% endif %}
   </div>
   <div class="container">
-    <div class="row">
+    <div class="row ">
       {% unless blog.articles_count == 0 %}
         {% for article in blog.articles limit: 6 %}
-          <div class="article-card col-12 col-md-2">
+          <div class="article-card animated-block col-lg-2 {% if forloop.index == 1 %}  col-12  col-md-12 {% else %} col-6   col-md-6{% endif %}">
             {% if article.image %}
-                {%- assign img_url = article.image | img_url: '100x100', crop: 'center' -%}
-
                 <div id="{{ img_wrapper_id }}" class="article-card__image-wrapper">
-                  <div class="article-card__image-container" style="padding-top:100%;">
-                    <a href="{{ article.url }}" title="{{ article.title | escape }}" class="full--sized">
-                      <img id="{{ img_id }}"
-                          class="article-card__image full--sized lazyload"
-                          src="{{ img_url }}"
-                          data-src="{{ article.image | img_url: '375x375', crop: 'center' }}"
-                          data-aspectratio="{{ article.image.aspect_ratio }}"
-                          data-sizes="auto"
-                          alt="">
-                    </a>
+                  <div class="article-card__image-container">
+                        {% assign image = article.image %}
+
+                      <a class="article-card__image lazyload lazyload" href="{{ article.url }}"
+                         data-bgset="{% include 'bgset', image: image %}"
+                         data-sizes="auto"
+                         data-parent-fit="cover"
+                         style="background-image: url({{ image  | img_url: '100x100' }});">
+                      </a>
                   </div>
                 </div>
                 <div class="article-card__content">

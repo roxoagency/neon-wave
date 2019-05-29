@@ -1,32 +1,44 @@
 .quantity {
   display: inline-block;
-  height: 30px;
+  height: em(30);
+  min-height: 30px;
   position: relative;
   &__item {
-    min-width: 50px;
-    width: 50px;
+    min-width: em(50, 11);
+    width: em(50, 11);
     text-align: center;
     color: color('primary');
-    height: 30px;
+    height: em(30, 11);
     border: 1px solid color('primary');
     text-transform: uppercase;
     appearance: none;
     font-size: em(11);
     letter-spacing: 0.9px;
     line-height: (15.6/11);
-    padding: 0 25px 0 5px;
+    padding: 0 em(25, 11) 0 em(5, 11);
     display: inline-block;
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
+    border-radius: 0;
     &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(9);
+      letter-spacing: letterspacing-to-pixels(70, 9);
+      padding: 0 em(25, 9) 0 em(5, 9);
+      height: em(30, 9);
+      min-width: em(50, 9);
+      width: em(50, 9);
+      min-height: 30px;
+    }
   }
   &__button {
-    width: 20px;
-    height: 15px;
-    background: #fff url(arrow-green.svg) no-repeat center;
-    background-size: 6px;
+    width: em(20);
+    height: em(15);
+    background: #fff no-repeat center;
+    background-size: em(6);
     border: 1px solid color('primary');
     outline: none;
     box-shadow: none;
@@ -34,34 +46,60 @@
     position: absolute;
     right: 0;
     top: 0;
+    padding: 0;
     transition: background-color 0.15s linear;
+    will-change: transform;
+    &-span {
 
+      display: block;
+      background: url(arrow-green.svg) no-repeat center;
+      background-size: em(6);
+      position: absolute;
+      left: 0;
+      top: 0;
+      right:0;
+      bottom:0;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        max-width: 19px;
+      }
+    }
     &:focus {
       outline: none;
     }
+    &--bottom {
+      .quantity__button-span {
+
+      }
+    }
     &--top {
-      transform: rotate(180deg);
+      .quantity__button-span {
+        transform: rotate(180deg);
+      }
 
     }
     &:hover {
-      background: $selectric-main-color url(arrow-white.svg) no-repeat center;
-      background-size: 6px;
+      background: $selectric-main-color;
+      .quantity__button-span {
+        background: url(arrow-white.svg) no-repeat center;
+        background-size: em(6);
+      }
     }
     &--bottom {
       top: auto;
       bottom: 0;
-      height: 16px;
+      //height: em(16);
+      border-top: 0 solid;
     }
   }
   &--lg {
-    height: 48px;
+    height: em(48, 13);
     .quantity__item {
       font-size: em(16, 13);
-      width: 133px;
-      height: 48px;
+      width: em(133, 16);
+      height: em(48, 16);
       background: #F7F8FA;
       border: 0 solid;
-      padding: 0px 35px 0;
+      padding: 0px em(35, 16) 0;
       font-family: $font-stack-header;
       font-weight: 700;
     }
@@ -69,14 +107,14 @@
     .quantity__button {
       background: transparent;
       border: 0 solid;
-      width: 35px;
-      height: 48px;
+      width: em(35, 13);
+      height: em(48, 13);
       opacity: 0.5;
-      padding: 0 0 4px 22px ;
       text-align: right;
-
+      padding: 0 em(22, 13) em(4, 13) 0;
       transition: opacity 0.15s linear;
-      &:hover{
+
+      &:hover {
         opacity: 1;
       }
       svg {
@@ -85,6 +123,7 @@
       &--bottom {
         left: 0;
         right: auto;
+        padding: 0 0 em(4, 13) em(22, 13);
 
       }
     }

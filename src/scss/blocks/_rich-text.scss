@@ -4,6 +4,12 @@ $content_width: 33.333%;
 
 #{$block} {
   padding: 0 1em 3.8em;
+  background: #fff;
+  z-index: 2;
+  position: relative;
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    padding: 0 0 em(60);
+  }
 
   @at-root &__header {
     padding-top: 1.7em;
@@ -11,36 +17,76 @@ $content_width: 33.333%;
 
   @at-root &__content {
 
-    padding: 74px 30px;
-    width:100%;
-    flex: 0 0  33.333%;
-    max-width:33.333%;
+    padding: em(74) em(30) em(74) em(14);
+    width: 100%;
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding: 0 em(30);
+      margin: 0 0 em(26);
+    }
+
     &-title {
-      letter-spacing: 0.9px;
-      font-size: 1.7em;
+      letter-spacing: letterspacing-to-pixels(40, 27);
+      font-size: em(27);
       padding-right: 3em;
-      line-height: 1.25;
-      margin-bottom: 0.7em;
+      line-height: (34/27);
+      margin-bottom: em(17, 27);
       font-weight: 700;
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        padding: 0;
+        text-align: center;
+        margin: 0 0 em(15, 17.99);
+      }
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        font-size: em(17.99);
+        letter-spacing: 0;
+        line-height: (21.59/17.99);
+
+      }
     }
 
     &-text {
-      font-size: 0.7em;
-      line-height: 1.6;
+      letter-spacing: letterspacing-to-pixels(70, 10);
+      font-size: em(10);
+      line-height: (20/10);
+      text-align: justify;
+
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        font-size: em(9);
+        line-height: (15.5/9);
+        letter-spacing: letterspacing-to-pixels(75, 9);
+      }
     }
   }
 
   @at-root &__images {
-    width:100%;
+    width: 100%;
     flex: 0 0 calc(100% - #{$content_width});
     max-width: calc(100% - #{$content_width});
     display: flex;
     min-height: 423px;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      flex-wrap: wrap;
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-height: 0;
+      display: block;
+      padding: 0 em(30);
+    }
 
     &--size-2 {
       #{$block}__image-container {
         max-width: 50%;
         flex: 0 0 50%;
+        @include media-breakpoint-down('md', $grid-breakpoints) {
+
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
       }
     }
 
@@ -49,10 +95,20 @@ $content_width: 33.333%;
       & > #{$block}__image-container {
         max-width: 25%;
         flex: 0 0 25%;
+        @include media-breakpoint-down('md', $grid-breakpoints) {
+
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
 
         &:first-child {
           max-width: 50%;
           flex: 0 0 50%;
+          @include media-breakpoint-down('md', $grid-breakpoints) {
+
+            flex: 0 0 100%;
+            max-width: 100%;
+          }
         }
       }
 
@@ -60,6 +116,9 @@ $content_width: 33.333%;
         height: 100%;
         max-width: 25%;
         flex: 0 0 25%;
+        @include media-breakpoint-down('md', $grid-breakpoints) {
+          display: none;
+        }
 
         #{$block}__image-container {
           height: calc(50% - 15px);
@@ -77,10 +136,24 @@ $content_width: 33.333%;
     max-width: 100%;
     flex: 0 0 100%;
     position: relative;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      padding-top: 91%;
+      &:nth-child(2) {
+        display: none;
+      }
+    }
   }
 
   @at-root &__image {
-    margin: 0 30px;
+    margin: 0 em(30);
+    @include media-breakpoint-down('lg', $grid-breakpoints) {
+      margin: 0 1em;
+    }
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin: 0;
+    }
+
     background: {
       repeat: no-repeat;
       size: cover;
@@ -90,5 +163,8 @@ $content_width: 33.333%;
 
   .container {
     display: flex;
+    & > .row {
+      min-width: calc(100% + 3.74em);
+    }
   }
 }

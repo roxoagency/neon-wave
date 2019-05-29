@@ -7,31 +7,79 @@
     {%- assign enable_zoom = section.settings.enable_zoom -%}
     {%- assign compare_at_price = current_variant.compare_at_price -%}
     {%- assign price = current_variant.price -%}
+      {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
 <div class="row">
-    <div class="  col-12 col-md-6 product-single__col product-single__col--left">
+    <div class="  col-12 col-lg-6 product-single__col product-single__col--left">
         {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
-        <div class="product-single__photos">
-            <a href="#product-gallery" class="product-single__zoom-link js--product-single__zoom-link" data-toggle="modal" data-target="#product-gallery">
+        <div class="product-single__photos animated-block">
+            <a href="#product-gallery" class="product-single__zoom-link js--product-single__zoom-link"
+               data-toggle="modal" data-target="#product-gallery">
                 {% include 'icon-zoom' %}
             </a>
-            <div class="product-single__slider js--product-single__slider">
-                {% for image in product.images limit: 1 %}
-                    {% capture img_class %}product-featured-img{% endcapture %}
+            <div class="product-single__slider">
 
-                    <div  class="product-single__photo-wrapper ">
-                        <div class="product-single__photo">
+                <div class="product-single__photo-wrapper" data-product-featured-image>
+                    {% for image in product.images %}
+                        {% capture img_class %}product-featured-img{% endcapture %}
+
+                        <div class="product-single__photo {% unless featured_image == image %} hide{% endunless %}"
+                             data-product-image-wrapper data-image-id="{{ image.id }}">
                             <img
-                                 class="product-single__image {{ img_class }} lazyload"
-                                 src="{{ image | img_url: '600x600', crop: 'center' }}"
-                                 data-src="{{ image | img_url: '600x600', crop: 'center' }}"
-                                 data-aspectratio="{{ image.aspect_ratio }}"
-                                 data-sizes="auto"
-                                 alt="{{ image.alt | escape }}">
+                                    class="product-single__image {{ img_class }} lazyload"
+                                    src="{{ image | img_url: '850x850', crop: 'center' }}"
+                                    data-src="{{ image | img_url: '850x850', crop: 'center' }}"
+                                    data-aspectratio="1"
+                                    data-sizes="auto"
+                                    alt="{{ image.alt | escape }}">
+
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
+
+        {% assign countImages = 0 %}
+        {% capture imagesGallery %}
+            {% if product.has_only_default_variant %}
+
+            {% else %}
+                {% assign option_index = 0 %}
+                {% for option in product.options %}
+                    {% assign downcased_option = option | downcase %}
+                    {% if downcased_option=='color' %}
+                        {% assign option_index = forloop.index0 %}
+                        {% assign how_many_options = 0 %}
+                        {% assign current_options = '' %}
+                        {% for variant in product.variants %}
+                            {% assign current_option = variant.options[option_index] %}
+                            {% unless current_options contains current_option %}
+                                {% if variant.image  %}
+                                    <div class="product-single__photo-wrapper-modal ">
+                                        <div class="product-single__photo">
+                                            <img class="product-single__image {{ img_class }} lazyload"
+                                                 src="{{ variant.image | img_url: '980x' }}"
+                                                 data-src="{{ variant.image | img_url: '980x' }}"
+                                                 data-aspectratio="{{ variant.image.aspect_ratio }}"
+                                                 data-sizes="auto"
+                                                 data-image-option="{{ current_option }}"
+                                                 alt="{{ variant.image.alt | escape }}">
+                                        </div>
+                                    </div>
+
+                                    {% assign countImages = countImages | plus: 1 %}
+                                {% endif %}
+                                {% if how_many_options > 0 %}
+                                    {% assign current_options = current_options | join: '|' | append: '|' %}
+                                {% endif %}
+                            {% assign current_options = current_options | append: current_option %}
+                            {% assign current_options = current_options | split: '|' | sort %}
+                            {% assign how_many_options = current_options | size %}
+                            {% endunless %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endcapture %}
         <!-- Modal -->
         <div class="modal fade modal--full" id="product-gallery" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -43,19 +91,23 @@
                     </div>
                     <div class="modal-body">
                         <div class="js--product-single__slider-modal">
-                        {% for image in product.images %}
-                            {%- assign img_url = image | img_url: '980x' -%}
-                            <div  class="product-single__photo-wrapper-modal ">
-                                <div class="product-single__photo">
-                                    <img class="product-single__image {{ img_class }} lazyload"
-                                         src="{{ image | img_url: '980x' }}"
-                                         data-src="{{ image | img_url: '980x' }}"
-                                         data-aspectratio="{{ image.aspect_ratio }}"
-                                         data-sizes="auto"
-                                         alt="{{ image.alt | escape }}">
-                                </div>
-                            </div>
-                        {% endfor %}
+                            {% if countImages>0 %}
+                                {{ imagesGallery }}
+                            {% else %}
+                                {% for image in product.images %}
+                                    {%- assign img_url = image | img_url: '980x' -%}
+                                    <div class="product-single__photo-wrapper-modal ">
+                                        <div class="product-single__photo">
+                                            <img class="product-single__image {{ img_class }} lazyload"
+                                                 src="{{ image | img_url: '980x' }}"
+                                                 data-src="{{ image | img_url: '980x' }}"
+                                                 data-aspectratio="{{ image.aspect_ratio }}"
+                                                 data-sizes="auto"
+                                                 alt="{{ image.alt | escape }}">
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -63,19 +115,19 @@
         </div>
     </div>
 
-    <div class="product-single__info col-12 col-md-6 product-single__col product-single__col--right">
+    <div class="product-single__info col-12 col-lg-6 product-single__col product-single__col--right">
         <div class="product-single__meta">
 
-            <h1 class="product-single__title">{{ product.title }}</h1>
+            <h1 class="product-single__title animated-block">{{ product.title }}</h1>
 
-            <div class="product__price">
+            <div class="product__price animated-block">
                 {% include 'product-price', variant: current_variant %}
             </div>
             <div id="error-quantity-{{ section.id }}"
                  class="form-message form-message--error product__quantity-error hide" tabindex="-1">
                 {{ 'products.product.quantity_minimum_message' | t }}
             </div>
-            <div class="product-single__nav product-single__nav--inline">
+            <div class="product-single__nav product-single__nav--inline animated-block">
                 {% assign hasInfomation = false %}
                 {% for tag in product.tags %}
                     {% assign stringToCheck = tag %}
@@ -110,47 +162,125 @@
                     {% endif %}
                 {% endfor %}
                 {% if hasInfomation == true %}
-                <div class="product-single__nav-item">
-                    <a href="#specification" class="product-single__nav-link js-go-to">
-                        {{ 'products.product.specification' | t }}
-                    </a></div>
+                    <div class="product-single__nav-item ">
+                        <a href="#specification" class="product-single__nav-link js-go-to">
+                            {{ 'products.product.specification' | t }}
+                        </a></div>
                 {% endif %}
-                <div class="product-single__nav-item">
-                    <a href="#product-gallery" class="product-single__nav-link js--product-single__zoom-link"  data-toggle="modal" data-target="#product-gallery">
+                <div class="product-single__nav-item product-single__nav-item--gallery ">
+                    <a href="#product-gallery" class="product-single__nav-link js--product-single__zoom-link"
+                       data-toggle="modal" data-target="#product-gallery">
                         {{ 'products.product.gallery' | t }}
-                    </a></div>
-                <div class="product-single__nav-item">
-                    <a href="#" class="product-single__nav-link">
-                        {{ 'products.product.add_to_wishlist' | t }}
-                    </a></div>
+                    </a>
+                </div>
+                <div class="product-single__nav-item ">
+                    {% include 'swym-product-view', product: product %}
+                    <a href="#" class="product-single__nav-link product-single__nav-link--wishlist"
+                       data-swaction="addToWishlist" data-product-id="{{ product.id | json }}">
+                        <span>{{ 'products.product.add_to_wishlist' | t }}</span>
+                        <span>{{ 'products.product.added_to_wishlist' | t }}</span>
+                    </a>
+                </div>
             </div>
-            <div class="product-single__description rte">
-                {{ product.description }}
+            {% capture imagesGallery %}
+                {% if product.has_only_default_variant %}
+
+                {% else %}
+                    {% assign option_index = 0 %}
+                    {% for option in product.options %}
+                        {% assign downcased_option = option | downcase %}
+                        {% if downcased_option=='color' %}
+                            {% assign option_index = forloop.index0 %}
+                            {% assign how_many_options = 0 %}
+                            {% assign current_options = '' %}
+                            {% for variant in product.variants %}
+                                {% assign current_option = variant.options[option_index] %}
+                                {% unless current_options contains current_option %}
+                                    {% if variant.image %}
+                                        <div class="product-single__photo-wrapper  {% if current_variant.options[option_index]  == current_option %}product-single__photo-wrapper--active{% endif %}"
+                                             data-product-slider-image-wrapper data-image-id="{{ image.id }}"
+                                             data-image-option="{{ current_option }}"
+                                             data-index="{{ forloop.index0 }}">
+                                            <div class="product-single__photo  full--sized lazyload"
+
+                                                 data-bgset="{% include 'bgset', image: variant.image %}"
+                                                 data-sizes="auto"
+                                                 data-parent-fit="cover"
+                                                 style="background-image: url({{ variant.image | img_url: '300x300' }});"
+                                            >
+
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if how_many_options > 0 %}
+                                        {% assign current_options = current_options | join: '|' | append: '|' %}
+                                    {% endif %}
+                                {% assign current_options = current_options | append: current_option %}
+                                {% assign current_options = current_options | split: '|' | sort %}
+                                {% assign how_many_options = current_options | size %}
+                                {% endunless %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endcapture %}
+            <div class="product-single__slider product-single__slider--md js--product-single__slider animated-block">
+                {% if countImages>0 %}
+                    {{ imagesGallery }}
+                {% else %}
+                    {% for image in product.images %}
+
+                        <div class="product-single__photo-wrapper  {% if current_variant.image.id  == image.id %}product-single__photo-wrapper--active{% endif %}"
+                             data-product-slider-image-wrapper data-image-id="{{ image.id }}"
+                             data-index="{{ forloop.index0 }}">
+                            <div class="product-single__photo  full--sized lazyload"
+
+                                 data-bgset="{% include 'bgset', image: image %}"
+                                 data-sizes="auto"
+                                 data-parent-fit="cover"
+                                 style="background-image: url({{ image | img_url: '300x300' }});"
+                            >
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-
-
+            <div class="product-single__description rte animated-block">
+                {%- capture loadnew -%}{{- product.description | replace: '<!--[[', '[[' -}}{%- endcapture -%}
+                {%- capture loadnew -%}{{- loadnew | replace: '<p>[[', '[[' -}}{%- endcapture -%}
+                {%- assign shortcodeBeginnings = loadnew | split: '[[' -%}
+                {{ shortcodeBeginnings[0] }}
+            </div>
             {% capture "form_classes" -%}
                 product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}{% if section.settings.enable_payment_button and product.has_only_default_variant %} product-form--payment-button-no-variants{% endif %}
             {%- endcapture %}
-            {% include 'product-form' %}
-        </div>
+            <div class="animated-block">
+                {% include 'product-form' %}
 
-        {%- comment -%}
-            Live region for announcing updated price and availability to screen readers
-        {%- endcomment -%}
-        <p class="visually-hidden" data-product-status
-           aria-live="polite"
-           role="status"
-        ></p>
-
-        <div class="product-single__nav ">
-            <div class="product-single__nav-item">
-                <a href="#size-cart-fit-guide" data-toggle="modal" data-target="#size-cart-fit-guide"
-                   class="product-single__nav-link js--modal-toggle">
-                    {{ section.settings.size-cart-fit-guide-title }}
-                </a>
+                {% include 'product-inline-form' %}
             </div>
-
+        </div>
+        {% assign hasSizechart = false %}
+        {% assign sizechartTag = false %}
+        {% for tag in product.tags %}
+            {% assign stringToCheck = tag %}
+            {% assign startsWith =  'sizechart_' %}
+            {% assign checkArray = stringToCheck | split:startsWith %}
+            {% if checkArray[0] == blank %}
+                {% assign hasSizechart = true %}
+                {% assign sizechartTag = tag %}
+            {% endif %}
+        {% endfor %}
+        <div class="product-single__nav animated-block">
+            {% if hasSizechart %}
+                <div class="product-single__nav-item">
+                    <a href="#size-cart-fit-guide" data-toggle="modal" data-target="#size-cart-fit-guide"
+                       class="product-single__nav-link js--modal-toggle">
+                        {{ section.settings.size-cart-fit-guide-title }}
+                    </a>
+                </div>
+            {% endif %}
             <div class="product-single__nav-item">
                 <a href="#shipping-return-guide" data-toggle="modal" data-target="#shipping-return-guide"
                    class="product-single__nav-link  js--modal-toggle">
@@ -158,24 +288,46 @@
                 </a>
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="size-cart-fit-guide" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        {% assign size_cart_fit_guide = pages[section.settings.size-cart-fit-guide] %}
-                        {{ size_cart_fit_guide.content }}
+        {% if hasSizechart %}
+            <!-- Modal -->
+            <div class="modal fade size-cart" id="size-cart-fit-guide" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% for block in section.blocks %}
+                                {% if sizechartTag == block.settings.tag %}
+                                    {% if block.settings.image1 %}
+                                        {%- assign img_url = block.settings.image1 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                        <img class="size-cart__image size-cart__image--lg lazyload"
+                                             src="{{ block.settings.image1 | img_url: '600x' }}"
+                                             data-src="{{ img_url }}"
+                                             data-aspectratio="{{ block.settings.image1.aspect_ratio }}"
+                                             data-sizes="auto"
+                                             alt="">
+                                    {% endif %}
+                                    {% if block.settings.image2 %}
+                                        {%- assign img_url = block.settings.image2 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                        <img class="size-cart__image size-cart__image--sm lazyload"
+                                             src="{{ block.settings.image2 | img_url: '494x' }}"
+                                             data-src="{{ img_url }}"
+                                             data-aspectratio="{{ block.settings.image2.aspect_ratio }}"
+                                             data-sizes="auto"
+                                             alt="">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Modal -->
+            <!-- Modal -->
+
+        {% endif %}
         <div class="modal fade" id="shipping-return-guide" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -200,21 +352,7 @@
     "name": "Product",
 
     "settings": [
-    {
-    "content": "Size chart / fit  guide",
-    "type": "header"
-    },
-    {
-    "type": "text",
-    "id": "size-cart-fit-guide-title",
-    "label":  "Link text",
-    "default":"SIZE CHART / FIT GUIDE"
-    },
-    {
-    "type": "page",
-    "id": "size-cart-fit-guide",
-    "label":  "Text"
-    },
+
     {
     "content": "Shipping & return guide link",
     "type": "header"
@@ -229,6 +367,38 @@
     "type": "richtext",
     "id": "shipping-return-guide",
     "label":  "Text"
+    },
+    {
+    "content": "Size chart / fit  guide",
+    "type": "header"
+    },
+    {
+    "type": "text",
+    "id": "size-cart-fit-guide-title",
+    "label":  "Link text",
+    "default":"SIZE CHART / FIT GUIDE"
+    }
+    ],"blocks": [
+    {
+    "type": "size_charts_block",
+    "name": "Size chart",
+    "settings": [
+    {
+    "type": "text",
+    "id": "tag",
+    "label":  "Tag"
+    },
+    {
+    "type": "image_picker",
+    "id": "image1",
+    "label":  "Desktop Image"
+    },
+    {
+    "type": "image_picker",
+    "id": "image2",
+    "label":  "Mobile Image"
+    }
+    ]
     }
     ]
     }

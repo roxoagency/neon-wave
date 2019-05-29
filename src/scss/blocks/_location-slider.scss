@@ -1,7 +1,20 @@
 .location-slider {
   margin-bottom: 0;
-  padding-bottom: em(16);
+  padding-bottom: em(35);
   transition: opacity 0.15s linear;
+  width:100%;
+  display: flex;
+  overflow: hidden;
+  .slick-dots{
+    bottom:0;
+  }
+  &.slick-dotted.slick-slider{
+    margin: 0;
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    margin-left: em(-16);
+    width:auto;
+  }
   &__n,
   &__e {
     color: #006B78;
@@ -10,44 +23,71 @@
     svg {
       fill: currentColor;
     }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+
+      font-size: em(7.87);
+      svg {
+        max-width: 30px;
+      }
+    }
   }
   &__n {
     transform: rotate(-90deg) translateX(-100%);
     position: absolute;
-    left: 4px;
+    left: em(4, 13.07);
     transform-origin: left;
-    top: -3px;
+    top: em(-3, 13.07);;
   }
   &__item {
     position: relative;
     padding: 0 0 0 em(23);
-  }
-  .slick-dots li {
-    position: relative;
-    &:before {
-      background: #046B78;
-      content: '';
-      height: 1px;
-      width: 11px;
-      position: absolute;
-      top: 9px;
-      left: -11px;
-      display: block;
-    }
-    &:first-child:before {
-      display: none;
-    }
-  }
-  .slick-dots li button {
-    padding: 0;
-    margin: 0 auto;
-    background: url(location-slider-dot.svg) no-repeat center;
-    width: 7px;
-    height: 19px;
-    background-size: contain;
-    transition: background 0.15s linear;
-  }
+    min-width:100%;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
 
+      padding: 0 0 0 em(16);
+    }
+  }
+  &__image {
+    padding-bottom: 64%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .slick-dots {
+
+    text-align: center;
+    text-align-last: center;
+    li {
+      position: relative;
+      height: em(20);
+      width: em(20);
+      margin: 0 em(5);
+      &:before {
+        background: #046B78;
+        content: '';
+        height: 1px;
+        width: em(11);
+        position: absolute;
+        top: em(9);
+        left: em(-11);
+        display: block;
+      }
+      &:first-child:before {
+        display: none;
+      }
+    }
+    li button {
+      padding: 0;
+      margin: 0 auto;
+      background: url(location-slider-dot.svg) no-repeat center;
+      width: em(7);
+      height: em(19);
+      background-size: contain;
+      transition: background 0.15s linear;
+      font-size: 1em;
+    }
+  }
   .slick-dots li button:hover,
   .slick-dots .slick-active button {
     background-image: url(location-slider-dot-active.svg);

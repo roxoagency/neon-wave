@@ -1,14 +1,14 @@
-<div class="page page--article single-post " data-section-type="single-post" data-section-id="single-post">
+<div class="page page--article single-post animated-pages" data-section-type="single-post" data-section-id="single-post">
     <div class="container">
 
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
 
-        <div class="page__title single-post__header">
+        <div class="page__title single-post__header ">
             <h1 class="single-post__title">{{ article.title }}</h1>
         </div>
-        <div class="single-post__meta">
+        <div class="single-post__meta ">
             {% for tag in article.tags %}
                 {% assign stringToCheck = tag %}
                 {% assign startsWith =  'category-' %}
@@ -26,24 +26,24 @@
         </div>
 
     </div>
-    <div class="page__content single-post__content">
+    <div class="page__content single-post__content ">
         {% if article.image  or article.excerpt.size > 0 %}
             <div class="single-post__info">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-md-8">
+                        <div class="col-12 col-lg-8">
                             {% if article.image %}
                                 <div class="single-post__image-wrapper">
                                     <img class="single-post__image lazyload"
                                          src="{{ article.image | img_url: '400x' }}"
-                                         data-src="{{ article.image | img_url: '870x' }}"
+                                         data-src="{{ article.image | img_url: '1205x' }}"
                                          data-aspectratio="{{ article.image.aspect_ratio }}"
                                          data-sizes="auto"
                                          alt="">
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-lg-4">
                             {% if article.excerpt.size > 0 %}
                                 <div class="single-post__excerpt">
                                     {{ article.excerpt }}
@@ -61,12 +61,18 @@
     </div>
     <div class="single-post__nav">
         {% if  blog.previous_article %}
-            <span class="single-post__nav-text single-post__nav-text--prev js-single-post-nav-toogle" data-action="prev">PREV ARTICLE</span>
+            <span class="single-post__nav-text single-post__nav-text--prev js-single-post-nav-toogle "
+                  data-action="prev"><span class="single-post__nav-post-span">PREV ARTICLE</span></span>
             <div class="single-post__nav-item single-post__nav-item--prev">
                 <div class="post-card post-card--nav single-post__nav-post">
                     {% if blog.previous_article.image %}
-                        <a class="post-card__image-wrapper" href="{{ blog.previous_article.url }}">
-                            {{ blog.previous_article.image | img_url: '322x322', crop: 'center' | img_tag: blog.previous_article.title }}
+                        {% assign image = blog.previous_article.image %}
+
+                        <a class="post-card__image-wrapper lazyload"  href="{{ blog.previous_article.url }}"
+                           data-bgset="{% include 'bgset', image: image %}"
+                           data-sizes="auto"
+                           data-parent-fit="cover"
+                           style="background-image: url({{ image  | img_url: '500x' }});">
                         </a>
                     {% endif %}
                     <h2 class="post-card__title">
@@ -77,12 +83,19 @@
         {% endif %}
         {% if  blog.next_article %}
 
-            <span class="single-post__nav-text js-single-post-nav-toogle single-post__nav-text--next" data-action="next">NEXT ARTICLE</span>
-            <div class="single-post__nav-item single-post__nav-item--next">
+            <span class="single-post__nav-text js-single-post-nav-toogle single-post__nav-text--next"
+                  data-action="next"><span class="single-post__nav-post-span">NEXT ARTICLE</span></span>
+            <div class="single-post__nav-item single-post__nav-item--next is-stiky">
                 <div class="post-card post-card--nav single-post__nav-post">
                     {% if blog.next_article.image %}
-                        <a class="post-card__image-wrapper" href="{{ blog.next_article.url}}">
-                            {{ blog.next_article.image | img_url: '322x322', crop: 'center' | img_tag: blog.next_article.title }}
+
+                        {% assign image = blog.next_article.image %}
+
+                        <a class="post-card__image-wrapper lazyload"  href="{{ blog.next_article.url }}"
+                           data-bgset="{% include 'bgset', image: image %}"
+                           data-sizes="auto"
+                           data-parent-fit="cover"
+                           style="background-image: url({{ image  | img_url: '500x' }});">
                         </a>
                     {% endif %}
                     <h2 class="post-card__title">

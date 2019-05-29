@@ -2,20 +2,26 @@
      >
     {% if section.settings.menu_lookbook_title!='' %}
     <h4 class="site-nav__link site-nav__childlist-heading">
-        <span class="site-nav__label">{{  section.settings.menu_lookbook_title}}</span>
+        {% if section.settings.menu_lookbook_url  %}
+            <a class="" href="{{ section.settings.menu_lookbook_url }}"><span class="site-nav__label">{{  section.settings.menu_lookbook_title}}</span> {% include 'icon-nav-arrow' %}</a>
+        {% else %}
+            <span class="site-nav__label">{{  section.settings.menu_lookbook_title}}</span> {% include 'icon-nav-arrow' %}
+        {% endif %}
+
+
     </h4>
     {% endif %}
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             {% for block in section.blocks %}
             <div class="post-card post-card--menu  {% if forloop.index>1 %} post-card--menu-half{% endif %}">
                     {% if block.settings.img %}
-                        {% if block.settings.url != '' %}
+                        {% if block.settings.url  %}
                             <a class="post-card__image-wrapper" href="{{ block.settings.url }}">
                         {% endif %}
-                        {{ block.settings.img | img_url: '261x150', crop: 'center' | img_tag: block.settings.title }}
-                        {% if block.settings.url != '' %}
+                        {{ block.settings.img | img_url: '351x202', crop: 'center' | img_tag: block.settings.title }}
+                        {% if block.settings.url  %}
                             </a>
                         {% endif %}
                     {% endif %}
@@ -23,20 +29,20 @@
                     <div class="post-card__content-wrapper">
                         {% if block.settings.title != '' %}
                             <h2 class="post-card__title">
-                                {% if block.settings.url != '' %}
+                                {% if block.settings.url  %}
                                 <a href="{{ block.settings.url }}">
                                     {% endif %}
                                     {{ block.settings.title }}
-                                    {% if block.settings.url != '' %}
+                                    {% if block.settings.url  %}
                                 </a>
                                 {% endif %}
                             </h2>
                         {% endif %}
                     </div>
             </div>
-            {% if forloop.index ==1 %}
+            {% if forloop.index == 1 and forloop.length != 1%}
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             {% endif %}
             {% endfor %}
         </div>
@@ -45,7 +51,7 @@
 {% schema %}
     {
     "name": {
-    "en": "Menu content blog"
+    "en": "Content menu lookbook"
     },
     "settings": [
     {
@@ -53,12 +59,16 @@
     "id": "menu_lookbook_title",
     "label":"Title",
     "default":"LOOKBOOK"
+    },{
+    "type": "url",
+    "id": "menu_lookbook_url",
+    "label":"Url"
     }
     ],
     "blocks": [
     {
     "type": "menu_lookbook_article",
-    "name": "Article",
+    "name": "Lookbook",
     "settings": [
     {
     "type": "image_picker",

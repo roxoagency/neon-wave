@@ -40,9 +40,12 @@ h1 {
   line-height: (50/40);
   letter-spacing: 0.9px;
   font-weight: 900;
-  // @include media-query($small) {
-  //   font-size: floor($font-size-header * 1.25);
-  // }
+
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    font-size: em(30);
+    line-height: (40/30);
+    letter-spacing: letterspacing-to-pixels(70, 30);
+  }
 }
 
 h2 {
@@ -50,6 +53,12 @@ h2 {
   line-height: (50/40);
   letter-spacing: 0.7px;
   font-weight: 900;
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    font-size: em(24);
+    line-height: (30/24);
+    letter-spacing: letterspacing-to-pixels(70, 24);
+  }
+
 }
 
 h3 {
@@ -119,6 +128,7 @@ p {
 b, strong {
   font-weight: 700;
 }
+
 .product-single .modal-body,
 .page--default .page__content {
   font-size: em(13);
@@ -160,19 +170,19 @@ b, strong {
     font-size: em(13, 13);
     margin: 0 0 em(24, 13);
   }
-  ul, ol{
-    margin-bottom: em(20,13);
+  ul, ol {
+    margin-bottom: em(20, 13);
     list-style-position: inside;
-    ul, ol{
+    ul, ol {
       margin-bottom: 0;
-      margin-left: em(20,13);
+      margin-left: em(20, 13);
     }
   }
   table {
     width: 100%;
     letter-spacing: 0.9px;
     line-height: (15.1/13);
-    margin: 0 0 em(24,13);
+    margin: 0 0 em(24, 13);
     th {
       color: color('primary');
       font-weight: 400;
@@ -180,17 +190,39 @@ b, strong {
     th, td {
       border-top: 1px solid color('primary');
       border-bottom: 1px solid color('primary');
-      padding: em(14,13) em(7,13);
-      &:first-child{
+      padding: em(14, 13) em(7, 13);
+      &:first-child {
         padding-left: 0;
       }
-      &:last-child{
+      &:last-child {
         padding-right: 0;
       }
     }
 
   }
-  &>p:last-child {
+  & > p:last-child {
     margin-bottom: 0;
+  }
+
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    font-size: em(10);
+    line-height: (17/10);
+    letter-spacing: letterspacing-to-pixels(75, 10);
+    h1 {
+      font-size: em(30, 10);
+    }
+
+    h2 {
+      font-size: em(24, 10);
+    }
+    .btn--default{
+      font-size: em(14, 10);
+    }
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    h2 {
+      font-size: em(18, 10);
+      letter-spacing: letterspacing-to-pixels(70, 18);
+    }
   }
 }

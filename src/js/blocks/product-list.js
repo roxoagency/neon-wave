@@ -64,11 +64,10 @@ export class ProductListBlock {
         const isCheckedVariant = selectedValues.every((values) => {
           return variant[values.index] == values.value;
         });
-
         if (isCheckedVariant && !variant.available) {
-          const option = sizeOptions.find(`.option[data-value="${variant[sizeOptions.data('index')]}"]`);
-          option.attr('disabled', true);
-        }
+			const option = sizeOptions.find(`.option[data-value="${encodeURI(variant[sizeOptions.data('index')])}"]`);
+			option.attr('disabled', true);
+		}
       });
     }
   }
@@ -87,12 +86,12 @@ export class ProductListBlock {
     this.checkUnavailableVariants(form);
 
     if (!firstVariant) return;
-
     if (data.default) {
       $('.js--default-image', data.product).show();
       $('.js--variant-image', data.product).hide();
     } else if (firstVariant.featured_image || firstVariant.image) {
       $('.js--default-image', data.product).hide();
+      $('.js--variant-image', data.product).hide();
       $('.js--variant-image', data.product).filter(`[data-variant="${firstVariant.id}"]`).show();
     }
   }
@@ -122,9 +121,8 @@ export class ProductListBlock {
       const form = $(e.target).closest(this.selectors.product.form);
       const option = {
         index: $(e.target).closest(this.selectors.product.quickBuyGroup).data('index'),
-        value: $(e.target).data('value'),
+        value: decodeURI($(e.target).data('value')),
       };
-
       this._quickBuy(form, option);
     });
 
@@ -172,6 +170,6 @@ export class ProductListBlock {
     Product.addToCart({
       quantity: $(this.selectors.product.quantity, form).val() || 1,
       id: found.id,
-    });
+    },false);
   }
 }

@@ -1,0 +1,130 @@
+{%- capture loadnew -%}{{- load | replace: '<!--[', '[' -}}{%- endcapture -%}
+{%- capture loadnew -%}{{- loadnew | replace: ']-->', ']' -}}{%- endcapture -%}
+{%- capture loadnew -%}{{- loadnew | replace: ']</p>', ']' -}}{%- endcapture -%}
+{%- capture loadnew -%}{{- loadnew | replace: '<p>[', '[' -}}{%- endcapture -%}
+{%- assign shortcodeBeginnings = loadnew | split: '[[' -%}
+{% assign hasInfomation = false %}
+
+{% assign compositionContent = false %}
+{% assign collectionContent = false %}
+{% assign fitContent = false %}
+{% assign weightContent = false %}
+{% assign originContent = false %}
+
+{%- if shortcodeBeginnings.size > 1 -%}
+    {%- for shortcodeBegin in shortcodeBeginnings -%}
+        {%- assign forloopNextIndex = forloop.index0 | plus: 1 -%}
+        {%- if forloop.first -%}
+        {%- else -%}
+            {%- assign shortcodeEndings = shortcodeBegin | split: ']]' -%}
+            {%- capture shortcodeFull -%}{{- shortcodeEndings[0] -}}{%- endcapture -%}
+
+            {%- assign shortcodes = shortcodeFull | split: '"' -%}
+            {%- for section in shortcodes -%}
+
+                {%- if forloop.last -%}
+                    {%- assign sectionSpace = section | split: ': ' -%}
+                    {%- assign template = sectionSpace[0] -%}
+                    {%- if template =='Composition' or template =='Collection'  or template =='Fit'  or template =='Weight'    or template =='Origin'  or template =='Made in' -%}
+
+                        {% assign hasInfomation = true %}
+                        {%- assign content = sectionSpace[1] -%}
+
+                        {%- if template =='Composition' -%}
+                            {% assign compositionContent = content %}
+                        {%- endif -%}
+                        {%- if template =='Collection' -%}
+                            {% assign collectionContent = content %}
+                        {%- endif -%}
+                        {%- if  template =='Fit' -%}
+                            {% assign fitContent = content %}
+                        {%- endif -%}
+                        {%- if  template =='Weight' -%}
+                            {% assign weightContent = content %}
+                        {%- endif -%}
+                        {%- if  template =='Origin' -%}
+                            {% assign originContent = content %}
+                        {%- endif -%}
+
+                        {%- if  template =='Made in' -%}
+                            {% assign originContent = content %}
+                        {%- endif -%}
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- else -%}
+{%- endif -%}
+
+
+{% if hasInfomation == true %}
+    <div class="product-single__information" id="specification">
+        <div class="container">
+            <div class="row">
+                {% assign hasInfomation = false %}
+                {% capture info %}
+                    {% if compositionContent != false  %}
+                        {% assign hasInfomation = true %}
+                        <div class="information-block">
+                            <h3 class="information-block__title">{{ 'products.product.material' | t }}</h3>
+                            <p class="information-block__content">{{ compositionContent }}</p>
+                        </div>
+                    {% endif %}
+                    {% if collectionContent != false %}
+                        {% assign hasInfomation = true %}
+                        <div class="information-block">
+                            <h3 class="information-block__title">{{ 'products.product.collection' | t }}</h3>
+                            <p class="information-block__content">{{ collectionContent }}</p>
+                        </div>
+                    {% endif %}
+                {% endcapture %}
+                {% if hasInfomation == true %}
+                    <div class="col-12 col-md-4">
+                        <div class="information-block__wrapper">{{ info }}</div>
+                    </div>
+                {% endif %}
+                {% assign hasInfomation = false %}
+                {% capture info %}
+                    {% if originContent != false  %}
+                        {% assign hasInfomation = true %}
+                        <div class="information-block">
+                            <h3 class="information-block__title">{{ 'products.product.made_in' | t }}</h3>
+                            <p class="information-block__content">{{ originContent }}</p>
+                        </div>
+                    {% endif %}
+                    {% if fitContent  != false %}
+                        {% assign hasInfomation = true %}
+                        <div class="information-block">
+                            <h3 class="information-block__title">{{ 'products.product.fit' | t }}</h3>
+                            <p class="information-block__content">{{ fitContent }}</p>
+                        </div>
+                    {% endif %}
+                {% endcapture %}
+                {% if hasInfomation == true %}
+                    <div class="col-12 col-md-4">
+                        <div class="information-block__wrapper">{{ info }}</div>
+                    </div>
+                {% endif %}
+                {% assign hasInfomation = false %}
+                {% capture info %}
+                    {% if weightContent != false  %}
+                        {% assign hasInfomation = true %}
+                        <div class="information-block information-block--weight">
+                            <h3 class="information-block__title">{{ 'products.product.weight' | t }}</h3>
+                            <p class="information-block__content">{{ weightContent }}</p>
+                        </div>
+                    {% endif %}
+                {% endcapture %}
+                {% if hasInfomation == true %}
+                    <div class="col-12 col-md-4">
+                        <div class="information-block__wrapper">{{ info }}</div>
+                    </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+{% endif %}
+

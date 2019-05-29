@@ -16,11 +16,16 @@
         {% assign count = count | plus: 1 %}
         {% capture post %}
 
-            <div class="post-card post-card col-12 col-md-4">
+            <div class="post-card post-card  animated-block col-6 col-lg-4">
 
                 {% if related_article.image %}
-                    <a class="post-card__image-wrapper" href="{{ related_article.url }}">
-                        {{ related_article | img_url: '376x376', crop: 'center' | img_tag: related_article.title }}
+                    {% assign image = related_article.image %}
+                    <a class="post-card__image-wrapper lazyload" href="{{ related_article.url }}"
+                       data-bgset="{% include 'bgset', image: image %}"
+                       data-sizes="auto"
+                       data-parent-fit="cover"
+                       style="background-image: url({{ image  | img_url: '500x' }});">
+
                     </a>
                 {% endif %}
                 <h2 class="post-card__title"><a href="{{ related_article.url }}">{{ related_article.title }}</a></h2>
@@ -45,14 +50,14 @@
             </div>
         {% endcapture %}
         {% assign related_posts = related_posts | append:post %}
-        {% if count == 3 %}{% break %}{% endif %}
+        {% if count == 4 %}{% break %}{% endif %}
     {% endif %}
 {% endfor %}
 
 {% if related_posts.size > 0 %}
     <div class="related-articles">
         <div class="container">
-            <h2 class="related-articles__title">RELATED ARTICLES</h2>
+            <h2 class="related-articles__title  animated-block">RELATED ARTICLES</h2>
             <div class="row">{{ related_posts }}</div>
         </div>
     </div>

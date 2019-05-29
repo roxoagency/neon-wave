@@ -1,14 +1,14 @@
-<div class="page page--default  page--support">
+<div class="page page--default  page--support animated-pages">
     <div class="container">
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
-        <div class="page__title">
+        <div class="page__title ">
             <h1><span>{{ 'support.general.customer' | t }}</span> {{ 'support.general.support' | t }}</h1>
         </div>
         <div class="tabs">
             {% if settings.customer_support_menu != blank %}
-                <ul class="tabs__header nav nav-tabs" id="support" role="tablist">
+                <ul class="tabs__header nav nav-tabs " id="support" role="tablist">
                     {% for link in linklists[settings.customer_support_menu].links %}
                         <li class="tabs__header-item  ">
                             <a class=" tabs__header-link {% if link.current %}active{% endif %}" href="{{ link.url }}">
@@ -18,9 +18,15 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <div class="tab-content" id="supportContent">
+            <div class="tab-content  " id="supportContent">
                 <div class="tab__panel" id="support-faq" >
-                    <div class="page__content">{% section 'support-faq' %}</div>
+                    <div class="page__content">
+                        {% section 'support-faq-header' %}
+                        {% section 'support-faq' %}
+                        {% section 'support-faq-2' %}
+                        {% section 'support-faq-3' %}
+                        {% section 'support-faq-4' %}
+                    </div>
                 </div>
             </div>
         </div>

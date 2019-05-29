@@ -1,6 +1,6 @@
 {% unless template == 'index'  or template == 'list-collections' %}
     <div class="breadcrumb {{ className }}" role="navigation" aria-label="breadcrumbs">
-        <div class="container">
+        <div class="container animated-block">
         <div class="breadcrumb__content"><a class="breadcrumb__item breadcrumb__link" href="/" title="Home">Home</a>
             {% if template contains 'page' %}
                 <span class=" breadcrumb__delimiter">~</span>
@@ -29,7 +29,18 @@
 
                     <span class=" breadcrumb__delimiter">~</span>
                     <span class="breadcrumb__item">{{ article.title }}</span>
-                    <span class="breadcrumb__item">{{ current_tags | join: " + " }}</span>
+
+                    {% assign stringToCheck = current_tags[0] %}
+                    {% assign startsWith =  'category-' %}
+                    {% assign checkArray = stringToCheck | split:startsWith %}
+                    {% if checkArray[0] == blank %}
+
+                        {% assign title = current_tags[0]  | replace: 'category-','' %}
+                        <span class="breadcrumb__item">{{ title }}</span>
+                       {% else %}
+                           <span class="breadcrumb__item">{{ current_tags | join: " + " }}</span>
+                    {% endif %}
+
                 {% else %}
                     <span class="breadcrumb__item">{{ blog.title }}</span>
                 {% endif %}

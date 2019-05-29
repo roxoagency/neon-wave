@@ -9,6 +9,12 @@
     "label": "Top text",
     "type": "text",
     "default":"HOVER FOR MORE"
+    },
+    {
+    "id": "sustainability_6_title_top_sm",
+    "label": "Tablet top text ",
+    "type": "text",
+    "default":"TOUCH TEXT TO REVEAL"
     }],
     "blocks": [
     {
@@ -35,37 +41,46 @@
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--sixth" data-section-type="sustainability-section--sixth" id="sustainability-section--sixth"
-     data-section-id="{{ section.id }}">
-    <div class="container">
-        {% if section.settings.sustainability_6_title_top != '' %}
-            <div class="sustainability-section__sub-title">
-                <span>{{ section.settings.sustainability_6_title_top }}</span>
-            </div>
-        {% endif %}
-        {% if section.blocks.size %}
-            <div class="sustainability-section__title h2">
-                {% for block in section.blocks %}
-                    <div class="sustainability-section__text ">{{ block.settings.title }}
-                        {% if block.settings.image %}
-                            <div class="sustainability-section__hover">
-                                <img class=" lazyload"
-                                     src="{{ block.settings.image | img_url:  '422x' }}"
-                                     data-src="{{ block.settings.image  | img_url: '422x' }}"
-                                     data-aspectratio="{{ block.settings.image.aspect_ratio }}"
-                                     data-sizes="auto"
-                                     alt="{{ block.settings.image.alt | escape }}">
+<div class="sustainability-section sustainability-section--sixth" data-section-type="sustainability-section--sixth"
+     id="sustainability-section--sixth"
+     data-section-id="{{ section.id }}" data-section-index="5">
 
-                            </div>
-                        {% endif %}
-                        {% if block.settings.text %}
-                            <div class="sustainability-section__hover-text ">
-                                {{ block.settings.text }}
-                            </div>
+    <div class="sustainability-section__container-wrapper">
+        <div class="container">
+            <div class="sustainability-section__container">
+                {% if section.settings.sustainability_6_title_top != '' %}
+                    <div class="sustainability-section__sub-title">
+                        <span class="sustainability-section__sub-title-text sustainability-section__sub-title-text-lg ">{{ section.settings.sustainability_6_title_top }}</span>
+                        {% if section.settings.sustainability_6_title_top_sm != '' %}
+                            <span class="sustainability-section__sub-title-text sustainability-section__sub-title-text-sm">{{ section.settings.sustainability_6_title_top_sm }}</span>
                         {% endif %}
                     </div>
-                {% endfor %}
+                {% endif %}
+                {% if section.blocks.size %}
+                    <div class="sustainability-section__title h2">
+                        {% for block in section.blocks %}
+                            <div class="sustainability-section__text ">{{ block.settings.title }}
+                                {% if block.settings.image %}
+                                    <div class="sustainability-section__hover">
+                                        <img class=" lazyload sustainability-section__hover-img"
+                                             src="{{ block.settings.image | img_url:  '422x' }}"
+                                             data-src="{{ block.settings.image  | img_url: '422x' }}"
+                                             data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                                             data-sizes="auto"
+                                             alt="{{ block.settings.image.alt | escape }}">
+
+                                    </div>
+                                {% endif %}
+                                {% if block.settings.text %}
+                                    <div class="sustainability-section__hover-text ">
+                                        {{ block.settings.text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
     </div>
 </div>

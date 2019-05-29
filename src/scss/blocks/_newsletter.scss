@@ -1,5 +1,26 @@
 .newsletter {
-
+  .form__placeholder,
+  .form__field--transparent {
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(7.8);
+      letter-spacing: letterspacing-to-pixels(75, 7.8);
+    }
+  }
+  .form__placeholder {
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      top: em(3, 7.8);
+    }
+  }
+  .btn--md {
+    font-size: em(21);
+    border-width: 1px;
+    padding: em(12.5, 21) em(20, 21);
+    width: 100%;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(16.44);
+      padding: em(11, 16.44) em(20, 16.44)
+    }
+  }
   &__text {
     font-size: em(11);
     letter-spacing: 0.9px;
@@ -8,22 +29,41 @@
     .footer & p {
       font-size: 1em;
       letter-spacing: inherit;
+      line-height: (28/11);
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      line-height: (17/7);
+      font-size: em(7);
+      letter-spacing: letterspacing-to-pixels(75, 7);
+      margin: 0 0 em(11, 7);
     }
   }
   &__title {
     font-size: em(23.47);
     margin: 0 0 em(13, 23.47);
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(14.46);
+      margin: 0 0 em(6, 14.46);
+    }
   }
   .form__row {
     margin: 0 0 em(15);
-    &:last-child{
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin: 0 0 em(3);
+    }
+    &:last-child {
       margin-top: em(36);
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        margin-top: em(22);
+      }
     }
   }
   .footer & .btn {
     width: 100%;
     border-width: 1px;
-    left:0;
+    left: 0;
     &:hover {
       color: color('light');
       background-color: color('primary');
@@ -34,14 +74,50 @@
     font-size: em(13.9);
     letter-spacing: 0.9px;
     text-transform: uppercase;
-    margin: em(26, 13.9) 0 0 ;
+    margin: em(26, 13.9) 0 0;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(12);
+      letter-spacing: letterspacing-to-pixels(75, 12);
+    }
   }
-  .form__message{
-   max-width: 100%;
+  .form__message {
+    max-width: 100%;
     font-size: em(11);
     letter-spacing: 0.9px;
     line-height: (28/11);
     margin: 0 0 em(30, 11);
+    display: none;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      line-height: (17/7);
+      font-size: em(7);
+      letter-spacing: letterspacing-to-pixels(75, 7);
+      margin: 0 0 em(11, 7);
+    }
+    &.is-show{
 
+      display: block;
+    }
+    &--success {
+      position: absolute;
+      left: 1px;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      padding: em(22, 11);
+      background: color('light');
+      z-index: 2;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0;
+      display: none;
+      &.is-show{
+        display: flex;
+      }
+      h2{
+        text-transform: uppercase;
+        font-size: 1.875em;
+      }
+    }
   }
 }

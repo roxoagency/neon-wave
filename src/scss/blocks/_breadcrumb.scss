@@ -1,42 +1,64 @@
 .breadcrumb {
+
   .container {
     padding: em(12) 0;
     border-bottom: 1px solid $primary;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      justify-content: center;
+    }
   }
   &__content {
     font-size: em(10.72);
+    letter-spacing: letterspacing-to-pixels(70, 10.72);
     text-transform: uppercase;
     margin: 0 auto 0 0;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin: 0 auto;
+    }
   }
   &__form {
     margin: em(-7) 0;
+    .product-form--inline {
+      flex-wrap: nowrap;
+    }
+    .btn {
+      white-space: nowrap;
+      display: block;
+    }
   }
-  a{
-    color:inherit;
+  a {
+    color: inherit;
+    @include nav_link();
   }
 }
 
 .breadcrumb--product {
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
-  z-index: 100;
   background: #fff;
   top: 0;
-  visibility: hidden;
+  //visibility: hidden;
   transform: translate3d(0, -300px, 0);
-  transition: all 0.34s cubic-bezier(1, 0, 0, 0.99);
+  transition: transform 0.34s cubic-bezier(1, 0, 0, 0.99);
+
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    display: none;
+  }
+  .container {
+    padding-left: em(60);
+    padding-right: em(60);
+  }
 }
 
 .breadcrumb--show {
   visibility: visible;
+  z-index: 1;
   transform: translate3d(0, 0, 0);
-}
-
-.product-single .breadcrumb  .container{
-  max-width: 1246px;
-
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    display: none;
+  }
 }

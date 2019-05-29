@@ -5,11 +5,29 @@ $block: '.section-header';
   padding: 3.4em 0 1.9em;
   text-transform: uppercase;
 
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+
+    padding: em(30) 0 em(30);
+  }
   @at-root &__title {
     font-size: 1.5em;
     letter-spacing: 1.4px;
     margin-bottom: -0.2em;
     font-weight: 700;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(15.73);
+      letter-spacing: 0;
+      line-height: (18.88/15,73);
+      &::after {
+        content: '';
+        display: block;
+        height: 1px;
+        background-color: color('body');
+        width: em(57.31,15.73);
+        margin: em(4,15.73) auto 0;
+
+      }
+    }
   }
 
   @at-root &__link {
@@ -18,6 +36,9 @@ $block: '.section-header';
     line-height: 1.6;
     font-size: 0.6em;
     transition: transition('button');
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      display: none;
+    }
 
     &::after {
       content: '';

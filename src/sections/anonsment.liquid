@@ -1,0 +1,29 @@
+{% if section.settings.header_anonsment_text != blank %}
+  <p>
+    {% if section.settings.header_anonsment_link %}<a href="{{ section.settings.header_anonsment_link }}">{% endif %}
+    {{ section.settings.header_anonsment_text }}
+    {% if section.settings.header_anonsment_link %}</a>{% endif %}
+  </p>
+{% endif %}
+{% schema %}
+  {
+    "name": {
+      "en": "Top message"
+    },
+    "class": "header__anounsment",
+    "settings": [{
+      "type": "text",
+      "id": "header_anonsment_text",
+      "label": {
+        "en": "Text"
+      }
+    },
+    {
+      "type": "url",
+      "id": "header_anonsment_link",
+      "label": {
+        "en": "Link"
+      }
+    }]
+  }
+{% endschema %}

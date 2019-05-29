@@ -30,16 +30,24 @@
     ]
     }
 {% endschema %}
-
+{%- if section.settings.about_mission_img.aspect_ratio <= 1 -%}
+    {%- assign max_height_image = section.settings.about_mission_img.height -%}
+    {%- assign max_width_image = max_height_image | times: section.settings.about_mission_img.aspect_ratio -%}
+  {%- else -%}
+    {%- assign max_width_image = section.settings.about_mission_img.width -%}
+    {%- assign max_height_image = max_width_image | divided_by: section.settings.about_mission_img.aspect_ratio -%}
+  {%- endif -%}
 <div id="mission" class="about-section about-section--mission" data-section-type="about-mission"
-     data-section-id="{{ section.id }}">
+     data-section-id="{{ section.id }}" style="padding-top:{{ max_height_image | divided_by: max_width_image | times: 100}}%;">
     <div class="about-section__bg lazyload"
-            {% if section.settings.about_mission_img %}
-        data-bgset="{% include 'bgset', image: section.settings.about_mission_img %}"
+      {% if section.settings.about_mission_img %}
+        data-bgset="{% include 'bgset2', image: section.settings.about_mission_img %}"
         data-sizes="auto"
         data-parent-fit="cover"
-        style="background-image: url('{{ section.settings.about_hero_bg | img_url: '300x300' }});"
-            {% endif %}>
+        style="background-image: url('{{ section.settings.about_mission_img | img_url: "300x300" }}');"
+      {% endif %}></div>
+    <div class="mission__content">
+      <div class="sticky-container" data-sticky>
         <div class="container about-section__container">
             {% if section.settings.about_mission_title != '' %}
                 <h2 class="about-section__title">
@@ -52,5 +60,6 @@
                 </div>
             {% endif %}
         </div>
+      </div>
     </div>
 </div>

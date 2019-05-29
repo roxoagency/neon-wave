@@ -1,11 +1,24 @@
 $block: '.customer-nav';
 
 #{$block} {
-  padding-right: 1.5em;
   padding-bottom: 0.3em;
 
   @at-root &__item {
-    padding: 0 1.3em;
+    padding: 0 em(9);
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      padding: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+    .list--inline > &--wishlist,
+    .list--inline > &--account,
+    .list--inline > &--search {
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        display: none;
+      }
+    }
   }
 
   @at-root &__link {
@@ -32,9 +45,10 @@ $block: '.customer-nav';
 
     .cart-nav__count {
       position: absolute;
-      font-size: 0.6em;
+      font-size: 10px;
+      line-height: 1;
       color: color('white');
-      top: calc(50% + 3px);
+      bottom: 0px;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 2;

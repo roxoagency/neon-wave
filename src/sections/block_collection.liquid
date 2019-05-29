@@ -1,6 +1,6 @@
 
 <div id="featured-collection-{{ section.id }}" class="featured-collection__inner container" data-section-type="featured-collection" data-section-id="{{ section.id }}">
-  <div class="featured-collection__header section-header">
+  <div class="featured-collection__header section-header animated-block">
     {% if section.settings.title != blank %}
       <h2 class="section-header__title">{{ section.settings.title }}</h2>
     {% endif %}
@@ -8,7 +8,7 @@
       <a class="section-header__link" href="{{ section.settings.link }}" title="{{ section.settings.link_text }}">{{ section.settings.link_text }}</a>
     {% endif %}
   </div>
-  <div class="featured-collection__content featured-collection__content--{{ section.settings.image_alignment }}">
+  <div class="featured-collection__content featured-collection__content--{{ section.settings.image_alignment }} animated-block">
     {% if section.settings.image != blank %}
     <div class="hero__slide featured-collection__image">
       {% if section.settings.image_link != blank %}
@@ -40,7 +40,7 @@
       {% endif %}
     </div>
     {% endif %}
-    <div class="featured-collection__products" data-section-type="product-list" data-section-id="featured-collection-list">
+    <div class="featured-collection__products animated-block" data-section-type="product-list" data-section-id="featured-collection-list">
       {%- assign collection = collections[section.settings.collection] -%}
       <div class="featured-collection__slide">
         {% for product in collection.products limit: 40 %}

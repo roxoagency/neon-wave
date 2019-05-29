@@ -1,0 +1,5 @@
+<style>
+    .swym-button.swym-add-to-watchlist-view-product:not(.swym-loaded){display: none;}
+</style>
+{% include 'swym-product-view', product: product %}
+<button class="swym-button swym-add-to-wishlist-view-product product_{{product.id}} swym-iconbtnlink swym-heart " data-swaction="addToWishlist" data-product-id="{{product.id | json}}"></button>

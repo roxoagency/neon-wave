@@ -2,6 +2,69 @@ $block: '.hero';
 $hero_height: 597px;
 
 #{$block} {
+  .slick-list {
+    width: 100%;
+  }
+  .slick-dotted.slick-slider {
+    margin: 0;
+  }
+  .slick-prev, .slick-next{
+transform: none;
+    margin-top: 24px;
+  }
+  .slick-dots {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: em(25);
+    left: 0;
+    right: 0;
+    justify-content: center;
+    button {
+      display: block;
+      background: url(location-slider-dot-white.svg) no-repeat center;
+      width: 0.5625em;
+      height: 1.1875em;
+      background-size: contain;
+      transition: background 0.15s linear;
+      padding: 0;
+      font-size: inherit;
+      line-height: inherit;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        width: em(7);
+        height: em(19);
+      }
+    }
+    li {
+      width: auto;
+      height: auto;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      &:first-child:before {
+        display: none;
+      }
+    }
+    li:before {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 1.375em;
+      background: #FFF9E6;
+      margin: 0 em(5);
+      opacity: 0.8;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        width: em(11);
+      }
+
+    }
+    .slick-active button {
+      background-image: url(location-slider-dot-active-white.svg);
+    }
+  }
   @at-root &__inner {
     display: flex;
     overflow: hidden;
@@ -13,6 +76,14 @@ $hero_height: 597px;
     flex: 0 0 100%;
     max-width: 100%;
     padding: 0 0.5em;
+    .hero__subtitle {
+      font-weight: 800;
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      padding: 0;
+      min-height: 0;
+    }
   }
 
   @at-root &__image {
@@ -33,9 +104,17 @@ $hero_height: 597px;
     position: relative;
     color: color('light');
     height: 100%;
-    padding: 3.7em 2em;
+    padding: em(125) 2em 3.7em ;
     pointer-events: none;
     z-index: 3;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+
+      padding: 3.7em 2em;
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      padding: em(26) em(30) em(60);
+    }
 
     &::after,
     &::before {
@@ -43,8 +122,22 @@ $hero_height: 597px;
       display: block;
       width: 2px;
       background-color: color('light');
-      flex: 1;
+      //flex: 1;
+      height: 131px;
       margin: 0 1.2em;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        width: 1px;
+
+      }
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      &::after {
+        height: em(123);
+      }
+      &::before {
+        height: em(163);
+      }
     }
 
     &--center {
@@ -80,6 +173,9 @@ $hero_height: 597px;
     .container {
       padding-top: 1em;
       padding-bottom: 1.5em;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        padding-top: em(10);
+      }
     }
   }
 
@@ -95,9 +191,19 @@ $hero_height: 597px;
     letter-spacing: 4.5px;
     line-height: 1.2;
 
-    @supports(-webkit-text-stroke: 2px color('light')) {
+    @supports (-webkit-text-stroke: 2px color('light')) {
       -webkit-text-stroke: 2px color('light');
       color: transparent;
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(29.13);
+      letter-spacing: 0;
+      line-height: (34.95/29.13);
+      margin: 0 0 em(3, 29.13);
+      @supports (-webkit-text-stroke: 1px color('light')) {
+        -webkit-text-stroke: 1px color('light');
+      }
     }
   }
 
@@ -108,6 +214,11 @@ $hero_height: 597px;
     margin-bottom: 0;
     font-weight: 700;
     line-height: 1.2;
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(29.13);
+      letter-spacing: 0;
+      line-height: (34.95/29.13);
+    }
   }
 
   @at-root
@@ -129,12 +240,42 @@ $hero_height: 597px;
       color: inherit;
     }
 
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      min-width: em(142, 8.32);
+      font-size: em(8.32);
+      line-height: (10.01/8.32);
+      color: color('primary');
+      background: color('light');
+      letter-spacing: 0;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: em(6, 8.32) em(12, 8.32) em(7, 8.32);
+      margin: em(11, 8.32) 0 0;
+      &:hover {
+        color: color('primary');
+      }
+    }
+
     &--full {
       @extend .full--sized;
       z-index: 2;
     }
   }
+  @at-root &__link-text {
+    &--sm {
+      display: none;
+      text-align: center;
+    }
 
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      &--sm {
+        display: block;
+      }
+      &--md {
+        display: none;
+      }
+    }
+  }
   .slick-slide {
     & > div {
       display: flex;

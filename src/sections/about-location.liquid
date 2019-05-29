@@ -154,10 +154,7 @@
                 </h2>
             {% endif %}
 
-            {% if section.settings.about_location_map != '' %}
-                <a href="#"
-                   class="js-about-section-map-toggle about-section__point">{% include "icon-point" %}{% include 'icon-go-next' %}</a>
-            {% endif %}
+
             <div class="row about-section__row">
                 {% if section.settings.about_location_map != '' %}
                     <div class="about-section__map js-about-section-map">
@@ -178,18 +175,21 @@
                                         <div class="location-slider__e">{{ block.settings.location_slide_e }} {% include "icon-arrow-long" %}</div>
                                     {% endif %}
                                     {% if block.settings.location_slide_image %}
-                                        <img
-                                                class="location-slider__image"
-                                                src="{{ block.settings.location_slide_image | img_url: '529x416', crop: 'center' }}"
-                                                data-src="{{ block.settings.location_slide_image | img_url: '529x416', crop: 'center' }}"
-                                                data-aspectratio="{{ section.settings.location_slide_image.aspect_ratio }}"
-                                                data-sizes="auto"
-                                                alt="{{ block.settings.location_slide_image.alt | escape }}">
+                                        <div class="location-slider__image lazyload"
+                                           data-bgset="{% include 'bgset', image: block.settings.location_slide_image %}"
+                                           data-sizes="auto"
+                                           style="background-image: url({{ block.settings.location_slide_image  | img_url: '500x' }});">
+                                        </div>
+
                                     {% endif %}
                                 </div>
 
                             {% endfor %}
                         </div>
+                    {% endif %}
+                    {% if section.settings.about_location_map != '' %}
+                        <a href="#"
+                           class="js-about-section-map-toggle about-section__point">{% include "icon-point" %}{% include 'icon-go-next' %}{% include 'icon-map-close' %}</a>
                     {% endif %}
                 </div>
                 <div class="col-md-6 col-12 about-section__col">

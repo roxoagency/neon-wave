@@ -1,0 +1,19 @@
+{% if nav != blank %}
+
+    {% for link in linklists[nav].links %}
+        {%- assign child_list_handle = link.title | handleize -%}
+
+
+            <li class="mobile-nav__item mobile-nav__item--root{% if link.active %} mobile-nav__item--active{% endif %} {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %}mobile-nav__item--root js--has-dropdown mobile-nav__item--has-dropdown{% endif %}" {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %} data-has-dropdown="content"{% endif %}>
+                <a href="{{ link.url }}"
+                   class="mobile-nav__link mobile-nav__link--root"
+                        {% if link.current %} aria-current="page"{% endif %}
+                >
+                    <span class="mobile-nav__label">{{ link.title | escape }}</span>
+
+                </a>
+
+            </li>
+    {% endfor %}
+{% endif %}
+

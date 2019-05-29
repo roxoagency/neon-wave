@@ -1,3 +1,5 @@
+import {cubicBezierTimingFunction} from './bezier';
+
 export class CurrencySwitcherBlock {
   constructor(id, type, $container) {
     this.$container = $container;
@@ -14,7 +16,7 @@ export class CurrencySwitcherBlock {
       money: 'span.money',
     };
     this.documentClickHandler = this._documentClick.bind(this);
-
+    this.$dropdown = $(this.selectors.dropdown, this.$container);
     this.init();
   }
 
@@ -85,16 +87,23 @@ export class CurrencySwitcherBlock {
   _hideDropdown() {
     this.$container.removeClass(this.selectors.activeClass);
     this._unsubscribeDocumentClick();
+    this.$dropdown.slideUp(200);
   }
 
   _toggleDropdown() {
+    // Power1.easeInOut
+    $.easing.easeInOut = cubicBezierTimingFunction('ease-in-out');
+    this.$dropdown.slideToggle({
+      duration: 400,
+      easing: 'easeInOut',
+    });
     this.$container.toggleClass(this.selectors.activeClass);
-
     if (this.$container.hasClass(this.selectors.activeClass)) {
       this._subscribeDocumentClick();
     } else {
       this._unsubscribeDocumentClick();
     }
+
   }
 
   _changeCurrent(e) {
@@ -103,8 +112,8 @@ export class CurrencySwitcherBlock {
     const newCurrency = $target.data('value');
     $currentItem.find(this.selectors.currencyIcon).html($target.find(this.selectors.currencyIcon).html());
     $currentItem.find(this.selectors.currencyValue).html($target.find(this.selectors.currencyValue).html());
-    $(this.selectors.currencies, this.$container).removeClass(this.selectors.activeItemClass);
-    $target.addClass(this.selectors.activeItemClass);
+    $(this.selectors.currencies).removeClass(this.selectors.activeItemClass);
+    $('[data-value="'+newCurrency+'"]').addClass(this.selectors.activeItemClass);
     Currency.convertAll(Currency.currentCurrency, newCurrency);
     this._hideDropdown();
   }

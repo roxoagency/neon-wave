@@ -4,6 +4,9 @@
   }
   .col-12{
     margin-bottom: em(60);
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin-bottom: em(22);
+    }
   }
   &__title{
     font-weight: 600;
@@ -11,12 +14,43 @@
     letter-spacing: 1.1px;
     text-transform: uppercase;
     margin: 0 0 em(14,24);
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      text-align: center;
+      margin: 0  0 em(2,24);
+    }
   }
   &__subtitle{
     font-size: em(17);
     letter-spacing: 1.1px;
     text-transform: uppercase;
     margin: 0 0 em(14,17);
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      text-align: center;
+    }
+  }
+  &__image-wrapper{
+   position: relative;
+    padding-top: 100%;
+  }
+  &__image{
+    width:100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__col--image {
 
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      display: none;
+    }
+  }
+  .container{
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      padding-left: em(30);
+      padding-right: em(30);
+      p {
+        margin: 0 0 2.2em;
+      }
+    }
   }
 }

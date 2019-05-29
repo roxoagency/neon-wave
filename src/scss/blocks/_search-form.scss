@@ -6,6 +6,11 @@ $block: '.search';
     border-left: 2px solid color('primary');
     display: flex;
     align-items: center;
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+
+      padding: 0 em(21) 0 em(15);
+    }
   }
 
   @at-root &__input {
@@ -13,11 +18,21 @@ $block: '.search';
     border: none;
     border-radius: 0;
     border-bottom: 1px solid color('primary');
-    padding: 0 0.7em;
-    font-size: 0.8em;
+    padding: 0 em(8,12.99);
+    font-size: em(12.99);
     flex: 1;
     color: #49494A;
     outline: none;
+    padding-bottom: em(3,12.99);
+    margin-bottom: em(1,12.99);
+    letter-spacing: letterspacing-to-pixels(90,12.99);
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      padding: 0 em(5,12.99);
+    }
+
+    .mobile-nav & {
+      font-size: 16px;
+    }
   }
 
   @at-root &__submit {
@@ -26,7 +41,9 @@ $block: '.search';
     color: #49494A;
     transition: transition('color');
     margin-left: 1.7em;
-
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin-left: em(18);
+    }
     &:hover {
       color: color('primary');
     }

@@ -1,10 +1,11 @@
 $site-width: 1366px;
-$header-width: 1920px;
+$site-width-xl: 100%;
+$header-width: $site-width-xl;
 
 // Typography
 $font-size-base: 1rem; // Supports ONLY rem value (bootstrap-reload required)
 $font-size-header: 26px;
-
+$font-size-base_xl: 1.171303074vw;
 $font-stack-body: 'ibm-plex-mono', sans-serif;
 $font-style-body: normal;
 $font-weight-body: 400;
@@ -34,6 +35,7 @@ $orange: #fd7e14;
 $pink: #D29588;
 $yellow: #F2D975;
 $light: #FFF9E6;
+$aqua: #58bb96;
 
 $primary_dark: #046B78;
 
@@ -49,11 +51,12 @@ $colors: (
         "yellow": $yellow,
         "light": $light,
         "pink": $pink,
+        "aqua": $aqua,
 );
 
 // Transitions
 $color-transition: color 0.15s linear;
-$button-transition: color 0.15s linear, border-color 0.15s linear, background-color 0.15s linear;
+$button-transition: color 0.3s , border-color 0.3s;
 
 $transitions: (
         "color": $color-transition,
@@ -71,9 +74,14 @@ $grid-breakpoints: (
   // Medium screen / tablet
         md: 768px,
   // Large screen / desktop
-        lg: 992px,
+        lg: 1024px,
   // Extra large screen / wide desktop
         xl: 1200px
+);
+$grid-breakpoints-custom: (
+        md: 768px,
+        lg: 1024px,
+        xll: 1366px
 );
 $enable-grid-classes:true;
 
@@ -122,7 +130,7 @@ $modal-header-padding: 0; // Keep this for backwards compatibility
 //
 //$modal-xl:                          1140px !default;
 //$modal-lg:                          800px !default;
-$modal-md: 800px;
+$modal-md: 920px;
 //$modal-sm:                          300px !default;
 //
 $modal-fade-transform: none;

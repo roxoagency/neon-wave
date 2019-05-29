@@ -1,0 +1,14 @@
+<div class="search search--sm">
+  <form class="search__form" action="/search" method="get" role="search">
+    <input type="hidden" name="type" value="product">
+    <input class="search__input"
+      type="text"
+      name="q"
+      placeholder="{{ 'general.search.placeholder2' | t }}"
+      aria-label="{{ 'general.search.placeholder2' | t }}">
+    <button class="search__submit btn--text" type="submit">
+      {% include 'icon-search' %}
+    </button>
+    <a class="search__clear" href="/search?type=product&q=">{{ 'general.search.clear' | t }}</a>
+  </form>
+</div>

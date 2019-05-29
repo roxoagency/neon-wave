@@ -2,12 +2,12 @@
     <div class="page__header ">
         {% include 'breadcrumbs' %}
     </div>
-    <div class="page__title">
+    <div class="page__title animated-block">
         <h1>{{ 'customer.register.title' | t }}</h1>
     </div>
         <div class="row  account-page__row">
 
-            <div class="col col-12 col-md-6 offset-md-3  account-page__col">
+            <div class="col col-12 col-md-6 offset-md-3  account-page__col animated-block">
     {% form 'create_customer' , class: 'form account__register' %}
         <h2 class="account-page__subtitle h6">
             {{ 'customer.register.personal_information' | t }}

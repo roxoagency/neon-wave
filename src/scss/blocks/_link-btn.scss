@@ -8,11 +8,13 @@
   padding: 0;
   border: 0 solid;
   box-shadow: none;
+
+  @include nav_link();
   &:focus{
     outline: none;
   }
   &:hover {
-    color: color('body');
+    color: color('primary');
     text-decoration: none;
   }
   &--md{

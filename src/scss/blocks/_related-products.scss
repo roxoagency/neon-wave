@@ -1,24 +1,61 @@
-.related-products{
+.related-products {
   padding-bottom: em(48);
   margin-bottom: em(60);
   padding-top: em(62);
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    margin-bottom: em(-28);
+  }
+
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    padding: 0 em(22);
+    &__slider {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
   &__item {
     width: 20%;
     margin: 0 em(9);
     max-width: 360px;
+    @include media-breakpoint-up('xll', $grid-breakpoints-custom) {
+      .page--article &, .page--blog & {
+        max-width: 26.355vw;
+      }
+    }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      width: 50%;
+      margin: 0 em(0) 0;
+      max-width: 50%;
+      display: none;
+      &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+        display: block;
+      }
+    }
   }
-  &__title{
+  &__title {
     font-size: em(36);
     text-align: center;
-    color:color('primary');
+    color: color('primary');
     text-transform: uppercase;
-    margin-bottom: em(48,36);
+    margin-bottom: em(48, 36);
     letter-spacing: 0;
+    font-weight: 700;
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(24);
+    }
   }
-  &--article{
+  &--article {
     padding-top: 0;
-    .related-products__title{
-      color:color('body');
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin-bottom:3.75em;
+    }
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin-bottom: em(6);
+    }
+    .related-products__title {
+      color: color('body');
     }
   }
 }

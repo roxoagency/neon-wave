@@ -33,29 +33,36 @@
 
 <div id="about" class="about-section about-section--about" data-section-type="about"
      data-section-id="{{ section.id }}">
-    <div class="about-section__bg lazyload"
+    <div class="about-section__bg lazyload about-section__bg--parallax" data-start="0" data-end="parent"
             {% if section.settings.about_img %}
         data-bgset="{% include 'bgset', image: section.settings.about_img %}"
         data-sizes="auto"
         data-parent-fit="cover"
-        style="background-image: url('{{ section.settings.about_img | img_url: '300x300' }});"
-            {% endif %}>
-        <div class="container about-section__container">
-            <div class="row about-section__row">
-                <div class="col-md-6 col-12 about-section__col"></div>
-                <div class="col-md-6 col-12 about-section__col">
-                    {% if section.settings.about_title != '' %}
-                        <h2 class="about-section__title">
-                            <span class="about-section__title-text">{{ section.settings.about_title }}</span>
-                        </h2>
-                    {% endif %}
-                    {% if section.settings.about_desc != '' %}
-                        <div class="about-section__content">
-                            {{ section.settings.about_desc }}
+        style="background-image: url({{ section.settings.about_img | img_url: '300x300' }});"
+            {% endif %}></div>
+    <div class="container about-section__container">
+        <div class="row about-section__row">
+            <div class="col-lg-6 col-12 about-section__col"></div>
+            <div class="col-lg-6 col-12 about-section__col">
+                {% if section.settings.about_title != '' %}
+                    <h2 class="about-section__title">
+                        <span class="about-section__title-text">{{ section.settings.about_title }}</span>
+                    </h2>
+                {% endif %}
+                {% if section.settings.about_desc != '' %}
+                    <div class="about-section__content about-section__content--sm">
+                        <div class="about-section__content--top">
+                        {{ section.settings.about_desc| replace: "[[read more]]", "<a href='#' class='about-section__content-arrow js-more-content'><svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'>
+  <g data-name='Group 297' transform='translate(-995 -2014)'>
+    <rect  data-name='Rectangle 222' width='10' height='10' transform='translate(995 2014)'/>
+    <path  data-name='Path 143' d='M998.548,2022.333l3.333-3.333-3.333-3.333' fill='none' stroke='#fff9e6' stroke-miterlimit='10' stroke-width='0.75'/>
+  </g>
+</svg></a></div><div class='about-section__content--bottom'>" | replace : "</p><a href='#' class='about-section__content-arrow","<a href='#' class='about-section__content-arrow"| replace : '<p></p>',''|replace : "<div class='about-section__content--bottom'></p>","<div class='about-section__content--bottom'>"| replace: "<p>", "" | replace: "</p>", "</br></br>"
+                        }}
                         </div>
-                    {% endif %}
+                    </div>
+                {% endif %}
 
-                </div>
             </div>
         </div>
     </div>

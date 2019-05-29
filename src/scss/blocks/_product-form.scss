@@ -1,26 +1,75 @@
-.product-form{
-  &__selector-wrapper{
-
-    display: inline-block;
-    min-width: 127px;
-  }
-  &__variants{
-    display: none;
-  }
-  &__item{
-    margin-bottom:em(15);
-  }
-  &__item--submit{
-    margin-top: em(30);
-    margin-bottom: em(26);
-  }
-}
-  .product-form--inline{
+.product-form {
+  @include media-breakpoint-down('md', $grid-breakpoints) {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    align-items: center;
-    .product-form__item{
-      margin: 0 0 0  em(30);
-      height:30px;
+    margin-left: em(-15);
+    margin-right: em(-15);
+    & > * {
+      margin-left: em(15);
+      margin-right: em(15);
+
     }
   }
+  &__selector-wrapper {
+
+    display: inline-block;
+    min-width: em(127);
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      min-width: em(105);
+    }
+  }
+  &__variants {
+    display: none;
+  }
+  &__item {
+    margin-bottom: em(15);
+  }
+  &__cart-submit {
+    &:focus {
+      outline: none;
+    }
+  }
+  &__item--submit {
+    margin-top: em(30);
+    margin-bottom: em(26);
+
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      margin: 0 em(15) em(15);
+    }
+  }
+  .product-single & {
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      display: none;
+      &__item--submit {
+        width: 100%;
+      }
+    }
+    & + .product-form--inline {
+      display: none;
+
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        display: flex;
+      }
+    }
+
+  }
+}
+
+.product-form--inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .product-form__item {
+    margin: 0 0 0 em(30);
+    height: em(30);
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin: 0 em(15) em(20);
+      &--submit {
+        text-align: center;
+      }
+    }
+  }
+
+}

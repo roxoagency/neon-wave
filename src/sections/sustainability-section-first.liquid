@@ -21,19 +21,22 @@
     ]
     }
 {% endschema %}
-<div class="sustainability-section sustainability-section--first" data-section-type="sustainability-section--first" id="sustainability-section--first"
-     data-section-id="{{ section.id }}">
-    <div class="container">
-        <h1 class="sustainability-section__title">
-            {% if section.settings.sustainability_1_title_top != '' %}
-                <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_1_title_top }}</span>
-            {% endif %}
-            {% if section.settings.sustainability_1_title_bottom != '' %}
-                <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_1_title_bottom }}</span>
-            {% endif %}
-        </h1>
-        <a href="#sustainability-section--second" class="js-go-to sustainability-section__next">
-            {% include 'icon-go-next' %}
-        </a>
+<div class="sustainability-section sustainability-section--first sustainability-section--open "
+     data-section-type="sustainability-section--first" id="sustainability-section--first"
+     data-section-id="{{ section.id }}" data-section-index="0">
+    <div class="sustainability-section__container-wrapper">
+        <div class="container">
+            <h1 class="sustainability-section__title">
+                {% if section.settings.sustainability_1_title_top != '' %}
+                    <span class="sustainability-section__title-text sustainability-section__title-text--top">{{ section.settings.sustainability_1_title_top }}</span>
+                {% endif %}
+                {% if section.settings.sustainability_1_title_bottom != '' %}
+                    <span class="sustainability-section__title-text sustainability-section__title-text--bottom">{{ section.settings.sustainability_1_title_bottom }}</span>
+                {% endif %}
+            </h1>
+            <a href="#sustainability-section--second" class="js-sustainability-go-to sustainability-section__next">
+                {% include 'icon-go-next' %}
+            </a>
+        </div>
     </div>
 </div>

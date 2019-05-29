@@ -1,9 +1,9 @@
 {% paginate collection.products by 8 %}
-    <div class="container"  data-section-type="collection" data-section-id="collection">
+    <div class="container" data-section-type="collection" data-section-id="collection">
         <div class="page__header ">
             {% include 'breadcrumbs' %}
         </div>
-        <div class="filter">
+        <div class="filter ">
             <div class="filter__header">
                 {% include 'icon-filter' %}
                 <span class="filter__title">
@@ -11,6 +11,10 @@
 				</span>
             </div>
             <div class="filter__list-view">
+                <button class="filter__list-view-btn filter__list-view-btn--1 js-list-view-toggle"
+                        data-item="1">
+                    {% include 'icon-table1' %}
+                </button>
                 <button class="filter__list-view-btn filter__list-view-btn--2 filter__list-view-btn--selected js-list-view-toggle"
                         data-item="2">
                     {% include 'icon-table2' %}
@@ -23,15 +27,34 @@
                 </button>
             </div>
         </div>
-        <div id="bc-sf-filter-tree-mobile"></div>
+        {% comment %}
+            <div id="bc-sf-filter-tree-mobile"></div>
+
+        {% endcomment %}
         <div id="bc-sf-filter-wrapper">
             <div class="row">
-                <div class="col-12 col-md-3 filter__sidebar">
-                    <div class="">
+                <div class="col-12 col-lg-3 filter__sidebar ">
+                    <div class="filter__wrapper">
+                        <div class="filter">
+                            <div class="filter__header">
+                                {% include 'icon-filter' %}
+                                <span class="filter__title">
+                                {{ 'collections.general.filters' | t }}
+                            </span>
+                            </div>
+                            <div class="filter__close-wrapper">
+                                <a href="#" class="filter__close">{% include 'icon-close' %}</a>
+                            </div>
+                        </div>
+
                         <div id="bc-sf-filter-tree"></div>
                     </div>
+                    <div class="filter__clear-wrapper">
+                        <a href="#" class="filter__clear">CLEAR FILTERS</a>
+                    </div>
                 </div>
-                <div class="col-12 col-md-9 filter__content">
+
+                <div class="col-12 col-lg-9 filter__content  ">
                     <div id="bc-sf-filter-right">
                         <div class="filters-toolbar__item text-right" id="bc-sf-filter-top-sorting"></div>
                         <div id="bc-sf-filter-products" class="products-list js-products-list products-list--2"
@@ -49,10 +72,10 @@
             </div>
 
 
-            <div id="bc-sf-filter-bottom-pagination">
-                {% if paginate.pages > 1 %}
+            <div id="bc-sf-filter-bottom-pagination ">
+              {% comment %}  {% if paginate.pages > 1 %}
                     {{ paginate | default_pagination }}
-                {% endif %}
+                {% endif %}{% endcomment %}
             </div>
             <div id="bc-sf-filter-load-more"></div>
         </div>

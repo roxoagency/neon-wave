@@ -5,22 +5,36 @@
         {% if color!= 'white'  %}
         .product-color-{{ block.settings.title | downcase }} {
             background-color: {{ block.settings.color }};
+            {% if block.settings.color_2 !=''%}
+            background: -moz-linear-gradient(left, {{ block.settings.color }} 40%, {{ block.settings.color_2 }} 60%);
+            background: -webkit-linear-gradient(left, {{ block.settings.color }} 40%,{{ block.settings.color_2 }} 60%);
+            background: linear-gradient(to right, {{ block.settings.color }} 40%,{{ block.settings.color_2 }} 60%);
+            {% endif %}
             color: {{ block.settings.color }};
         }
 
         .product-color-{{ block.settings.title | downcase }}:hover {
             background-color: {{ block.settings.color }};
+            {% if block.settings.color_2 !=''%}
+            background: -moz-linear-gradient(left, {{ block.settings.color }} 40%, {{ block.settings.color_2 }} 60%);
+            background: -webkit-linear-gradient(left, {{ block.settings.color }} 0%,{{ block.settings.color_2 }} 60%);
+            background: linear-gradient(to right, {{ block.settings.color }} 40%,{{ block.settings.color_2 }} 60%);
+        {% endif %}
             color: {{ block.settings.color }};
         }
 
         .bc-sf-filter-option-block .bc-sf-filter-block-content .bc-sf-filter-option-swatch.circle-grid li a[data-value="{{ block.settings.title }}"] span.bc-sf-filter-option-swatch-image {
             background: {{ block.settings.color }} !important;
+            {% if block.settings.color_2 !='' %}
+            background: -moz-linear-gradient(left, {{ block.settings.color }} 40%, {{ block.settings.color_2 }} 60%)!important;
+            background: -webkit-linear-gradient(left, {{ block.settings.color }} 40%,{{ block.settings.color_2 }} 60%)!important;
+            background: linear-gradient(to right, {{ block.settings.color }} 40%,{{ block.settings.color_2 }} 60%)!important;
+        {% endif %}
         }
 
         .bc-sf-filter-option-block .bc-sf-filter-block-content .bc-sf-filter-option-swatch.circle-grid li a[data-value="{{ block.settings.title }}"] {
             color: {{ block.settings.color }};
         }
-
         {% endif %}
         {% endif %}
         {% endfor %}
@@ -41,7 +55,11 @@
     {
     "type": "color",
     "id": "color",
-    "label": "Color"
+    "label": "First color"
+    }, {
+    "type": "color",
+    "id": "color_2",
+    "label": "Second color"
     },
     {
     "type": "text",

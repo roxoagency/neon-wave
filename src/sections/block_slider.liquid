@@ -1,5 +1,5 @@
 
-<div id="hero-{{ section.id }}" class="hero__inner" data-section-type="hero" data-section-id="{{ section.id }}">
+<div id="hero-{{ section.id }}" class="hero__inner is-section-sticky" data-section-type="hero" data-section-id="{{ section.id }}">
   {% for block in section.blocks %}
     {% if block.settings.image == blank %}
       {% continue %}
@@ -24,16 +24,16 @@
       </div>
 
       {% if block.settings.title != blank or block.settings.subtitle != blank or block.settings.link_text %}
-        <div class="hero__content hero__content--{{ block.settings.alignment }}">
+        <div class="hero__content hero__content--{{ block.settings.alignment }} animated-block">
           <div class="container">
             {% if block.settings.title != blank %}
               <h3 class="hero__title">{{ block.settings.title }}</h3>
             {% endif %}
             {% if block.settings.subtitle != blank %}
-              <h4 class="hero__subtitle">{{ block.settings.subtitle }}</h3>
+              <h4 class="hero__subtitle">{{ block.settings.subtitle }}</h4>
             {% endif %}
             {% if block.settings.link_text != blank %}
-              <a href="{{ block.settings.link }}" class="hero__link">{{ block.settings.link_text }}</a>
+              <a href="{{ block.settings.link }}" class="hero__link"><span class="hero__link-text hero__link-text--md">{{ block.settings.link_text }}</span><span class="hero__link-text hero__link-text--sm">{{ block.settings.link_text_sm }}</span></a>
             {% endif %}
           </div>
         </div>
@@ -101,6 +101,13 @@
           "label": {
             "en": "Link text"
           }
+        },  {
+        "type": "text",
+        "id": "link_text_sm",
+        "label": {
+        "en": "Mobile link text"
+        },
+        "default": "Shop today"
         },
         {
           "type": "select",

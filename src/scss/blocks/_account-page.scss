@@ -1,8 +1,6 @@
 .account-page {
-  margin-bottom: em(60);
-  .container {
-    max-width: 1276px;
-  }
+  padding-bottom: em(60);
+
   .btn {
     font-size: em(10);
     padding: em(10, 10) em(33, 10) ;
@@ -18,11 +16,14 @@
     &:last-child {
       border-right: 0 solid;
     }
+
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      border-right: 0px solid color('primary');
+      padding-left: em(30);
+      padding-right: em(30);
+    }
   }
-  &__row {
-    margin-right: em(-32);
-    margin-left: em(-32);
-  }
+
   &__box {
 
     margin: em(25) 0 em(29);
@@ -43,14 +44,16 @@
     padding: 0 0 em(19, 30);
   }
   .selectric .label {
-    height: 42px;
+    height: em(40,11);
     margin-left: 1.27273em;
     padding: 1.09091em 0 1.27273em;
     color: color('body');
+    font-size: 0.6875em;
+    letter-spacing: 0.9px;
   }
   .selectric .button {
-    height: 42px;
-    width: 24px;
+    height: em(42);
+    width: em(24);
   }
   &__address,
   &__add-wrapper,
@@ -59,5 +62,10 @@
   }
   .address-edit-toggle{
     margin-right: em(24,13);
+  }
+  .form__btn-group{
+    .btn,.link-btn{
+      margin-bottom: em(16);
+    }
   }
 }

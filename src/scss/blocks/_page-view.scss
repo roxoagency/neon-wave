@@ -1,0 +1,43 @@
+.page-view {
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
+    &__wrapper {
+      .is-desktop body:not(.no-custom-scroll) & {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0;
+        overflow: visible;
+        transform: none;
+        filter: none;
+      }
+      &__scroll {
+        width: 100%;
+        transition: 1s filter ease, 1s -webkit-filter ease;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up('lg', $grid-breakpoints) {
+  .swym-hosted-page .page-view {
+    height: auto !important;
+  }
+  .swym-hosted-page .page-view__scroll {
+    transform: translate(0) !important;
+  }
+  .is-desktop body.swym-hosted-page:not(.no-custom-scroll) .page-view__wrapper {
+    position: inherit;
+    top: auto;
+    left: auto;
+    right: auto;
+    height: auto;
+  }
+}
+
+.template-index .page-view__scroll-content{
+  overflow: hidden;
+  background: #fff;
+  position: relative;
+  z-index: 10;
+}

@@ -1,31 +1,123 @@
 <nav id="AccessibleNav" role="navigation">
-  {% for block in section.blocks %}
-    {% include 'block_site-nav' | nav: block.settings.linklist %}
-  {% endfor %}
-  {{ submenus }}
+    {% for block in section.blocks %}
+        {% include 'block_site-nav' | nav: block.settings.linklist %}
+    {% endfor %}
+    {{ submenus }}
 </nav>
+<div class="mobile-nav">
+    <div class="header__search-form js--header-search-form">
+        {% include 'block_search-form' %}
+    </div>
+
+    <div class="mobile-nav__content">
+
+        <ul class="mobile-nav__nav mobile-nav__nav--main">
+            {% include 'block_site-nav-mobile-main' | nav: section.blocks[0].settings.linklist %}
+            {% for block in section.blocks %}
+                {% if forloop.index != 1 %}
+                    {% include 'block_site-nav-mobile' | nav: block.settings.linklist %}
+                {% endif %}
+            {% endfor %}
+            {% if shop.customer_accounts_enabled %}
+                <li class="mobile-nav__item mobile-nav__item--root">
+                    <a href="/account" class="mobile-nav__link mobile-nav__link--root">
+                         <span class="mobile-nav__icon">
+                                 {% include 'icon-account' %}
+                         </span>
+                        <span class="mobile-nav__label">Account</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+        <div class="mobile-nav__slider-wrapper"></div>
+        <div class="mobile-nav__bottom">
+            <div class="mobile-nav__col">
+                <ul class="mobile-nav__nav mobile-nav__nav--bottom">
+                    {% include 'block_site-nav-mobile-bottom' | nav: section.settings.mobile_linklist %}
+                </ul>
+                {% if settings.show_multiple_currencies %}
+                    {% include 'block_currency-switcher' %}
+                {% endif %}
+            </div>
+            <div class="mobile-nav__col">
+                <div class="mobile-nav__info">
+                    {%- assign social_icons = false -%}
+
+                    {%- if
+                        settings.social_facebook_link != blank
+                        or settings.social_instagram_link != blank -%}
+                        {%- assign social_icons = true -%}
+                    {%- endif -%}
+                    {%- if social_icons -%}
+                        <div class="mobile-nav__block--social">
+                            <ul class="list--inline mobile-nav__social-icons social-icons">
+                                {%- if settings.phone != blank -%}
+                                    <li>
+                                        <a class="social-icons__link" href="tel:{{ settings.phone | escape }}"
+                                           target="_blank" title="Phone">
+                                            {%- include 'icon-phone' -%}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                                {%- if settings.social_instagram_link != blank -%}
+                                    <li>
+                                        <a class="social-icons__link"
+                                           href="{{ settings.social_instagram_link | escape }}"
+                                           target="_blank" title="Instagram">
+                                            {%- include 'icon-instagram' -%}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                                {%- if settings.social_facebook_link != blank -%}
+                                    <li>
+                                        <a class="social-icons__link"
+                                           href="{{ settings.social_facebook_link | escape }}"
+                                           target="_blank" title="Facebook">
+                                            {%- include 'icon-facebook' -%}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                            </ul>
+                        </div>
+                    {%- endif -%}
+                    {%- if settings.address != '' -%}
+                        <div class="mobile-nav__address"> {{ settings.address }}</div>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% schema %}
-{
-  "name": {
-    "en": "Menu"
-  },
-  "class": "header__navigation",
-  "max_blocks": 2,
-  "blocks": [
     {
-      "type": "link_list",
-      "name": "Menu",
-      "settings": [
-        {
-          "type": "link_list",
-          "id": "linklist",
-          "label": {
-            "en": "Menu"
-          },
-          "default": "main-menu"
-        }
-      ]
+    "name": {
+    "en": "Menu"
+    },
+    "class": "header__navigation",
+    "max_blocks": 2,
+    "settings": [
+    {
+    "type": "link_list",
+    "id": "mobile_linklist",
+    "label": {
+    "en": "Mobile bottom menu"
     }
-  ]
-}
+    }
+    ],
+    "blocks": [
+    {
+    "type": "link_list",
+    "name": "Menu",
+    "settings": [
+    {
+    "type": "link_list",
+    "id": "linklist",
+    "label": {
+    "en": "Menu"
+    },
+    "default": "main-menu"
+    }
+    ]
+    }
+    ]
+    }
 {% endschema %}

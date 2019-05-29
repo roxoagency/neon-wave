@@ -9,14 +9,21 @@
     text-transform: uppercase;
     font-family: $font-stack-header;
     letter-spacing: 0.6px;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+      cursor: pointer;
+    }
     .filter__title,
     svg {
       display: inline-block;
       vertical-align: middle;
     }
+    svg {
+      width: em(20, 14);
+      height: em(15, 14);
+    }
   }
-  &__title{
-   font-weight: 600;
+  &__title {
+    font-weight: 600;
   }
   &__list-view {
     margin-left: auto;
@@ -28,37 +35,188 @@
     background: transparent;
     border: 0 solid;
     padding: 0;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 em(15);
     opacity: 0.3;
-    height: 20px;
+    height: em(20);
+    width: em(19);
     transition: opacity 0.3s ease-in-out;
     display: block;
+    &.filter__list-view-btn--4{
+      width: em(26);
+    }
     svg {
       display: block;
+      height: 100%;
+      width: auto;
+    }
+    &--4 {
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        display: none;
+      }
+    }
+    &--1 {
+      display: none;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+
+        display: block;
+      }
+    }
+    &--3 {
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        display: none;
+      }
     }
   }
   &__list-view-btn:hover,
   &__list-view-btn--selected {
     opacity: 1;
   }
+  &__close-wrapper {
+    margin-left: auto;
+  }
+  &__close {
+    width: em(40);
+    height: em(40);
+    color: inherit;
+    padding: em(14) em(14);
+    display: block;
+    svg {
+      display: block;
+    }
+  }
+  &__clear-wrapper {
+    display: none;
+    @include media-breakpoint-down('md', $grid-breakpoints) {
+
+      position: fixed;
+      left: 0;
+      width: 250px;
+      bottom: 0;
+      z-index: 100;
+      background: #fff;
+      padding: em(30) em(50);
+      box-shadow: 4px 0 5px rgba(0, 0, 0, 0.15);
+      &--is-show{
+        display: block;
+      }
+
+    }
+  }
+  &__clear {
+    font-family: "henderson-sans-basic", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: em(10);
+    letter-spacing: letterspacing-to-pixels(90,10);
+    background: color('primary');
+    color:color('white');
+    text-align: center;
+    display: block;
+    padding: em(5,10) em(15,10);
+    text-decoration: none;
+    &:hover{
+      color:color('white');
+      text-decoration: none;
+    }
+  }
 }
 
 .filter__sidebar {
-  border-right: 1px solid $primary;
-  flex: 0 0 23.2%;
-  max-width: 23.2%;
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
+    border-right: 1px solid $primary;
+    flex: 0 0 23.2%;
+    max-width: 23.2%;
+    min-width: 250px;
+  }
+  @media(max-width: 1140px)and (min-width: 1024px) {
+    flex: 0 0 250px;
+    max-width: 250px;
+  }
+  .filter {
+    display: none;
+  }
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    background: rgba(color('white'), 0.5);
+    cursor: pointer;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    z-index: -10;
+    transition: all 0.3s ease-in-out;
+    body.is-filter-show & {
+      opacity: 1;
+      visibility: visible;
+      z-index: 100;
+      .filter__wrapper{
+        margin-left: 0;
+      }
+    }
+    .filter {
+      display: flex;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 250px;
+      padding: em(4) em(15) em(4) em(30);
+      border-bottom: 2px solid color('primary');
+
+    }
+
+  }
 }
 
 .filter__content {
-  margin-left: -1px;
-  border-left: 1px solid $primary;
-  flex: 0 0 76.8%;
-  max-width: 76.8%;
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
+    margin-left: -1px;
+    border-left: 1px solid $primary;
+    flex: 0 0 76.8%;
+    //min-width: calc(100% - 250px);
+    max-width: 76.8%;
+  }
+
+  @media(max-width: 1140px)and (min-width: 1024px) {
+    flex: 0 0 calc(100% - 250px);
+    max-width: calc(100% - 250px);
+  }
 }
 
+.filter__sidebar, .filter__content {
+  & > div {
+    border-top: 1px solid $primary;
+  }
+}
 
-.filter__sidebar ,.filter__content {
-  &>div{
-    border-top:1px solid $primary;
+@include media-breakpoint-down('md', $grid-breakpoints) {
+  .filter__sidebar {
+    .filter__wrapper {
+      border-top: 0px solid $primary;
+      height: 100%;
+      overflow: auto;
+      max-width: 250px;
+      background: #fff;
+      position: relative;
+      padding-top: em(50);
+      padding-bottom: em(85);
+      box-shadow: 4px 0 5px rgba(0, 0, 0, 0.15);
+      cursor: auto;
+      -webkit-overflow-scrolling: touch;
+      transition: all 0.3s ease-in-out;
+      margin-left: -250px;
+    }
+  }
+}
+
+body.is-filter-open {
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    overflow: hidden !important;
+    .header {
+      z-index: 10;
+    }
   }
 }

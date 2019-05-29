@@ -30,10 +30,20 @@
 
 }
 
-.modal-body {
+.modal-open {
+  overflow: hidden !important;
+}
 
+.modal-body {
   font-size: em(13);
   line-height: (25/13);
+}
+
+.modal-dialog {
+
+  @include media-breakpoint-up('xll', $grid-breakpoints-custom) {
+    max-width: 67.35vw;
+  }
 }
 
 .modal--full {
@@ -44,7 +54,7 @@
   }
 
   .modal-dialog {
-    max-width: 980px;
+    max-width: 1110px;
   }
   .modal-body {
     padding: 0;
@@ -63,38 +73,72 @@
     right: 16px;
   }
 }
-
+.modal-backdrop.show{
+  transition: opacity 0.3s ease-out;
+}
 .modal.fade .modal-dialog,
 .modal-dialog {
   opacity: 0;
-  transition: opacity 0.3s ease-out;
 }
 
 .modal.show .modal-dialog {
   opacity: 1;
+  transition: opacity 0.15s ease-out;
+}
+
+.modal-dialog {
+  padding: 0 em(60);
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    padding: 0 em(30);
+  }
 }
 
 .modal {
+  padding: 0;
   &--newsletter {
     .modal-body {
       font-size: 1em;
-      padding: em(48) em(58) em(33) em(22);
+      padding: em(58) em(58) em(33) em(22);
+
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        padding: em(16) em(30) em(22);
+      }
     }
     .modal-content {
       background: color('light');
       color: color('primary_dark');
     }
     .modal-dialog {
-      max-width: 930px;
+      max-width: 1050px;
+      @include media-breakpoint-up('xll', $grid-breakpoints-custom) {
+        max-width: 77vw;
+      }
     }
     .modal-content-wrapper {
       display: flex;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        display: block;
+      }
     }
     .modal-bg {
       background-size: cover;
       background-position: center right;
       min-width: 320px;
       max-width: 320px;
+      &--sm {
+        display: none;
+        min-width: 0;
+        max-width: 100%;
+        padding: 55% 0 0;
+        @include media-breakpoint-down('sm', $grid-breakpoints) {
+          display: block;
+        }
+      }
+      &--lg {
+        @include media-breakpoint-down('sm', $grid-breakpoints) {
+          display: none;
+        }
+      }
 
     }
     .modal-header .close:after, .modal-header .close:before {
@@ -107,5 +151,33 @@
       top: 13px;
       right: 14px;
     }
+  }
+}
+
+#product-gallery.modal {
+  opacity: 0;
+  .modal-dialog {
+    max-width: 100%;
+    padding: 0;
+  }
+  .modal-content {
+    left: 100%;
+    transition: left 0.4s ease-out;
+    transition-delay: 0.15s;
+  }
+  &.show {
+    opacity: 1;
+    transition: opacity 0.15s ease-out;
+    .modal-content {
+      left: 0;
+    }
+  }
+  .modal-dialog{
+    opacity: 1;
+    transition: none;
+  }
+  &.show .modal-dialog {
+    opacity: 1;
+    transition: none;
   }
 }

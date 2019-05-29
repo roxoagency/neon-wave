@@ -1,5 +1,4 @@
 
-
 .tabs {
   &__header {
     font-family: $font-stack-header;
@@ -15,9 +14,16 @@
     border-top: 1px solid color('primary');
     border-bottom: 1px solid color('primary');
     list-style: none;
+
   }
   &__header-item {
     margin: em(13, 11) em(15, 11) em(9, 11);
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      margin: 0;
+      width: 50%;
+      text-align: center;
+      padding: em(12, 11) 0;
+    }
   }
   &__header-link {
     display: block;
@@ -28,12 +34,15 @@
     }
     &:after {
       content: '';
-      width: 36px;
       height: 1px;
-      background: transparent;
+      background: color('body');
+      width:0;
       display: block;
       margin: 1px 0 0;
-      //transition: background 0.15s linear;
+      transition: width 0.15s linear;
+      @include media-breakpoint-down('sm', $grid-breakpoints) {
+        margin: 1px auto 0;
+      }
     }
     &:hover,
     &.active {
@@ -45,7 +54,7 @@
         text-shadow: -1px 0 color('body'), 0 1px color('body'), 1px 0 color('body'), 0 -1px color('body');
       }
       &:after {
-        background: color('body');
+        width: 36px;
       }
     }
   }
@@ -53,14 +62,43 @@
     text-transform: uppercase;
     text-align: center;
     color: color('primary');
+    .page--default .page__content &{
+      @include media-breakpoint-down('md', $grid-breakpoints) {
+        font-size: em(40);
+        letter-spacing: letterspacing-to-pixels(70,40);
+      }
+    @include media-breakpoint-down('sm', $grid-breakpoints) {
+      font-size: em(30);
+      letter-spacing: letterspacing-to-pixels(70,30);
+    }
+    }
   }
 }
-.page--default #support-faq .page__content h2.tabs__title{
-  margin: 0 0 em(33,30);
+
+.page--default #support-faq .page__content h2.tabs__title {
+  margin: 0 0 em(33, 30);
+
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    margin: 0 0 em(24, 30);
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    margin: 0 0 em(10, 18);
+  }
 }
-.page--default .page__content h2.tabs__title{
-  margin: 0 0 em(59,30);
+
+.page--default .page__content h2.tabs__title {
+  margin: 0 0 em(60, 30);
+  @include media-breakpoint-down('md', $grid-breakpoints) {
+    margin: 0 0 em(60, 30);
+  }
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+    margin: 0 0 em(54, 18);
+  }
 }
-.page--default .page__content .h6.tabs__description{
-    margin: 0 0 em(77,13);
+
+.page--default .page__content .h6.tabs__description {
+  margin: 0 0 em(77, 13);
+  @include media-breakpoint-down('sm', $grid-breakpoints) {
+  margin: 0 0 em(38, 10);
+}
 }

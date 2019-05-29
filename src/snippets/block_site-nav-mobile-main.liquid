@@ -1,0 +1,247 @@
+{% if nav != blank %}
+    <li class="mobile-nav__item  mobile-nav__item--root mobile-nav__item--has-dropdown">
+        <a class="mobile-nav__link  mobile-nav__link--root js-mobile-root" href="#">
+
+            <span class="mobile-nav__icon">{% include 'icon-shop' %}</span>
+            <span
+                    class="mobile-nav__label">Shop</span>{% include 'icon-nav-arrow' %}</a>
+        <ul class="mobile-nav__subnav">
+
+            {% for link in linklists[nav].links %}
+                {%- assign child_list_handle = link.title | handleize -%}
+
+                {% comment %}
+                    Check if third-level nav exists on each parent link.
+                {% endcomment %}
+                {%- assign three_level_nav = false -%}
+                {% if link.links != blank %}
+                    {% if link.levels == 2 %}
+                        {%- assign three_level_nav = true -%}
+                    {% endif %}
+                {% endif %}
+
+
+                {% if link.links != blank %}
+
+                    <li class="mobile-nav__item  mobile-nav__item--has-dropdown{% if link.active %} mobile-nav__item--active{% endif %}"
+                        data-has-dropdown9="{{ link.handle }}-{{ forloop.index }}">
+                        <a href="{{ link.url }}"
+                           class="mobile-nav__link js-mobile-subroot "
+                                {% if link.current %} aria-current="page"{% endif %} aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="mobile-nav__label">{{ link.title | escape }}</span>
+                            {% include 'icon-nav-arrow' %}
+                        </a>
+
+                        {% assign first_col ='' %}
+                        {% assign second_col ='' %}
+                        {% assign third_col ='' %}
+                        {% assign fourth_col ='' %}
+                        {% assign fifth_col ='' %}
+                        {% assign other_col ='' %}
+                        <div class="mobile-nav__dropdown">
+                            <div class="mobile-nav__childlist">
+                                <ul class="mobile-nav__childlist-grid">
+                                    {% if three_level_nav %}
+                                        {% if link.links != blank %}
+                                            {% for childlink in link.links %}
+                                                {% if forloop.index == 1 %}
+                                                    {% capture first_col %}
+                                                        <h4 class="mobile-nav__link mobile-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="mobile-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="mobile-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="mobile-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 2 %}
+                                                    {% capture second_col %}
+                                                        <h4 class="mobile-nav__link mobile-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="mobile-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="mobile-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="mobile-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 3 %}
+                                                    {% capture third_col %}
+                                                        <h4 class="mobile-nav__link mobile-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="mobile-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="mobile-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="mobile-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 4 %}
+                                                    {% capture fourth_col %}
+                                                        <h4 class="mobile-nav__link mobile-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="mobile-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="mobile-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="mobile-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index == 5 %}
+                                                    {% capture fifth_col %}
+                                                        <h4 class="mobile-nav__link mobile-nav__childlist-heading"
+                                                                {% if childlink.current %} aria-current="page"{% endif %}
+                                                        >
+                                                            <a href="{{ childlink.url }}"
+                                                               class="mobile-nav__label">{{ childlink.title | escape }}</a>
+                                                        </h4>
+
+                                                        {% if childlink.links != blank %}
+                                                            <ul>
+                                                                {% for grandchildlink in childlink.links %}
+                                                                    <li class="mobile-nav__item">
+                                                                        <a href="{{ grandchildlink.url }}"
+                                                                           class="mobile-nav__link"
+                                                                                {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                        >
+                                                                            <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% endif %}
+                                                    {% endcapture %}
+                                                {% endif %}
+                                                {% if forloop.index >5 %}
+                                                    {% capture other_col %}
+                                                        <li class="mobile-nav__item">
+                                                            <h4 class="mobile-nav__link mobile-nav__childlist-heading"
+                                                                    {% if childlink.current %} aria-current="page"{% endif %}
+                                                            >
+                                                                <a href="{{ childlink.url }}"
+                                                                   class="mobile-nav__label">{{ childlink.title | escape }}</a>
+                                                            </h4>
+
+                                                            {% if childlink.links != blank %}
+                                                                <ul>
+                                                                    {% for grandchildlink in childlink.links %}
+                                                                        <li class="mobile-nav__item">
+                                                                            <a href="{{ grandchildlink.url }}"
+                                                                               class="mobile-nav__link"
+                                                                                    {% if grandchildlink.current %} aria-current="page"{% endif %}
+                                                                            >
+                                                                                <span class="mobile-nav__label">{{ grandchildlink.title | escape }}</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            {% endif %}
+                                                        </li>
+                                                    {% endcapture %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if first_col != '' %}
+                                                <li class="mobile-nav__item">{{ first_col }}
+                                                    <br/><br/>{{ fifth_col }}</li>
+                                            {% endif %}
+                                            {% if second_col != '' %}
+                                                <li class="mobile-nav__item">{{ second_col }}</li>
+                                            {% endif %}
+                                            {% if third_col != '' %}
+                                                <li class="mobile-nav__item">{{ third_col }}
+                                                    <br/><br/>{{ fourth_col }}
+                                                </li>
+                                            {% endif %}
+                                            {{ other_col }}
+                                        {% endif %}
+                                    {% else %}
+                                        {% for childlink in link.links %}
+                                            <li class="mobile-nav__item">
+                                                <a href="{{ childlink.url }}"
+                                                   class="mobile-nav__link mobile-nav__child-link"
+                                                        {% if childlink.current %} aria-current="page"{% endif %}
+                                                >
+                                                    <span class="mobile-nav__label">{{ childlink.title | escape }}</span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="mobile-nav__item {% if link.active %} mobile-nav__item--active{% endif %} {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %}mobile-nav__item--root js--has-dropdown mobile-nav__item--has-dropdown{% endif %}" {% if   linklists[nav].handle  == 'main-menu'  and forloop.index == 1 %} data-has-dropdown="content"{% endif %}>
+                        <a href="{{ link.url }}"
+                           class="mobile-nav__link "
+                                {% if link.current %} aria-current="page"{% endif %}
+                        >
+                            <span class="mobile-nav__label">{{ link.title | escape }}</span>
+
+                        </a>
+
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </li>
+{% endif %}
+

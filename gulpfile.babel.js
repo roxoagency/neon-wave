@@ -29,7 +29,11 @@
         'src/js/lib/*.js',
 		  './node_modules/slick-carousel/slick/slick.js',
 		  './node_modules/selectric/src/jquery.selectric.js',
-		  './node_modules/jquery-modal/jquery.modal.js'
+		  './node_modules/jquery-modal/jquery.modal.js',
+          './node_modules/gsap/src/minified/TweenMax.min.js',
+		  // './node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
+		  // './node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js',
+		  // './node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js'
       ],
       watherInput: 'src/js/**/*.js',
       input: 'src/js/main.js',

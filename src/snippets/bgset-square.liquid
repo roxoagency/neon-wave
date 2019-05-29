@@ -1,0 +1,24 @@
+{% capture tmp %}{%- if image != blank -%}
+    {% capture set %}
+    {% if image.width > 180 %}{{ image | img_url: '180x180', crop: 'center' }} 180w  180h,{% endif %}
+    {% if image.width > 360 %}{{ image | img_url: '360x360' , crop: 'center'}} 360w 360h,{% endif %}
+    {% if image.width > 540 %}{{ image | img_url: '540x540' , crop: 'center'}} 540w 540h,{% endif %}
+    {% if image.width > 720 %}{{ image | img_url: '720x720' , crop: 'center'}} 720w 720h,{% endif %}
+    {% if image.width > 900 %}{{ image | img_url: '900x900' , crop: 'center'}} 900w  900h,{% endif %}
+    {% if image.width > 1080 %}{{ image | img_url: '1080x1080', crop: 'center' }} 1080w  1080h,{% endif %}
+    {% if image.width > 1296 %}{{ image | img_url: '1296x1296' , crop: 'center'}} 1296w 1296h,{% endif %}
+    {% if image.width > 1512 %}{{ image | img_url: '1512x1512' , crop: 'center'}} 1512w 1512h,{% endif %}
+    {% if image.width > 1728 %}{{ image | img_url: '1728x', crop: 'center' }} 1728w ,{% endif %}
+    {% if image.width > 1950 %}{{ image | img_url: '1950x', crop: 'center' }} 1950w ,{% endif %}
+    {% if image.width > 2100 %}{{ image | img_url: '2100x' , crop: 'center'}} 2100w ,{% endif %}
+    {% if image.width > 2260 %}{{ image | img_url: '2260x' , crop: 'center'}} 2260w ,{% endif %}
+    {% if image.width > 2450 %}{{ image | img_url: '2450x' , crop: 'center'}} 2450w ,{% endif %}
+    {% if image.width > 2700 %}{{ image | img_url: '2700x', crop: 'center' }} 2700w ,{% endif %}
+    {% if image.width > 3000 %}{{ image | img_url: '3000x', crop: 'center' }} 3000w ,{% endif %}
+    {% if image.width > 3350 %}{{ image | img_url: '3350x', crop: 'center' }} 3350w ,{% endif %}
+    {% if image.width > 3750 %}{{ image | img_url: '3750x' , crop: 'center'}} 3750w ,{% endif %}
+    {% if image.width > 4100 %}{{ image | img_url: '4100x' , crop: 'center'}} 4100w {% endif %}
+    {{ image | img_url: 'master' , crop: 'center'}}
+    {% endcapture %}
+{%- endif -%}
+{% endcapture %}{{ set }}

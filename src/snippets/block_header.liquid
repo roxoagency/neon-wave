@@ -2,11 +2,21 @@
     <div class="header__inner">
         <div class="header__content">
             <div class="container">
-                <div class="row">
-                    <div class="col-12 header__anounsment">
-                        <p>WGEAR_HYDRO_001 IN STOCK NOW</p>
-                    </div>
-                    <div class="col-12 header__main">
+                    {% section 'anonsment' %}
+                    <div class=" header__main">
+                        <div class="header__nav-toggle">
+                            <a href="#" class="header__nav-toggle-link">
+                                <span class="icon-1"></span>
+                                <span class="icon-2"></span>
+                                <span class="icon-3"></span>
+                                <span class="icon-4"></span>
+                                <span class="icon-5"></span>
+                                <span class="icon-6"></span>
+                                <span class="icon-7"></span>
+                                {% include 'icon-menu' %}
+                                {% include 'icon-menu-back' %}
+                            </a>
+                        </div>
                         <div class="header__currency-switcher">
                             {% if settings.show_multiple_currencies %}
                                 {% include 'block_currency-switcher' %}
@@ -31,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
 
             </div>
             <div class="progress-bar" data-section-type="progress-bar">
@@ -39,12 +49,19 @@
             </div>
             {% include 'block-mini-cart' %}
         </div>
-        <div class="header__search-form js--header-search-form">
+        <div class="header__search-form header__search-form--desktop js--header-search-form">
             {% include 'block_search-form' %}
         </div>
+        <div class="header__search-form-overlay js--toggle-search-form"></div>
     </div>
+    {% capture productForm %}
+        {% include 'product-inline-form' %}
+    {% endcapture %}
+    {% if template.name == 'product' %}
+        {% include 'breadcrumbs' , productForm: productForm , className:"breadcrumb--product" %}
+    {% endif %}
 </header>
-<div class="cart__overlay js--min-cart-toggle"></div>
+<div class="cart__overlay"></div>
 
 <script type="application/ld+json">
   {

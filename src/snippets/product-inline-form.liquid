@@ -29,7 +29,8 @@
                         <select class="js--select single-option-selector single-option-selector-{{ forloop.index0 }} product-form__input {% if option.name == 'Size' %} single-option-selector-size{% endif %}"
                                 data-single-option-selector
                                 data-index="option{{ forloop.index }}">
-                            {% for value in option.values %}
+                            {% assign values = option.values | sort_natural %}
+                            {% for value in values %}
                                 <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                             {% endfor %}
                         </select>
@@ -60,22 +61,23 @@
                    class="product-form__input quantity__item js--quantity-item"
                    pattern="[0-9]*">
             <button class="quantity__button quantity__button--top js--quantity--top"
-                    type="button"></button>
+                    type="button"><span class="quantity__button-span"></span></button>
             <button class="quantity__button quantity__button--bottom js--quantity-bottom"
-                    type="button"></button>
+                    type="button"><span class="quantity__button-span"></span></button>
         </div>
     </div>
     <div class="product-form__item product-form__item--submit{% if section.settings.enable_payment_button %} product-form__item--payment-button{% endif %}{% if product.has_only_default_variant %} product-form__item--no-variants{% endif %}">
         <button type="submit" name="add" data-add-to-cart
                 {% unless current_variant.available %}disabled="disabled"{% endunless %}
                 class="btn btn--default product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}">
-                <span data-add-to-cart-text>
+                 <span data-add-to-cart-text class="btn__text">
                   {% unless current_variant.available %}
                       {{ 'products.product.sold_out' | t }}
                       {% else %}
                       {{ 'products.product.add_to_cart' | t }}
                   {% endunless %}
                 </span>
+            <span class="btn__loader"></span>
         </button>
 
     </div>
