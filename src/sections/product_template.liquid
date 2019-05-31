@@ -1,4 +1,4 @@
-{% comment %}
+ {% comment %}
     Get first variant, or deep linked one
 {% endcomment %}
     {%- assign current_variant = product.selected_or_first_available_variant -%}
@@ -9,8 +9,7 @@
     {%- assign price = current_variant.price -%}
       {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
 <div class="row">
-    <div class="  col-12 col-lg-6 product-single__col product-single__col--left">
-        {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+    <div class="  col-12 col-lg-6 product-single__col product-single__col--left">        
         <div class="product-single__photos animated-block">
             <a href="#product-gallery" class="product-single__zoom-link js--product-single__zoom-link"
                data-toggle="modal" data-target="#product-gallery">
@@ -37,8 +36,11 @@
                 </div>
             </div>
         </div>
-
-        {% assign countImages = 0 %}
+      
+      
+      {% assign countImages = 0 %}
+      
+      {% unless product.handle == 'test-blanket-shirt-2' %}
         {% capture imagesGallery %}
             {% if product.has_only_default_variant %}
 
@@ -80,6 +82,34 @@
                 {% endfor %}
             {% endif %}
         {% endcapture %}
+      
+      {% else %}
+      
+      {% assign featured_alt = product.selected_or_first_available_variant.option1 %}
+      {% assign pTitle = product.title %}
+        
+       {% capture imagesGallery %}      
+        {% for image in product.images %}
+            {% if image.alt == featured_alt or image.alt == pTitle %} 
+                <div class="product-single__photo-wrapper-modal">
+                  <div class="product-single__photo">
+                    <img class="product-single__image {{ img_class }} lazyload"
+                         src="{{ image | img_url: '980x' }}"
+                         data-src="{{ image | img_url: '980x' }}"
+                         data-aspectratio="{{ image.aspect_ratio }}"
+                         data-sizes="auto"
+                         data-image-option="{{ current_option }}"
+                         alt="{{ image.alt | escape }}">
+                  </div>
+                </div>
+      
+                {% assign countImages = countImages | plus: 1 %}
+            {% endif %}
+        {% endfor %}
+       {% endcapture %}
+      
+      {% endunless %}
+      
         <!-- Modal -->
         <div class="modal fade modal--full" id="product-gallery" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

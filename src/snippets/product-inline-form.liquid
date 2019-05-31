@@ -7,7 +7,8 @@
     {% unless product.has_only_default_variant %}
         {% for option in product.options_with_values %}
             {% if option.name != 'Size' %}
-                <div class="product-form__item">
+                {% assign opt_name = option.name | downcase %}
+                <div class="product-form__item{% if opt_name contains 'color' or opt_name contains 'colour' %} has-color{% endif %}">
                     <div class="selector-wrapper js product-form__selector-wrapper ">
                         <select class="js--select single-option-selector single-option-selector-{{ forloop.index0 }} product-form__input {% if option.name == 'Size' %} single-option-selector-size{% endif %}"
                                 data-single-option-selector
@@ -45,7 +46,7 @@
         {% for variant in product.variants %}
             {% if variant.available %}
                 <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %}
-                        value="{{ variant.id }}">
+                        value="{{ variant.id }}" data-vimg="{{ variant.featured_image.src | img_url }}">
                     {{ variant.title }}
                 </option>
             {% else %}

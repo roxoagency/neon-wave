@@ -22,6 +22,8 @@
                 {% endif %}
             {% endfor %}
             {% assign countImages = 0 %}
+          
+          {% unless product.handle == 'test-blanket-shirt-2' %}
             {% if product.images.size > 1 %}
               {% assign vendorImages=product.images| reverse %}
               {% for image in vendorImages %}
@@ -33,14 +35,39 @@
                                   data-bgset="{% include 'bgset', image: image %}"
                                   data-sizes="auto"
                                   data-parent-fit="cover"
-                                  style="background-image: url({{ image| img_url: '300x300' }});"
-                              >
+                                  style="background-image: url({{ image| img_url: '300x300' }});">
                               </div>
                           </div>
                       </div>
                   {% endif %}
               {% endfor %}
             {% endif %}
+          {% else %}
+          
+            {% assign featured_varimage = product.selected_or_first_available_variant.featured_image %}          
+            {% assign featured_alt = product.selected_or_first_available_variant.option1 %}
+            {% assign pTitle = product.title %}
+
+              {% for image in product.images %}
+                  {% if image.alt == featured_alt or image.alt == pTitle %}
+                {% if image != featured_varimage %}
+                  <div class="col-12 col-lg-6 vendor-block__col vendor-block__col--image animated-block">
+                          <div class="vendor-block__image-wrapper ">
+                              <div class="vendor-block__image   full--sized lazyload"
+                                  data-bgset="{% include 'bgset', image: image %}"
+                                  data-sizes="auto"
+                                  data-parent-fit="cover"
+                                  style="background-image: url({{ image| img_url: '1024x1024' }});">
+                              </div>
+                          </div>
+                      </div>
+
+                      {% assign countImages = countImages | plus: 1 %}
+                {% endif %}
+                  {% endif %}
+              {% endfor %}             
+
+          {% endunless %}
         </div>
     </div>
 </div>

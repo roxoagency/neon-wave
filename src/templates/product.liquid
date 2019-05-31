@@ -18,6 +18,94 @@
 
     {% include 'product-json' %}
 </div>
+
+<script>
+  $(document).ready(function(){
+    
+    console.log($(document).height());
+    console.log($('#vendor-vendors .row').height());
+    
+    var docHeight = $(document).height();
+    var vendorDivHeight = $('#vendor-vendors .row').height();
+    
+    
+    var pTitle = "{{product.title}}";
+    var mainImage = $('.js--product-single__slider-modal');
+    var thumbImage = $('.vendor-block__col');
+
+    var images = [];    
+    
+    {% for image in product.images %}
+      images.push({url: "{{ image | product_img_url: 'small' }}", alt: "{{ image.alt }}"});
+  {% endfor %}
+    
+  $('.product-form__item.has-color select').change(function() {
+        var selected_option = $(this).val();
+    var selected_vid = $(this).parents('.product-form__item.has-color').siblings('.product-form__variants').val(); 
+    var selected_vimg = $(this).parents('.product-form__item.has-color').siblings('.product-form__variants').find('option[value="'+selected_vid+'"]').attr('data-vimg');
+                     
+        var arr = [];                     
+                     
+    var item = $.grep(images, function(item) {
+            return item.alt == selected_option;
+        });   
+    
+      mainImage.empty();
+    mainImage.removeClass("slick-initialized slick-slider");
+    thumbImage.empty();
+    thumbImage.remove();                    
+                     
+    if(item.length > 0){
+    var vandorblock = '<div class="col-12 col-lg-6"><h2 class="vendor-block__title animated-block animated-block--visible" style="transform: none;">Outerknown</h2><div class="vendor-block__content animated-block rte animated-block--visible" style="transform: none;"><p>Outerknown is a sustainable clothing brand established from an understated approach to design and an overstated approach to quality, material and consciousness.</p></div></div>';                     
+                     
+    var addImage = $.each( images, function( i, image ) {
+          var alt = images[i].alt, url = images[i].url;         
+          if (alt == selected_option || alt == pTitle) {
+              var oneSlide = '<div class="product-single__photo-wrapper-modal "><div class="product-single__photo">';
+          oneSlide += '<img class="product-single__image product-featured-img lazyload" src="' + url.replace('_small', '_1024x') + '" alt="' + alt + '" data-aspectratio="1.1981132075471699" data-sizes="auto" data-src="'+url.replace('_small', '_1024x')+'" >' 
+                    oneSlide += '</div></div>';                 
+                
+                mainImage.append(oneSlide);
+                if (url != selected_vimg) {  
+          vandorblock += '<div class="col-12 col-lg-6 vendor-block__col vendor-block__col--image animated-block animated-block--visible"><div class="vendor-block__image-wrapper">';
+                    vandorblock += '<div class="vendor-block__image full--sized lazyload" data-bgset="'+url.replace('_small', '_1024x')+' 180w 174h, '+url.replace('_small', '_1024x')+' 360w 348h, '+url.replace('_small', '_1024x')+' 492w 476h" data-sizes="auto" data-parent-fit="cover" style="background-image: url('+url.replace('_small', '_1024x')+');"></div>'; 
+          vandorblock += '</div></div>'; 
+          }                     
+          }
+      });  
+      $('#vendor-vendors .row').html(vandorblock);
+    }else{
+      var vandorblock = '<div class="col-12 col-lg-6"><h2 class="vendor-block__title animated-block animated-block--visible" style="transform: none;">Outerknown</h2><div class="vendor-block__content animated-block rte animated-block--visible" style="transform: none;"><p>Outerknown is a sustainable clothing brand established from an understated approach to design and an overstated approach to quality, material and consciousness.</p></div></div>';                     
+                     
+    var addImage = $.each( images, function( i, image ) {
+          var alt = images[i].alt, url = images[i].url;                   
+          var oneSlide = '<div class="product-single__photo-wrapper-modal "><div class="product-single__photo">';
+            oneSlide += '<img class="product-single__image product-featured-img lazyload" src="' + url.replace('_small', '_1024x') + '" alt="' + alt + '" data-aspectratio="1.1981132075471699" data-sizes="auto" data-src="'+url.replace('_small', '_1024x')+'" >' 
+            oneSlide += '</div></div>';                 
+                
+            mainImage.append(oneSlide);
+      });  
+      $('#vendor-vendors .row').html(vandorblock);
+    }
+        
+    
+    var newDocheight = docHeight - vendorDivHeight;
+    console.log(newDocheight);
+      console.log($('#vendor-vendors .row').height());
+    var updatedVen = newDocheight + $('#vendor-vendors .row').height();
+    
+    console.log(updatedVen);
+    
+    $('.page-view.template-product').css('height',updatedVen+'px');
+    
+  });
+  
+
+  });
+</script>
+
+
+
 <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
@@ -78,6 +166,3 @@
 }
 
 </script>
-
-
-
