@@ -40,14 +40,19 @@
   left: 0;
   right: 0;
   background: #fff;
-  top: 0;
+  bottom: 0;
   //visibility: hidden;
-  transform: translate3d(0, -300px, 0);
+  transform: translateY(0);
   transition: transform 0.34s cubic-bezier(1, 0, 0, 0.99);
+
+  &.breadcrumb--show {
+    transform: translateY(100%);
+  }
 
   @include media-breakpoint-down('md', $grid-breakpoints) {
     display: none;
   }
+
   .container {
     padding-left: em(60);
     padding-right: em(60);

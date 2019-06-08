@@ -180,6 +180,11 @@ $block: '.site-nav';
       left: 50%;
       will-change: transform;
       transform: translate(-50%, 100%) scaleY(0);
+
+      &::before {
+        box-shadow: none;
+      }
+
       &.site-nav__dropdown--active {
         transform: translate(-50%, 100%);
 
@@ -286,7 +291,7 @@ $block: '.site-nav';
       width: calc(50vw + 2px);
       top: 0;
       bottom: 0;
-      // box-shadow: 3px 3px 8px rgba(0, 0, 0, .2);
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, .2);
     }
 
     &::before {

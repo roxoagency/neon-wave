@@ -35,9 +35,9 @@
   &__n {
     transform: rotate(-90deg) translateX(-100%);
     position: absolute;
-    left: em(4, 13.07);
+    left: em(8, 13.07);
     transform-origin: left;
-    top: em(-3, 13.07);;
+    top: em(-3, 13.07);
   }
   &__item {
     position: relative;

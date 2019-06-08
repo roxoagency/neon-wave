@@ -245,6 +245,7 @@ $block: '.featured-collections';
             position: relative;
             bottom: 0;
             padding: 0;
+            display: block;
           }
           .container {
             @include media-breakpoint-down('md', $grid-breakpoints) {

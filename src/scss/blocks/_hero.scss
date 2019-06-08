@@ -68,6 +68,18 @@ transform: none;
   @at-root &__inner {
     display: flex;
     overflow: hidden;
+
+    .slick-track {
+      display: flex;
+
+      .slick-slide {
+        height: auto;
+
+        & > div {
+          height: 100%;
+        }
+      }
+    }
   }
 
   @at-root &__slide {

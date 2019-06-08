@@ -1,7 +1,7 @@
 <script type="text/javascript">
-	window.theme = window.theme || {};
-	window.theme.products = window.theme.products || {};
-	window.theme.products[{{ product.id }}] = {{ product | json }};
+  window.theme = window.theme || {};
+  window.theme.products = window.theme.products || {};
+  window.theme.products[{{ product.id }}] = {{ product | json }};
 </script>
 {%- assign hasSizeOption = false -%}
 {%- assign hasColorOption = false -%}
@@ -19,7 +19,7 @@
 
     <div class="product-card__image">
     {% form 'product', product, class:'js--product-card-form', data-product-id: product.id, novalidate: 'novalidate' %}
-        <div class="product-card__image-wrapper">
+        <div class="product-card__image-wrapper {% if product.images.size > 1 %}has--alt-images{% endif %}">
                 <a href="{{ product.url }}" class="product-card__image-link">
                     <img class="product-card__image--featured active js--default-image lazyload"
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -29,56 +29,60 @@
                             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                             data-src="{{ product.images[1] | img_url: '420x420', crop: 'center' }}">
                     {% endif %}
-                    {% for variant in product.variants %}
-                        {% if variant.featured_image != blank %}
-                            <img class="product-card__image--featured product-card__image--variant-featured js--variant-image lazyload"
-                                 data-variant="{{ variant.id }}"
-                                 src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                 data-src="{{ variant.featured_image | img_url: '420x420', crop: 'center' }}">
-                        {% endif %}
-                    {% endfor %}
+                    {% if product.images.size > 1 %}
+                      {% for variant in product.variants %}
+                          {% if variant.featured_image != blank %}
+                              <img class="product-card__image--featured product-card__image--variant-featured js--variant-image lazyload"
+                                  data-variant="{{ variant.id }}"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                  data-src="{{ variant.featured_image | img_url: '420x420', crop: 'center' }}">
+                          {% endif %}
+                      {% endfor %}
+                    {% endif %}
                 </a>
-                {%- assign productOptions = '' -%}
-                {% if product.available %}
-                    {% unless product.has_only_default_variant %}
-                        <div class="product-card__form">
+                {% unless show_add_to_cart == false %}
+                  {%- assign productOptions = '' -%}
+                  {% if product.available %}
+                      {% unless product.has_only_default_variant %}
+                          <div class="product-card__form">
 
 
-                            {% for option in product.options_with_values %}
-                                {%- assign loop = forloop -%}
+                              {% for option in product.options_with_values %}
+                                  {%- assign loop = forloop -%}
 
-                                {% if option.name == 'Size' %}
-                                    <div class="product-card__form-group btn-group js--quick-buy-group product-card__form-group--size"
-                                         data-index="option{{ loop.index }}">
-                                        {% assign values = option.values | sort_natural %}
-                                        {% for value in values %}
-                                            <button type="button" class="option btn-group__item js--quick-buy" data-value-sort="{{ value | escape | downcase }}"
-                                                    data-value="{{ value | escape }}">{{ value }}</button>
-                                        {% endfor %}
-                                    </div>
-                                    {% elsif option.name == 'Color' and hasSizeOption %}
+                                  {% if option.name == 'Size' %}
+                                      <div class="product-card__form-group btn-group js--quick-buy-group product-card__form-group--size"
+                                          data-index="option{{ loop.index }}">
+                                          {% assign values = option.values | sort_natural %}
+                                          {% for value in values %}
+                                              <button type="button" class="option btn-group__item js--quick-buy" data-value-sort="{{ value | escape | downcase }}"
+                                                      data-value="{{ value | escape }}">{{ value }}</button>
+                                          {% endfor %}
+                                      </div>
+                                      {% elsif option.name == 'Color' and hasSizeOption %}
 
-                                {% else %}
-                                    {% for value in option.values %}
-                                        {% if option.selected_value == value %}
-                                            {%- assign productOptions = productOptions | append: value -%}
-                                            {% unless loop.last %}
-                                            {%- assign productOptions = productOptions | append: ' / ' -%}
-                                            {% endunless %}
-                                            <input type="hidden" class="js--product-option"
-                                                   data-index="option{{ loop.index }}" value="{{ value | escape }} ">
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                            <input type="hidden" name="quantity js--product-quantity" value="1">
+                                  {% else %}
+                                      {% for value in option.values %}
+                                          {% if option.selected_value == value %}
+                                              {%- assign productOptions = productOptions | append: value -%}
+                                              {% unless loop.last %}
+                                              {%- assign productOptions = productOptions | append: ' / ' -%}
+                                              {% endunless %}
+                                              <input type="hidden" class="js--product-option"
+                                                    data-index="option{{ loop.index }}" value="{{ value | escape }} ">
+                                          {% endif %}
+                                      {% endfor %}
+                                  {% endif %}
+                              {% endfor %}
+                              <input type="hidden" name="quantity js--product-quantity" value="1">
 
-                        </div>
-                        {% if hasSizeOption %}
-                          <span class="product-card__form-group-label">select size to add to cart</span>
-                        {% endif %}
-                    {% endunless %}
-                {% endif %}
+                          </div>
+                          {% if hasSizeOption %}
+                            <span class="product-card__form-group-label">select size to add to cart</span>
+                          {% endif %}
+                      {% endunless %}
+                  {% endif %}
+                {% endunless %}
             </div>
             {%- assign productOptions = '' -%}
             {% if product.available %}
@@ -95,7 +99,7 @@
                                  data-index="option{{ loop.index }}">
                                 {% for value in option.values %}
                                     <button type="button"
-                                            class="option btn-group__item js--color-option product-color-{{ value | downcase }} {% if option.selected_value == value %} default selected{% endif %}"
+                                            class="option btn-group__item js--color-option product-color-{{ value | downcase | handleize }} {% if option.selected_value == value %} default selected{% endif %}"
                                             data-value="{{ value | escape }}"></button>
                                 {% endfor %}
                             </div>

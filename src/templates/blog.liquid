@@ -21,9 +21,9 @@
 
                 {% endif %}
                 {% if forloop.index0 == 0  or  forloop.index0 == 7 %}
-                <div class=" blog-list__item col-12   col-md-6  blog-list__item--highlighted blog-list__item--{{ forloop.index0 }} is-sticky ">
-                    <div class="post-card--{{ forloop.index0 }}">
-                    <div class="post-card   post-card--highlighted ">
+                <div class=" blog-list__item col-12   col-md-6  blog-list__item--highlighted blog-list__item--{{ forloop.index0 }}">
+                    <div class="post-card--{{ forloop.index0 }}" data-sticky>
+                    <div class="post-card   post-card--highlighted">
                         {% else %}
                         <div class="post-card   post-card blog-list__item col-6 col-lg-6">
                             {% endif %}

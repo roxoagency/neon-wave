@@ -16,7 +16,7 @@ body {
       transform: translate(-50%, -50%);
       width: auto;
     }
-    .product-card__image-wrapper:hover .product-card__image--featured:not(.product-card__image--variant-featured)  {
+    .product-card__image-wrapper.has--alt-images:hover .product-card__image--featured:not(.product-card__image--variant-featured)  {
       transform: translate(-150%, -50%);
 
     }
@@ -443,10 +443,11 @@ body {
     }
 
   }
-  .bc-sf-filter-option-block:first-child {
+  .bc-sf-filter-option-block {
 
     @include media-breakpoint-down('md', $grid-breakpoints) {
       padding-top: em(14.5);
+      padding-bottom: 0;
     }
   }
   #bc-sf-filter-right #bc-sf-filter-products {

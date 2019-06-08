@@ -65,6 +65,46 @@ var bcSfFilterTemplate = {
 	'sortingHtml': '<div class="filters-dropdown"><div class="filters-dropdown__title">' + bcSfFilterConfig.label.sorting + '</div><div class="filters-dropdown__items">{{sortingItemsDropdown}}</div><select class="filters-toolbar__input filters-toolbar__input--sort">{{sortingItems}}</select></div>',
 };
 
+if (!$('body').hasClass('no-custom-scroll')) {
+  BCSfFilter.prototype.buildInfiniteLoadingEvent = function(a) {
+    var self = this,
+      total_product = parseInt(a.total_product),
+      limit = parseInt(self.getSettingValue("general.limit")),
+      page = parseInt(self.queryParams.page);
+
+    if (total_product > limit * page) {
+        let loading = 0;
+
+        const scrollHandler = function(event, status) {
+          const scrollY = status.offset.y;
+          const j = self.getSettingValue("general.positionShowInfiniteLoading");
+
+          if ((g = !0) && 0 == loading && a.products.length && (status.limit.y - j) <= scrollY) {
+            self.showLoadMoreLoading();
+            loading = 1;
+            page++;
+            var k = Math.ceil(total_product / self.getSettingValue("general.limit"));
+
+            if (page <= k) {
+              self.internalClick = !0;
+              self.queryParams.limit = self.getSettingValue("general.limit");
+              self.queryParams.page = page;
+
+              if (self.getSettingValue("general.paginationTypeAdvanced")) {
+                var l = self.buildToolbarLink("page", page - 1, page);
+                self.onChangeData(l, "page");
+              } else {
+                self.getFilterData("page");
+              }
+            }
+          }
+      };
+
+      $('body').on('nwscroll', scrollHandler);
+    }
+  };
+}
+
 BCSfFilter.prototype.buildProductGridItem = function (data) {
 	/*** Prepare data ***/
 	var images = data.images_info;
@@ -132,10 +172,12 @@ BCSfFilter.prototype.buildProductGridItem = function (data) {
 	itemHtml = itemHtml.replace(/{{imageStyle}}/g, imageStyle);
 
 	// Add Images
-	var aspect_ratio = '';
+  var aspect_ratio = '';
+  var imageWrapperClass = '';
 	var itemImagesHtml = '<a href="' + this.buildProductItemUrl(data) + '" class="product-card__image-link">' +
 		'<img class="product-card__image--featured active js--default-image" src="' + this.getFeaturedImage(images, '600x600_crop_center') + '">';
 	if (images.length > 1) {
+    imageWrapperClass = ' has--alt-images';
 		var images1 = [];
 		images1.push(images[1]);
 		itemImagesHtml += '<img class="product-card__image--alt active js--default-image" src="' + this.getFeaturedImage(images1, '600x600_crop_center') + '">';
@@ -169,7 +211,7 @@ BCSfFilter.prototype.buildProductGridItem = function (data) {
 	var hasColorOption = false;
 	var productClass = '';
 	itemFormHtml += '<form method="post" action="/cart/add" id="product_form_' + data.id + '" accept-charset="UTF-8" class="js--product-card-form" enctype="multipart/form-data" data-product-id="' + data.id + '" novalidate="novalidate">';
-	itemFormHtml += '<div class="product-card__image-wrapper">' + itemImagesHtml;
+	itemFormHtml += '<div class="product-card__image-wrapper'+ imageWrapperClass +'">' + itemImagesHtml;
 	if (data.available) {
 		if (data['variants'].length > 1) {
 			for (var i = 0; i < data.options_with_values.length; i++) {
@@ -497,6 +539,7 @@ function buildPrice(data, onSale, priceVaries) {
 
 // Build Pagination
 BCSfFilter.prototype.buildPagination = function (totalProduct) {
+  console.log("TCL: BCSfFilter.prototype.buildPagination -> totalProduct", totalProduct)
 	// Get page info
 	var currentPage = parseInt(this.queryParams.page);
 	var totalPage = Math.ceil(totalProduct / this.queryParams.limit);
@@ -647,8 +690,7 @@ BCSfFilter.prototype.buildAdditionalElements = function (data, eventType) {
 		e.preventDefault();
 		jQ('.filters-dropdown__item').removeClass('filters-dropdown__item--select');
 		jQ(this).addClass('filters-dropdown__item--select');
-		jQ('.filters-toolbar__input--sort option[value="' + jQ(this).attr('data-value') + '"]').attr('selected', 'selected');
-		jQ('.filters-toolbar__input--sort').trigger('change');
+		jQ('.filters-toolbar__input--sort').val(jQ(this).attr('data-value')).trigger('change');
 		jQ('.filters-dropdown__title').text(jQ(this).text());
 	});
 	if (jQ('.bc-sf-filter-clear-all').length > 0) {
@@ -669,13 +711,13 @@ BCSfFilter.prototype.buildAdditionalElements = function (data, eventType) {
 	// for (let i = 0; i < elements.length; i++) {
 	// 	checkBlocksPosition(elements[i]);
 	// }});
-	setTimeout(function () {
-		if ($(window).width() > 1023) {
-			$('.page-view').height(($('.page-view__scroll-content').outerHeight() + $('.footer').outerHeight() + $('.header').outerHeight()));
-		} else {
-			$('.page-view').height('auto');
-		}
-	},200);
+	// setTimeout(function () {
+	// 	if ($(window).width() > 1023) {
+	// 		$('.page-view').height(($('.page-view__scroll-content').outerHeight() + $('.footer').outerHeight() + $('.header').outerHeight()));
+	// 	} else {
+	// 		$('.page-view').height('auto');
+	// 	}
+	// },200);
 	firstInit=false;
 	jQ('#bc-sf-filter-products').css('opacity',1);
 	jQ('#bc-sf-filter-tree').addClass('is-show');

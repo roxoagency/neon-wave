@@ -75,6 +75,19 @@
       margin: 0 0 em(40);
     }
   }
+  &__nav {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    height: 100%;
+    pointer-events: none;
+
+    & > * {
+      pointer-events: all;
+    }
+  }
   &__nav-text {
     font-size: em(13);
     line-height: (15/13);

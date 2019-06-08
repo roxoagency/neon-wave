@@ -42,7 +42,7 @@
                             {% for value in values %}
                                 <button type="button" data-single-option-size
                                         class="option btn-group__item {% if option.selected_value == value %} btn-group__item--selected{% endif %}"
-                                        data-value="{{ value | escape }}" data-value-sort="{{ value | escape | downcase }}">{{ value }}</button>
+                                        data-value="{{ value | escape }}" data-value-sort="{{ value | escape | downcase }}"><span>{{ value }}</span></button>
                             {% endfor %}
                         </div>
                     </div>
