@@ -420,7 +420,7 @@
     @media screen and (min-width: 1025px) {
       .mission__content {
         position: absolute;
-        padding: em(60) 0;
+        padding: 0 0 em(60);
         width: 100%;
         top: 0;
         left: 0;
@@ -451,6 +451,9 @@
       max-width: 750px;
       @include media-breakpoint-up('xll', $grid-breakpoints-custom) {
         max-width: 64.273%;
+      }
+      @media screen and (min-width: 1025px) {
+        padding-top: em(60);
       }
     }
     .about-section__title {

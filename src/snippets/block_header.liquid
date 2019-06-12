@@ -53,13 +53,13 @@
             {% include 'block_search-form' %}
         </div>
         <div class="header__search-form-overlay js--toggle-search-form"></div>
+        {% capture productForm %}
+            {% include 'product-inline-form' %}
+        {% endcapture %}
+        {% if template.name == 'product' %}
+            {% include 'breadcrumbs' , productForm: productForm , className:"breadcrumb--product" %}
+        {% endif %}
     </div>
-    {% capture productForm %}
-        {% include 'product-inline-form' %}
-    {% endcapture %}
-    {% if template.name == 'product' %}
-        {% include 'breadcrumbs' , productForm: productForm , className:"breadcrumb--product" %}
-    {% endif %}
 </header>
 <div class="cart__overlay"></div>
 

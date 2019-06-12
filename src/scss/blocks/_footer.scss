@@ -1,39 +1,21 @@
 $block: '.footer';
-@include media-breakpoint-up('lg', $grid-breakpoints) {
-  body:not(.no-custom-scroll) .page-view__scroll {
-    z-index: 4;
-    position: relative;
-    background: #fff;
-  }
-}
 
 #{$block} {
   background-color: #006E7A;
   color: color('light');
   overflow: hidden;
+
+  &--animated {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
   .row {
     min-width: calc(100% + 3.74em);
   }
-  @include media-breakpoint-up('lg', $grid-breakpoints) {
-    .is-desktop body:not(.no-custom-scroll) &:not(.footer--no-parallax) {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 3;
-      padding-top: em(20);
-    }
-    .is-desktop .swym-hosted-page & {
-      padding-top: 0;
-      position: relative;
-      left: auto;
-      right: auto;
-      bottom: auto;
-      .footer__content {
-        transform: translate(0) !important;
-      }
-    }
-  }
+
   p {
     color: inherit;
   }
@@ -357,6 +339,11 @@ $block: '.footer';
 
       .social-icons__link {
         color: inherit;
+        width: 25px;
+
+        svg {
+          width: 100%;
+        }
 
         &:hover {
           color: color('aqua');

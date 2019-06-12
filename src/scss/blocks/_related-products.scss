@@ -58,4 +58,11 @@
       color: color('body');
     }
   }
+
+  &__slider {
+    .slick-prev,
+    .slick-next {
+      opacity: 0.75;
+    }
+  }
 }

@@ -8,7 +8,7 @@ export class HeroBlock {
 			arrows: true,
 			prevArrow: theme.strings.slickArrowLeft,
       nextArrow: theme.strings.slickArrowRight,
-      autoplay: false,
+      autoplay: true,
       pauseOnFocus: false,
       pauseOnHover: false,
 			responsive: [

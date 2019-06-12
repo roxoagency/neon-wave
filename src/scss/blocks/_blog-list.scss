@@ -1,6 +1,6 @@
 .blog-list {
   .blog-list__row {
-    align-items: flex-start;
+
     &:nth-child(2n) {
       margin-top: em(56);
       @include media-breakpoint-down('md', $grid-breakpoints) {
@@ -22,11 +22,12 @@
         }
       }
     }
-
   }
+
   &__row {
     position: relative;
   }
+
   .blog-list__item--highlighted {
     .post-card--highlighted {
       padding: 0 0 em(54) em(60);
@@ -42,8 +43,8 @@
       }
     }
   }
-  &__row-inner{
 
+  &__row-inner{
     @include media-breakpoint-down('md', $grid-breakpoints) {
       margin-left: em(-10);
       margin-right: em(-10);

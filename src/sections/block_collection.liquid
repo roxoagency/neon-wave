@@ -43,14 +43,14 @@
     <div class="featured-collection__products animated-block" data-section-type="product-list" data-section-id="featured-collection-list">
       {%- assign collection = collections[section.settings.collection] -%}
       <div class="featured-collection__slide">
-        {% for product in collection.products limit: 40 %}
+        {% for product in collection.products limit: 8 %}
           {% assign modulo = forloop.index | modulo: 2 %}
           {% unless forloop.first %}
             {% if modulo != 0 %}
               <div class="featured-collection__slide">
             {% endif %}
           {% endunless %}
-            {% include 'block_product-card' %}
+            {% include 'block_product-card', show_add_to_cart: false %}
           {% unless forloop.last %}
             {% if modulo == 0 %}
               </div>

@@ -14,7 +14,7 @@
       {% if block.settings.link != blank %}
         <a href="{{ block.settings.link }}" class="hero__link--full"></a>
       {% endif %}
-      <div class="hero__image lazyload"
+      <div class="hero__image lazyload{% if block.settings.image_mobile != blank %} hide-for--mobile{% endif %}"
         {% if block.settings.image %}
         data-bgset="{% include 'bgset', image: block.settings.image %}"
         data-sizes="auto"
@@ -22,6 +22,17 @@
         style="background-image: url('{{ block.settings.image | img_url: '300x300' }});"
         {% endif %}>
       </div>
+
+      {% if block.settings.image_mobile != blank %}
+        <div class="hero__image lazyload hide-for--desktop"
+          {% if block.settings.image_mobile %}
+          data-bgset="{% include 'bgset', image: block.settings.image_mobile %}"
+          data-sizes="auto"
+          data-parent-fit="cover"
+          style="background-image: url('{{ block.settings.image_mobile | img_url: '300x300' }});"
+          {% endif %}>
+        </div>
+      {% endif %}
 
       {% if block.settings.title != blank or block.settings.subtitle != blank or block.settings.link_text %}
         <div class="hero__content hero__content--{{ block.settings.alignment }} animated-block">

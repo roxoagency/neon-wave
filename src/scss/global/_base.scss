@@ -1,3 +1,97 @@
+@media screen and (min-width: 1024px) {
+
+  html {
+    height: 100%!important;
+    padding-bottom: 0!important;
+  }
+  body:not(.no-custom-scroll) {
+    overflow: hidden!important;
+
+    &.template-index {
+      main[role="main"] {
+        padding-top: 81px;
+
+        @media screen and (min-width: 1366px) {
+          padding-top: 5.93vw;
+        }
+      }
+    }
+
+    .header {
+      padding-bottom: 0!important;
+      margin-bottom: -1px;
+    }
+
+    .page-view,
+    .page-view__wrapper,
+    .page-view__scroll {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    .page-view__scroll {
+      overflow: auto;
+      pointer-events: none;
+    }
+
+    .scroll-content {
+      position: relative;
+      z-index: 150;
+      overflow-x: hidden;
+      max-width: 100%;
+      padding-bottom: 1px;
+    }
+
+    main[role="main"] {
+      pointer-events: all;
+      background-color: #fff;
+      padding-top: 146px;
+      overflow: hidden;
+      backface-visibility: hidden;
+    }
+
+    .page-view__scroll-content {
+      background-color: transparent;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+
+
+    .scrollbar-track {
+      z-index: 1000!important;
+    }
+  }
+}
+
+body:not(.no-custom-scroll) {
+  main[role="main"] {
+    @media screen and (min-width: 1337px) {
+      padding-top: 10.43vw;
+    }
+
+    @media screen and (min-width: 1640px) {
+      padding-top: 9.93vw;
+    }
+
+    @media screen and (min-width: 1740px) {
+      padding-top: 9.43vw;
+    }
+
+    @media screen and (min-width: 1920px) {
+      padding-top: 8.9vw;
+    }
+
+    @media screen and (min-width: 2140px) {
+      padding-top: 8.5vw;
+    }
+
+    @media screen and (min-width: 2300px) {
+      padding-top: 8.1vw;
+    }
+  }
+}
+
 body {
   -moz-font-feature-settings: "ss03";
   -webkit-font-feature-settings: "ss03";
@@ -113,4 +207,18 @@ a:hover {
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
   padding-left: em(30);
   padding-right: em(30);
+}
+
+.hide-for {
+  &--mobile {
+    @media screen and (max-width: 1024px) {
+      display: none!important;
+    }
+  }
+
+  &--desktop {
+    @media screen and (min-width: 1025px) {
+      display: none!important;
+    }
+  }
 }

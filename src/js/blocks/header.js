@@ -50,9 +50,8 @@ export class HeaderBlock {
 			e.preventDefault();
 			setTimeout(() => {
 				if (!$('body').hasClass('is-dblclick')) {
-          if ($('body').hasClass('page-sustainability-tpl')) {
-            $('body').trigger('scrollToTop');
-          } else {
+          $('body').trigger('scrollToTop');
+          if (!$('body').hasClass('page-sustainability-tpl') && $('body').hasClass('no-custom-scroll')) {
             $("html, body").animate({
               scrollTop: 0
             }, 500);

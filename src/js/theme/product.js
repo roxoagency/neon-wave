@@ -108,8 +108,8 @@ export class Product {
 						$('.js-cart_subtotal').html(cart_action_html);
 
 						Currency.convertAll(theme.defaultCurrency, Currency.currentCurrency);
-						if ($('.js-mini-cart-hide').length > 0) {
-							$('.js-mini-cart-hide').trigger('click');
+						if ($('.js--min-cart-toggle').length > 0) {
+							$('.js--min-cart-toggle').trigger('click');
 						}
 						if (isSingle) {
 							$('[data-add-to-cart]').removeClass('is-loading');

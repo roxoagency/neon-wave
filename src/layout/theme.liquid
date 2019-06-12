@@ -61,33 +61,24 @@
     {% include 'bc-sf-filter-style' %}
     <!--end-bc-sf-filter-css-->
 </head>
-<body class="{% if template.suffix == 'sustainability' %}no-custom-scroll body--sustainability{% endif %}{% if template == 'article' %} no-custom-scroll{% endif %}" >
-<div class="page-view template-{{ template.name | handle }}{{ template.suffix | handle }}">
+<body class="template-{{ template.name | handle }}{{ template.suffix | handle }} {% if template.suffix == 'sustainability' %}no-custom-scroll body--sustainability{% endif %}" >
+  <div class="page-view">
     <div class="page-view__wrapper" {% if template.name == 'product' %} id="ProductSection"
-        data-section-id="product"
-        data-section-type="product"
-        data-enable-history-state="true"{% endif %}>
-        {% include 'block_header' %}
-        <div class="page-view__scroll"  data-section-type="animations" data-section-id="animations">
-            <div class="page-view__scroll-content">
-                <main role="main" class="{% if template != 'index' %}main-page{% endif %}">
-                    {{ content_for_layout }}
-                </main>
-                {% if template contains 'customers' %}{% else %}
-            </div>
+      data-section-id="product"
+      data-section-type="product"
+      data-enable-history-state="true"{% endif %}>
+      {% include 'block_header' %}
+      <div class="page-view__scroll" {% if template.suffix != 'sustainability' %}data-section-type="scroll-animations" data-section-id="scroll-animations"{% endif %}>
+        <div class="page-view__scroll-content">
+          <main role="main" class="{% if template != 'index' %}main-page{% endif %}">
+            {{ content_for_layout }}
+          </main>
         </div>
-        {% endif %}
-
-
-        {% section 'block_footer' %}
-        {% if template contains 'customers' %}
+      </div>
+      {% section 'block_footer' %}
+      {% section 'block_product-colors' %}
     </div>
-</div>
-{% endif %}
-        {% section 'block_product-colors' %}
-
-    </div>
-</div>
+  </div>
 <!--begin-bc-sf-filter-js-->
 {% include 'bc-sf-filter' %}
 <!--end-bc-sf-filter-js-->

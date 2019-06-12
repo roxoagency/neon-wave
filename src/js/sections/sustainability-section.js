@@ -176,8 +176,20 @@ register('sustainability-section', {
 		if ($(window).width() >= 1024) {
 			const footerHeight = $('.footer').innerHeight();
 			const srollTop = $('.sustainability-section--sixth .sustainability-section__container-wrapper').scrollTop();
-			let t = (srollTop * 100) / footerHeight;
-			el.style.opacity = ((t.toFixed(2) / 100) + 0.2);
+      let t = (srollTop * 100) / footerHeight;
+      const opacity = ((t.toFixed(2) / 100) + 0.2);
+
+      if (opacity > 0.2) {
+        $('.sustainability-nav').css({
+          opacity: 0,
+        });
+      } else {
+        $('.sustainability-nav').css({
+          opacity: 1,
+        });
+      }
+
+			el.style.opacity = opacity;
 			t = t * 0.5;
 			t = 47 - t;
 			if (t < 0) {

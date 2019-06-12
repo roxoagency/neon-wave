@@ -1,9 +1,9 @@
 {% if section.blocks.size %}
     <style type="text/css">
         {% for block in section.blocks %}{% if block.settings.title != blank and block.settings.color != blank %}
-        {%  assign color = block.settings.title | downcase  %}
+        {%  assign color = block.settings.title | downcase | handleize  %}
         {% if color!= 'white'  %}
-        .product-color-{{ block.settings.title | downcase }} {
+        .product-color-{{ block.settings.title | downcase | handleize }} {
             background-color: {{ block.settings.color }};
             {% if block.settings.color_2 !=''%}
             background: -moz-linear-gradient(left, {{ block.settings.color }} 40%, {{ block.settings.color_2 }} 60%);
@@ -13,7 +13,7 @@
             color: {{ block.settings.color }};
         }
 
-        .product-color-{{ block.settings.title | downcase }}:hover {
+        .product-color-{{ block.settings.title | downcase | handleize }}:hover {
             background-color: {{ block.settings.color }};
             {% if block.settings.color_2 !=''%}
             background: -moz-linear-gradient(left, {{ block.settings.color }} 40%, {{ block.settings.color_2 }} 60%);
