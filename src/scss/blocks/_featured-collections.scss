@@ -59,7 +59,6 @@ $block: '.featured-collections';
   }
 
   @at-root &__image {
-    height: 425px;
     min-height: 0;
 
     @include media-breakpoint-down('md', $grid-breakpoints) {

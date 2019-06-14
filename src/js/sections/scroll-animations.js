@@ -9,7 +9,77 @@
 import {register} from '@shopify/theme-sections';
 import Scrollbar from 'smooth-scrollbar';
 import {AnimatedBlock} from '../blocks/animated';
-import {config} from '../theme/config';
+
+(function() {
+  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
+})();
+
+
+class NativeScroll {
+  constructor() {
+    this.offset = {
+      x: 0,
+      y: document.body.scrollTop + document.documentElement.scrollTop,
+    };
+    this.limit = {
+      x: 0,
+      y: document.documentElement.scrollHeight - document.documentElement.clientHeight,
+    };
+    this.listeners = [];
+    this.initialized = false;
+  }
+
+  init() {
+    if (this.initialized) {
+      return false;
+    }
+    this.scrollHandlerInstance = this.scrollHandler.bind(this);
+
+    this.initialized = true;
+    window.addEventListener('scroll', this.scrollHandlerInstance);
+  }
+
+  scrollHandler(e) {
+    const status = {
+      offset: {
+        x: 0,
+        y: document.body.scrollTop + document.documentElement.scrollTop,
+      },
+      limit: {
+        x: 0,
+        y: document.documentElement.scrollHeight - document.documentElement.clientHeight,
+      }
+    };
+
+    this.offset = status.offset;
+    this.limit = status.limit;
+
+    requestAnimationFrame(() => {
+      for (const listener of this.listeners) {
+        if (typeof listener === 'function') {
+          listener(status);
+        }
+      }
+    })
+  }
+
+  scrollTo() {
+
+  }
+
+  addListener(handler) {
+    if (typeof handler === 'function') {
+      this.listeners.push(handler);
+    }
+  }
+
+  destroyAll() {
+    this.listeners = [];
+    window.removeEventListener('scroll', this.scrollHandlerInstance);
+  }
+}
 
 const selectors = {
 	stickyBreadcrumb: '.breadcrumb--product',
@@ -31,9 +101,9 @@ var $stickyElem = $(selectors.stickyBreadcrumb);
 var $elem = $(selectors.stickyWrapper);
 var $parallax = $(selectors.parallax);
 
-
 register('scroll-animations', {
   onLoad() {
+    this.useCustomScroll = !($('body').hasClass('use-native-scroll'));
     this.$container = $(this.container);
     this.namespace = `.${this.id}`;
     this.mainContainer = $(selectors.siteMain);
@@ -52,7 +122,10 @@ register('scroll-animations', {
     this.initAnimatedBlocks();
     this.observeResize();
 
-
+    document.querySelector('.currency-switcher__list').addEventListener('wheel', (e) => {
+      e.stopImmediatePropagation();
+      e.stopPropagation();
+    });
   },
 
   observeResize() {
@@ -83,19 +156,28 @@ register('scroll-animations', {
     });
 
     this.initialized = true;
-    this.scrollbar = Scrollbar.init(this.container, {
-      damping: 0.08,
-      continuousScrolling: true,
-      delegateTo: $('body')[0],
-    });
 
-    this.scrollbar.addListener((status) => {
-      $('body').trigger('nwscroll', status);
-    });
+    if (this.useCustomScroll) {
+      this.scrollbar = Scrollbar.init(this.container, {
+        damping: 0.08,
+        continuousScrolling: true,
+        delegateTo: $('body')[0],
+      });
+      this.scrollbar.addListener((status) => {
+        $('body').trigger('nwscroll', status);
+      });
+    } else {
+      this.scrollbar = new NativeScroll();
+      this.scrollbar.init();
+    }
 
     this.lastKnownScrollPosition = this.scrollbar.offset.y;
 
-    this.initHeaderAnimations();
+    if (this.useCustomScroll) {
+      this.initHeaderAnimations();
+      this.initSinglePostNav();
+    }
+
     this.initFooterAnimations();
     this.initStickySections();
     this.initStickyBlocks();
@@ -103,7 +185,6 @@ register('scroll-animations', {
     this.getCache();
     this.parallaxEffectInit();
     this.initStickyForm();
-    this.initSinglePostNav();
   },
 
   destroyAnimations() {
@@ -115,7 +196,11 @@ register('scroll-animations', {
     this.lastKnownScrollPosition = 0;
 
     if (this.scrollbar) {
-      Scrollbar.destroyAll();
+      if (this.useCustomScroll) {
+        Scrollbar.destroyAll();
+      } else {
+        this.scrollbar.destroyAll();
+      }
     }
 
     if (this.headerContainer) {

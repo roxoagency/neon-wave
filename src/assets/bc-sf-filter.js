@@ -698,8 +698,8 @@ BCSfFilter.prototype.buildAdditionalElements = function (data, eventType) {
 	} else {
 		jQ('.filter__clear-wrapper').removeClass('filter__clear-wrapper--is-show');
 	}
-	resizable(document.querySelector('.bc-sf-filter-option-range-amount-max'), 7);
-	resizable(document.querySelector('.bc-sf-filter-option-range-amount-min'), 7);
+	resizable(document.querySelector('.bc-sf-filter-option-range-amount-max'), 9);
+	resizable(document.querySelector('.bc-sf-filter-option-range-amount-min'), 9);
 
 
 	//Add animation

@@ -213,6 +213,7 @@ $block: '.product-card';
             transition: border 0.15s linear;
             background: transparent;
             transform: none;
+            z-index: 1;
           }
 
           &:hover,

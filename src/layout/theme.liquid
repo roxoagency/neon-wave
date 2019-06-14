@@ -61,7 +61,7 @@
     {% include 'bc-sf-filter-style' %}
     <!--end-bc-sf-filter-css-->
 </head>
-<body class="template-{{ template.name | handle }}{{ template.suffix | handle }} {% if template.suffix == 'sustainability' %}no-custom-scroll body--sustainability{% endif %}" >
+<body class="template-{{ template.name | handle }}{{ template.suffix | handle }}{% if template.suffix == 'sustainability' %}no-custom-scroll body--sustainability{% endif %}{% if template.name == 'article' %} use-native-scroll{% endif %}" >
   <div class="page-view">
     <div class="page-view__wrapper" {% if template.name == 'product' %} id="ProductSection"
       data-section-id="product"
