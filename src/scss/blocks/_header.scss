@@ -22,6 +22,12 @@ $logo-width: 132px;
     padding-bottom: 194px;
   }
 
+  &.header--sticky:not(.header--sticky-go-top) {
+    .header__navigation {
+      pointer-events: none;
+    }
+  }
+
   @include media-breakpoint-down('md', $grid-breakpoints) {
     padding-bottom: 81px;
   }
@@ -129,7 +135,7 @@ $logo-width: 132px;
   }
   @at-root &__content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
   }
   @at-root &__search-form-overlay {
     position: fixed;
@@ -152,7 +158,7 @@ $logo-width: 132px;
     right: 0;
     transform: translateY(0);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 1;
+    z-index: 2;
 
     @include media-breakpoint-down('md', $grid-breakpoints) {
       display: none;

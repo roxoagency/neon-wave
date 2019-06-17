@@ -3,23 +3,27 @@
   text-align: left;
   margin-top: em(18);
   margin-right: em(16);
+
   @include media-breakpoint-down('md', $grid-breakpoints) {
-    margin:em(30) auto 0 ;
+    margin: 0.875em auto 0;
     max-width: 768px;
   }
+
   &__item {
     position: relative;
     width: 100%;
     transition: all 0.3s ease-in-out;
-    padding-top: 85%;
+    padding-top: 75%;
     overflow: hidden;
     cursor: pointer;
     border-right: 1px solid color('light');
     border-left: 1px solid color('light');
+
     &:hover {
       width: 100%;
     }
   }
+
   &__item-bg {
     background: no-repeat center;
     background-size: cover;
@@ -32,8 +36,9 @@
     transform: translate(-50%, 0);
     transition: opacity 0.3s ease-in-out;
     background-blend-mode: multiply;
+
     @include media-breakpoint-down('md', $grid-breakpoints) {
-      width: 80vw;
+      width: 70vw;
     }
   }
 
@@ -42,41 +47,51 @@
       border-right: 0px solid color('light');
       border-left: 0px solid color('light');
     }
+
     .block-slider__item:not(.block-slider__item--active) {
       width: em(22);
       min-width: em(22);
+
       &.block-slider__item--with-color {
         .block-slider__item-bg {
           background-image: none !important;
         }
       }
+
       .block-slider__item-text {
         opacity: 1;
       }
     }
+
     .block-slider__item--active {
       width: 100%;
+
       .block-slider__item-bg {
 
         background-blend-mode: inherit;
       }
+
       .block-slider__item-text {
         opacity: 0;
       }
+
       .block-slider__item-title {
         opacity: 1;
       }
     }
 
   }
+
   .block-slider__item--active {
     width: 100%;
   }
+
   &__item-text,
   &__item-title {
     color: color('light');
     text-transform: uppercase;
   }
+
   &__item-text {
     font-size: em(11.82);
     letter-spacing: letterspacing-to-pixels(80, 11.82);
@@ -90,6 +105,7 @@
     transform: translate(100%, 0) rotate(-90deg);
     transition: opacity 0.3s ease-in-out;
   }
+
   &__item-title {
     font-size: em(32.69);
     line-height: 1;
@@ -101,6 +117,7 @@
     z-index: 1;
     padding: em(7, 32.69) em(12, 32.69);
     opacity: 0;
+
     @include media-breakpoint-down('sm', $grid-breakpoints) {
       font-size: em(13);
       letter-spacing: 0.75px;

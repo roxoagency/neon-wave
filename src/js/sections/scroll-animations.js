@@ -93,6 +93,7 @@ const selectors = {
   stickyElements: '.is-sticky',
   stickySections: '.is-section-sticky',
   parallaxSections: '.about-section__bg--parallax',
+  lookbookNavBar: '.lookbook_navbar',
 };
 const cssClasses = {
 	stickyShow: 'breadcrumb--show'
@@ -112,6 +113,13 @@ register('scroll-animations', {
     this.initialized = false;
     this.resizeObservers = [];
     this.resizeTimer;
+
+    this.lookbookNavBar = $(selectors.lookbookNavBar);
+
+    if (this.lookbookNavBar.length) {
+      this.lookbookNavBar.insertBefore(this.$container);
+      $('.lookbook_navbar_bottom').insertBefore(this.$container);
+    }
 
     if ($(window).width() > 1023) {
       this.initAnimations();
@@ -263,15 +271,19 @@ register('scroll-animations', {
       }
 
       if (scrollY > 10 && !this.headerContainer.hasClass('header--sticky')) {
-				this.headerContainer.addClass('header--sticky');
+        this.headerContainer.addClass('header--sticky');
+        this.lookbookNavBar.addClass('lookbook_navbar--sticky');
 			} else if (scrollY <= 10 && this.headerContainer.hasClass('header--sticky')) {
-				this.headerContainer.removeClass('header--sticky');
+        this.headerContainer.removeClass('header--sticky');
+        this.lookbookNavBar.removeClass('lookbook_navbar--sticky');
       }
 
       if (this.lastKnownScrollPosition > scrollY && !this.headerContainer.hasClass('header--sticky-go-top')) {
-				this.headerContainer.addClass('header--sticky-go-top');
+        this.headerContainer.addClass('header--sticky-go-top');
+        this.lookbookNavBar.addClass('lookbook_navbar--sticky-go-top');
 			} else if (this.lastKnownScrollPosition < scrollY && this.headerContainer.hasClass('header--sticky-go-top')) {
-				this.headerContainer.removeClass('header--sticky-go-top');
+        this.headerContainer.removeClass('header--sticky-go-top');
+        this.lookbookNavBar.removeClass('lookbook_navbar--sticky-go-top');
       }
 
       this.lastKnownScrollPosition = scrollY;
