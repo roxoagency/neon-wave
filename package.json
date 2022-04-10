@@ -52,7 +52,7 @@
 		"gulp-zip": "^4.2.0",
 		"intersection-observer": "^0.5.1",
 		"jshint": "2.9.6",
-		"minimist": "^1.2.0",
+		"minimist": "^1.2.6",
 		"slick-carousel": "^1.8.1",
 		"vinyl-buffer": "^1.0.1",
 		"vinyl-source-stream": "^2.0.0"
